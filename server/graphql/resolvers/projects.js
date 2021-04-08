@@ -1,16 +1,16 @@
 const Project = require('../../models/Project');
-const User = require('../../models/User');
 const checkAuth = require('../../utils/checkAuth');
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const { validateProjectInput } = require('../../utils/projectValidators');
-const { findById } = require('../../models/Project');
 
 module.exports = {
   Query: {
     async getProjects(_, agrs, context) {
       const { id } = checkAuth(context);
       try {
-        const projects = await Project.find({ author: id })
+        const projects = await Project.find({
+          $or: [{ author: id }, { shared: id }],
+        })
           .populate('author')
           .populate('shared');
         return projects;
@@ -22,8 +22,10 @@ module.exports = {
       const { id } = checkAuth(context);
       try {
         const project = await Project.findOne({
-          _id: projectId,
-          author: id,
+          $or: [
+            { _id: projectId, author: id },
+            { _id: projectId, shared: id },
+          ],
         })
           .populate('author')
           .populate('shared');
