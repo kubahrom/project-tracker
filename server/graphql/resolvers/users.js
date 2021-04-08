@@ -5,7 +5,7 @@ const { UserInputError } = require('apollo-server');
 const {
   validateRegisterInput,
   validateLoginInput,
-} = require('../../utils/validators');
+} = require('../../utils/userValidators');
 
 function generateToken(user) {
   return jwt.sign(
