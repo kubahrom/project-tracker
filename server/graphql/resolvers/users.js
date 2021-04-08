@@ -12,7 +12,8 @@ function generateToken(user) {
     {
       id: user.id,
       email: user.email,
-      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
     },
     process.env.SECRET_KEY,
     { expiresIn: '1h' }
@@ -43,14 +44,14 @@ module.exports = {
     },
   },
   Mutation: {
-    async login(_, { username, password }) {
-      const { valid, errors } = validateLoginInput(username, password);
+    async login(_, { email, password }) {
+      const { valid, errors } = validateLoginInput(email, password);
 
       if (!valid) {
         throw new UserInputError('Errors', { errors });
       }
 
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email });
       if (!user) {
         errors.general = 'User not found';
         throw new UserInputError('User not found', { errors });
@@ -71,11 +72,20 @@ module.exports = {
     },
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } }
+      {
+        registerInput: {
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+        },
+      }
     ) {
       //Validate user data
       const { valid, errors } = validateRegisterInput(
-        username,
+        firstName,
+        lastName,
         email,
         password,
         confirmPassword
@@ -84,11 +94,11 @@ module.exports = {
         throw new UserInputError('Errors', { errors });
       }
       //Make sure user doesnt already exist
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ email });
       if (user) {
-        throw new UserInputError('Username is taken', {
+        throw new UserInputError('Email is taken', {
           errors: {
-            username: 'This username is taken',
+            email: 'This email is taken',
           },
         });
       }
@@ -98,7 +108,8 @@ module.exports = {
 
       const newUser = new User({
         email,
-        username,
+        firstName,
+        lastName,
         password,
         createdAt: new Date().toISOString(),
       });
