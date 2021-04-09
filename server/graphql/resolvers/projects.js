@@ -60,7 +60,7 @@ module.exports = {
           shared: [],
         });
         const project = await newProject.save().then(t => {
-          return t.populate('author').execPopulate();
+          return t.populate('author').populate('shared').execPopulate();
         });
 
         return project;
@@ -78,21 +78,21 @@ module.exports = {
         if (!valid) {
           throw new UserInputError('Errors', errors);
         }
-        const updatedFields = {};
-        const fieldsToUpdate = Object.keys(updateProjectInput);
-        fieldsToUpdate.shift();
-        fieldsToUpdate.map(parameter => {
-          updatedFields[parameter] = updateProjectInput[parameter];
-        });
 
         const project = await Project.findById(updateProjectInput.projectId);
         if (project.author.toString() === id) {
+          const updatedFields = {};
+          const fieldsToUpdate = Object.keys(updateProjectInput);
+          fieldsToUpdate.shift();
+          fieldsToUpdate.map(parameter => {
+            updatedFields[parameter] = updateProjectInput[parameter];
+          });
           const updatedProject = await Project.findByIdAndUpdate(
             updateProjectInput.projectId,
             updatedFields,
             { new: true }
           ).then(t => {
-            return t.populate('author').execPopulate();
+            return t.populate('author').populate('shared').execPopulate();
           });
           return updatedProject;
         } else {
