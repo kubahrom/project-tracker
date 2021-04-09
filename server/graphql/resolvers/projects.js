@@ -2,6 +2,7 @@ const Project = require('../../models/Project');
 const checkAuth = require('../../utils/checkAuth');
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const { validateProjectInput } = require('../../utils/projectValidators');
+const Issue = require('../../models/Issue');
 
 module.exports = {
   Query: {
@@ -104,11 +105,12 @@ module.exports = {
     },
     async deleteProject(_, { projectId }, context) {
       const { id } = checkAuth(context);
-      //TODO: delete issues from deleted project
       try {
         const project = await Project.findById(projectId);
         if (project.author.toString() === id) {
-          await project.delete();
+          await Project.deleteOne({ _id: projectId }, async () => {
+            await Issue.deleteMany({ project: projectId });
+          });
           return 'Project deleted successfully';
         } else {
           throw new AuthenticationError('Action not allowed');
