@@ -68,30 +68,27 @@ module.exports = {
         throw new Error(error);
       }
     },
-    async updateProject(
-      _,
-      {
-        updateProjectInput: { projectId, name, description, category, shared },
-      },
-      context
-    ) {
+    async updateProject(_, { updateProjectInput }, context) {
       const { id } = checkAuth(context);
       try {
-        const { valid, errors } = validateProjectInput(name, category);
+        const { valid, errors } = validateProjectInput(
+          updateProjectInput.name,
+          updateProjectInput.category
+        );
         if (!valid) {
           throw new UserInputError('Errors', errors);
         }
+        const updatedFields = {};
+        const fieldsToUpdate = Object.keys(updateProjectInput);
+        fieldsToUpdate.shift();
+        fieldsToUpdate.map(parameter => {
+          updatedFields[parameter] = updateProjectInput[parameter];
+        });
 
-        const updatedFields = {
-          name,
-          description,
-          category,
-          shared,
-        };
-        const project = await Project.findById(projectId);
+        const project = await Project.findById(updateProjectInput.projectId);
         if (project.author.toString() === id) {
           const updatedProject = await Project.findByIdAndUpdate(
-            projectId,
+            updateProjectInput.projectId,
             updatedFields,
             { new: true }
           ).then(t => {
