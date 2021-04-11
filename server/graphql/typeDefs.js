@@ -119,7 +119,7 @@ module.exports = gql`
     createIssue(createIssueInput: CreateIssueInput): Issue!
     updateIssue(updateIssueInput: UpdateIssueInput): Issue!
     deleteIssue(issueId: ID!, projectId: ID!): String!
-    createComment(issueId: ID!, body: String!): Issue!
-    deleteComment(issueId: ID!, commentId: ID!): Issue!
+    createComment(issueId: ID!, projectId: ID!, body: String!): Issue!
+    deleteComment(issueId: ID!, projectId: ID!, commentId: ID!): Issue!
   }
 `;

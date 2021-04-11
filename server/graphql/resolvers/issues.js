@@ -33,7 +33,8 @@ module.exports = {
             .populate('author')
             .populate('project')
             .populate('reporter')
-            .populate('asignees');
+            .populate('asignees')
+            .populate('comments.author');
           return issue;
         } else {
           throw new Error('Issue not found');
@@ -177,7 +178,5 @@ module.exports = {
         throw new Error(error);
       }
     },
-    //TODO: createComment
-    //TODO: deleteComment
   },
 };
