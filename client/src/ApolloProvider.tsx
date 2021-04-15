@@ -9,7 +9,7 @@ import App from './App';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5001',
+  uri: 'http://192.168.0.111:5001',
 });
 
 const authLink = setContext(() => {
