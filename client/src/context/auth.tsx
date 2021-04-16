@@ -23,7 +23,7 @@ interface IDecodedUser {
   token: string;
 }
 
-interface IAuth {
+export interface IAuth {
   user: UserType;
   login: (userData: IDecodedUser) => void;
   logout: () => void;

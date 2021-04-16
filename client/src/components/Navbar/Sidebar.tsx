@@ -44,8 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   window?: () => Window;
-  handleDrawerToggle: any;
-  mobileOpen: any;
+  handleDrawerToggle: () => void;
+  mobileOpen: boolean;
+  handleDrawerClose: () => void;
 }
 
 interface IProject {
@@ -67,9 +68,16 @@ const Sidebar = (props: Props) => {
 
   const handleProjectClick = (projectId: string) => {
     setSidebarState({ projectAction: 'board', currProject: projectId });
+    props.handleDrawerClose();
   };
   const handleProjectActionClick = (action: ProjectAction) => {
     setSidebarState({ ...sidebarState, projectAction: action });
+    props.handleDrawerClose();
+  };
+
+  const handleCreateProjectClick = () => {
+    setSidebarState({ currProject: '', projectAction: 'createProject' });
+    props.handleDrawerClose();
   };
 
   const drawer = (
@@ -82,8 +90,8 @@ const Sidebar = (props: Props) => {
         <ListItem
           button
           disabled={!Boolean(sidebarState.currProject)}
-          // component={}
-          // to={}
+          component={Link}
+          to={`/project/${sidebarState.currProject}`}
           onClick={() => handleProjectActionClick('board')}
           selected={sidebarState.projectAction === 'board'}
         >
@@ -120,7 +128,13 @@ const Sidebar = (props: Props) => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem
+          button
+          component={Link}
+          to="/project/create"
+          onClick={handleCreateProjectClick}
+          selected={sidebarState.projectAction === 'createProject'}
+        >
           <ListItemIcon>
             <AddBox />
           </ListItemIcon>

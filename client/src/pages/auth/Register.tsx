@@ -15,7 +15,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { AuthContext } from '../../context/auth';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import { REGISTER_USER } from '../../graphql/user_mutations';
 import { useAuthStyles } from '../../styles/muiStyles';
 import {
@@ -73,12 +73,14 @@ const Register: React.FC = () => {
     update(_, { data: { register: userData } }) {
       context.login(userData);
     },
-    onError(err: any) {
-      setServerError(err.graphQLErrors[0].extensions.exception.errors.email);
+    onError(err: ApolloError) {
+      if (err.graphQLErrors[0].extensions) {
+        setServerError(err.graphQLErrors[0].extensions.exception.errors.email);
+      }
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: IRegisterForm) => {
     registerUser({ variables: data });
   };
 

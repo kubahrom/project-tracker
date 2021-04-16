@@ -40,7 +40,7 @@ const ProjectBoard: React.FC = () => {
         </div>
       ) : (
         <Paper style={{ padding: 40 }}>
-          this is project board for ID {projectId}
+          this is project board for ID {cachedProject.name}
         </Paper>
       )}
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useMutation } from '@apollo/client';
+import { ApolloError, useMutation } from '@apollo/client';
 import {
   Card,
   CardContent,
@@ -55,12 +55,16 @@ const Login: React.FC = () => {
     update(_, { data: { login: userData } }) {
       context.login(userData);
     },
-    onError(err: any) {
-      setServerError(err.graphQLErrors[0].extensions.exception.errors.general);
+    onError(err: ApolloError) {
+      if (err.graphQLErrors[0].extensions) {
+        setServerError(
+          err.graphQLErrors[0].extensions.exception.errors.general
+        );
+      }
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ILoginForm) => {
     loginUser({ variables: data });
   };
 

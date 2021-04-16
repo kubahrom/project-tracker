@@ -40,7 +40,7 @@ const ProjectSettings: React.FC = () => {
         </div>
       ) : (
         <Paper style={{ padding: 40 }}>
-          this is settings page for ID {projectId}
+          this is settings page for ID {cachedProject.name}
         </Paper>
       )}
     </div>

@@ -1,6 +1,11 @@
 import React, { useState, createContext } from 'react';
 
-export type ProjectAction = 'board' | 'addIssue' | 'settings' | '';
+export type ProjectAction =
+  | 'board'
+  | 'addIssue'
+  | 'settings'
+  | 'createProject'
+  | '';
 
 interface IProjectContextState {
   currProject?: string;

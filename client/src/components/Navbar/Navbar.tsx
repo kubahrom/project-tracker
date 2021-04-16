@@ -10,12 +10,17 @@ const Navbar: React.FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+  };
   return (
     <>
       <Topbar handleDrawerToggle={handleDrawerToggle} />
       {user && (
         <Sidebar
           handleDrawerToggle={handleDrawerToggle}
+          handleDrawerClose={handleDrawerClose}
           mobileOpen={mobileOpen}
         />
       )}

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  handleDrawerToggle: any;
+  handleDrawerToggle: () => void;
 }
 
 const Topbar = ({ handleDrawerToggle }: Props) => {
