@@ -14,6 +14,7 @@ import { ThemeContext } from '../../context/theme';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { ExitToApp, ExpandLess, ExpandMore, Person } from '@material-ui/icons';
+import { useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 const TopbarMenu: React.FC = () => {
   const { user, logout } = useContext(AuthContext);
+  const client = useApolloClient();
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -67,6 +69,7 @@ const TopbarMenu: React.FC = () => {
   const handleLogout = () => {
     handleClose();
     logout();
+    client.clearStore();
   };
 
   return (

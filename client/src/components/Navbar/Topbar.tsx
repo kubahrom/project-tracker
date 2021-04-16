@@ -8,6 +8,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../context/auth';
 import { Link } from 'react-router-dom';
 import TopbarMenu from './TopbarMenu';
+import { ProjectContext } from '../../context/project';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,7 @@ interface Props {
 const Topbar = ({ handleDrawerToggle }: Props) => {
   const classes = useStyles();
   const { user } = useContext(AuthContext);
+  const { setSidebarState } = useContext(ProjectContext);
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -62,7 +64,13 @@ const Topbar = ({ handleDrawerToggle }: Props) => {
             </IconButton>
           )}
           <Typography variant="h6" noWrap>
-            <Link to="/" className={classes.logo}>
+            <Link
+              to="/"
+              className={classes.logo}
+              onClick={() =>
+                setSidebarState({ currProject: '', projectAction: '' })
+              }
+            >
               Project tracker
             </Link>
           </Typography>

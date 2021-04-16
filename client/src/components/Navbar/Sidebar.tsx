@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { SwipeableDrawer } from '@material-ui/core';
+import { useQuery } from '@apollo/client';
+import { GET_PROJECTS } from '../../graphql/project_query';
+import { Link } from 'react-router-dom';
+import { ProjectContext, ProjectAction } from '../../context/project';
+import {
+  AddBox,
+  AddComment,
+  Assessment,
+  Dashboard,
+  Settings,
+} from '@material-ui/icons';
 
 export const drawerWidth = 240;
 
@@ -38,54 +43,120 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
   handleDrawerToggle: any;
   mobileOpen: any;
 }
 
+interface IProject {
+  id: string;
+  name: string;
+}
+
+interface IProjects {
+  getProjects: IProject[];
+}
+
 const Sidebar = (props: Props) => {
   const { window, handleDrawerToggle, mobileOpen } = props;
   const classes = useStyles();
-  const theme = useTheme();
+  const { loading, data: { getProjects: projects } = {} } = useQuery<IProjects>(
+    GET_PROJECTS
+  );
+  const { sidebarState, setSidebarState } = useContext(ProjectContext);
+
+  const handleProjectClick = (projectId: string) => {
+    setSidebarState({ projectAction: 'board', currProject: projectId });
+  };
+  const handleProjectActionClick = (action: ProjectAction) => {
+    setSidebarState({ ...sidebarState, projectAction: action });
+  };
 
   const drawer = (
     <>
       <div className={classes.toolbar} />
       <List>
-        {['Create issue', 'Project settings'].map(text => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem>
+          <ListItemText primary="Project actions:" />
+        </ListItem>
+        <ListItem
+          button
+          disabled={!Boolean(sidebarState.currProject)}
+          // component={}
+          // to={}
+          onClick={() => handleProjectActionClick('board')}
+          selected={sidebarState.projectAction === 'board'}
+        >
+          <ListItemIcon>
+            <Dashboard />
+          </ListItemIcon>
+          <ListItemText primary="Kanban board" />
+        </ListItem>
+        <ListItem
+          button
+          disabled={!Boolean(sidebarState.currProject)}
+          // component={}
+          // to={}
+        >
+          <ListItemIcon>
+            <AddComment />
+          </ListItemIcon>
+          <ListItemText primary="Create issue" />
+        </ListItem>
+
+        <ListItem
+          button
+          disabled={!Boolean(sidebarState.currProject)}
+          component={Link}
+          to={`/project/settings/${sidebarState.currProject}`}
+          onClick={() => handleProjectActionClick('settings')}
+          selected={sidebarState.projectAction === 'settings'}
+        >
+          <ListItemIcon>
+            <Settings />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {['Create project'].map(text => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button>
+          <ListItemIcon>
+            <AddBox />
+          </ListItemIcon>
+          <ListItemText primary="Create project" />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {['Project 1', 'Project 2', 'Project 3'].map(text => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={text} />
+        <ListItem>
+          <ListItemText primary="Your Projects:" />
+        </ListItem>
+        {projects && projects.length !== 0 ? (
+          projects.map((project: IProject) => (
+            <ListItem
+              button
+              key={project.id}
+              component={Link}
+              to={`/project/${project.id}`}
+              onClick={() => handleProjectClick(project.id)}
+              selected={project.id === sidebarState.currProject}
+            >
+              <ListItemIcon>
+                <Assessment />
+              </ListItemIcon>
+              <ListItemText primary={project.name} />
+            </ListItem>
+          ))
+        ) : (
+          <ListItem disabled>
+            <ListItemText
+              primary={
+                loading ? 'Loading projects' : "You don't have any project"
+              }
+            />
           </ListItem>
-        ))}
+        )}
       </List>
     </>
   );
@@ -100,7 +171,7 @@ const Sidebar = (props: Props) => {
         <SwipeableDrawer
           container={container}
           variant="temporary"
-          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          anchor="left"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           classes={{

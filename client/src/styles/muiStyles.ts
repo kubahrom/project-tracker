@@ -54,3 +54,13 @@ export const useAuthStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
   },
 }));
+
+export const useBoardStyles = makeStyles(theme => ({
+  loading: {
+    width: '100%',
+    height: theme.spacing(20),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));
