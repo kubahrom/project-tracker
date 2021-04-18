@@ -64,3 +64,31 @@ export const useBoardStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
 }));
+
+export const useCreateProjectStyles = makeStyles(theme => ({
+  formWrapper: {
+    maxWidth: 700,
+    margin: 'auto',
+    padding: theme.spacing(4),
+    paddingTop: 40,
+    paddingBottom: 60,
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(3),
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
+  },
+  form: {
+    paddingTop: theme.spacing(2),
+    [theme.breakpoints.only('xs')]: {
+      paddingTop: theme.spacing(1),
+    },
+  },
+  btnSubmit: {
+    padding: '12px 22px',
+  },
+  inputField: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
