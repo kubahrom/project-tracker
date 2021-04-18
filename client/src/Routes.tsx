@@ -8,7 +8,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import PageNotFound from './pages/other/PageNotFound';
 import ProjectBoard from './pages/main/ProjectBoard';
-import ProjectSettings from './pages/main/ProjectSettings';
+import ProjectSettingsCheck from './pages/main/ProjectSettingsCheck';
 import CreateProject from './pages/main/CreateProject';
 
 const Routes: React.FC = () => {
@@ -20,7 +20,7 @@ const Routes: React.FC = () => {
       <SecureRoute
         exact
         path="/project/settings/:projectId"
-        component={ProjectSettings}
+        component={ProjectSettingsCheck}
       />
       <AuthRoute exact path="/login" component={Login} />
       <AuthRoute exact path="/register" component={Register} />

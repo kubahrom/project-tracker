@@ -18,3 +18,29 @@ export const CREATE_PROJECT = gql`
     }
   }
 `;
+
+export const UPDATE_PROJECT = gql`
+  mutation updateProject(
+    $projectId: ID!
+    $name: String
+    $description: String
+    $category: String
+    $shared: [ID]
+  ) {
+    updateProject(
+      updateProjectInput: {
+        projectId: $projectId
+        name: $name
+        description: $description
+        category: $category
+        shared: $shared
+      }
+    ) {
+      id
+      name
+      description
+      category
+      createdAt
+    }
+  }
+`;

@@ -1,49 +1,61 @@
-import { gql, useApolloClient, useQuery } from '@apollo/client';
-import { CircularProgress, Paper } from '@material-ui/core';
-import React from 'react';
-import { useParams } from 'react-router';
-import { GET_PROJECT } from '../../graphql/project_query';
-import { useBoardStyles } from '../../styles/muiStyles';
-import PageNotFound from '../other/PageNotFound';
+import { ApolloError, useMutation } from '@apollo/client';
+import { useForm } from 'react-hook-form';
+import CreateUpdateProject, {
+  IProjectForm,
+} from '../../components/Forms/CreateUpdateProject';
+import { UPDATE_PROJECT } from '../../graphql/project_mutations';
+import { GET_PROJECTS } from '../../graphql/project_query';
 
-interface ParamType {
-  projectId: string;
+interface IProjectProps {
+  project: {
+    category: string;
+    createdAt: string;
+    description: string;
+    id: string;
+    name: string;
+    __typename: string;
+  };
 }
 
-const ProjectSettings: React.FC = () => {
-  const { projectId } = useParams<ParamType>();
-  const client = useApolloClient();
-  const classes = useBoardStyles();
-  const cachedProject = client.readFragment({
-    id: `Project:${projectId}`,
-    fragment: gql`
-      fragment ProjectParts on Project {
-        id
-        name
-      }
-    `,
-  });
-  const { loading } = useQuery(GET_PROJECT, {
-    variables: {
-      projectId,
+const ProjectSettings = ({ project }: IProjectProps) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IProjectForm>();
+
+  const [updateProject, { loading }] = useMutation(UPDATE_PROJECT, {
+    update(proxy, result) {
+      const data: any = proxy.readQuery({
+        query: GET_PROJECTS,
+      });
+      proxy.writeQuery({
+        query: GET_PROJECTS,
+        data: {
+          getProjects: data.getProjects.map((project: any) =>
+            project.id === result.data.updateProject.id
+              ? { ...project, ...result.data.updateProject }
+              : project
+          ),
+        },
+      });
     },
-    skip: Boolean(cachedProject),
+    onError(err: ApolloError) {
+      console.error(err.graphQLErrors);
+    },
   });
-  if (!cachedProject && !loading) {
-    return <PageNotFound />;
-  }
   return (
-    <div>
-      {loading ? (
-        <div className={classes.loading}>
-          <CircularProgress />
-        </div>
-      ) : (
-        <Paper style={{ padding: 40 }}>
-          this is settings page for ID {cachedProject.name}
-        </Paper>
-      )}
-    </div>
+    <CreateUpdateProject
+      updateForm
+      defaultValues={project}
+      callback={updateProject}
+      loading={loading}
+      errors={errors}
+      register={register}
+      handleSubmit={handleSubmit}
+      control={control}
+    />
   );
 };
 
