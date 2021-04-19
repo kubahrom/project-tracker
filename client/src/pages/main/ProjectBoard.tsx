@@ -1,49 +1,53 @@
-import { gql, useApolloClient, useQuery } from '@apollo/client';
-import { CircularProgress, Paper } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import React from 'react';
-import { useParams } from 'react-router';
-import { GET_PROJECT } from '../../graphql/project_query';
-import { useBoardStyles } from '../../styles/muiStyles';
-import PageNotFound from '../other/PageNotFound';
+import Board from '../../components/Board/Board';
+import { useBoardPageStyles } from '../../styles/muiStyles';
 
-interface ParamType {
-  projectId: string;
+interface IProjectProps {
+  project: {
+    id: string;
+    name: string;
+    category: string;
+    description: string;
+    createdAt: string;
+    __typename: string;
+  };
 }
 
-const ProjectBoard: React.FC = () => {
-  const { projectId } = useParams<ParamType>();
-  const client = useApolloClient();
-  const classes = useBoardStyles();
-  const cachedProject = client.readFragment({
-    id: `Project:${projectId}`,
-    fragment: gql`
-      fragment ProjectParts on Project {
-        id
-        name
-      }
-    `,
-  });
-  const { loading } = useQuery(GET_PROJECT, {
-    variables: {
-      projectId,
-    },
-    skip: Boolean(cachedProject),
-  });
-  if (!cachedProject && !loading) {
-    return <PageNotFound />;
-  }
+const ProjectBoard = ({ project }: IProjectProps) => {
+  const classes = useBoardPageStyles();
   return (
-    <div>
-      {loading ? (
-        <div className={classes.loading}>
-          <CircularProgress />
+    <Paper elevation={2}>
+      <div className={classes.pageWrapper}>
+        <div className={classes.pageHeader}>
+          <div className={classes.titleWrapper}>
+            <Typography variant="h4" component="h1" color="primary">
+              {project.name}
+            </Typography>
+            <Typography variant="body1" component="span">
+              Kanban board
+            </Typography>
+          </div>
+          <Typography variant="body1" component="p">
+            <span className={classes.helperText}>Category: </span>
+            {project.category}
+          </Typography>
+          <Typography variant="body1" component="p">
+            <span className={classes.helperText}>Created At: </span>
+            {new Date(project.createdAt).toLocaleString()}
+          </Typography>
+          {project.description && (
+            <>
+              <Typography variant="body1" component="p">
+                <span className={classes.helperText}>Description: </span>
+                {project.description}
+              </Typography>
+            </>
+          )}
         </div>
-      ) : (
-        <Paper style={{ padding: 40 }}>
-          this is project board for ID {cachedProject.name}
-        </Paper>
-      )}
-    </div>
+        <Board projectId={project.id} />
+      </div>
+    </Paper>
   );
 };
 

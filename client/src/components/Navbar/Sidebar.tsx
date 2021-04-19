@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { SwipeableDrawer } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
-import { GET_PROJECTS } from '../../graphql/project_query';
+import { GET_PROJECTS } from '../../graphql/projectQuery';
 import { Link } from 'react-router-dom';
 import { ProjectContext, ProjectAction } from '../../context/project';
 import {

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { ApolloError, useMutation } from '@apollo/client';
-import { CREATE_PROJECT } from '../../graphql/project_mutations';
-import { GET_PROJECTS } from '../../graphql/project_query';
+import { CREATE_PROJECT } from '../../graphql/projectMutations';
+import { GET_PROJECTS } from '../../graphql/projectQuery';
 import { useHistory } from 'react-router';
 import { ProjectContext } from '../../context/project';
 import CreateUpdateProject, {

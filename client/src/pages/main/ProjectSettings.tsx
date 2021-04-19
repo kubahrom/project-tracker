@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import CreateUpdateProject, {
   IProjectForm,
 } from '../../components/Forms/CreateUpdateProject';
-import { UPDATE_PROJECT } from '../../graphql/project_mutations';
-import { GET_PROJECTS } from '../../graphql/project_query';
+import { UPDATE_PROJECT } from '../../graphql/projectMutations';
+import { GET_PROJECTS } from '../../graphql/projectQuery';
 
 interface IProjectProps {
   project: {

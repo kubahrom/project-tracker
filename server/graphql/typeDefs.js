@@ -100,11 +100,11 @@ module.exports = gql`
   # QUERY___________________________________________
 
   type Query {
-    getUsers: [User]
+    getUsers: [User]!
     getUser(userId: ID!): User
-    getProjects: [Project]
+    getProjects: [Project]!
     getProject(projectId: ID!): Project
-    getIssues(projectId: ID!): [Issue]
+    getIssues(projectId: ID!): [Issue]!
     getIssue(issueId: ID!, projectId: ID!): Issue
   }
 

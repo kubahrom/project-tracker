@@ -21,7 +21,7 @@ import {
   ExitToApp,
   Error,
 } from '@material-ui/icons';
-import { LOGIN_USER } from '../../graphql/user_mutations';
+import { LOGIN_USER } from '../../graphql/userMutations';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';

@@ -7,7 +7,7 @@ import Home from './pages/main/Home';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import PageNotFound from './pages/other/PageNotFound';
-import ProjectBoard from './pages/main/ProjectBoard';
+import ProjectBoardCheck from './pages/main/ProjectBoardCheck';
 import ProjectSettingsCheck from './pages/main/ProjectSettingsCheck';
 import CreateProject from './pages/main/CreateProject';
 
@@ -16,7 +16,11 @@ const Routes: React.FC = () => {
     <Switch>
       <SecureRoute exact path="/" component={Home} />
       <SecureRoute exact path="/project/create" component={CreateProject} />
-      <SecureRoute exact path="/project/:projectId" component={ProjectBoard} />
+      <SecureRoute
+        exact
+        path="/project/:projectId"
+        component={ProjectBoardCheck}
+      />
       <SecureRoute
         exact
         path="/project/settings/:projectId"

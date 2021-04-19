@@ -55,16 +55,6 @@ export const useAuthStyles = makeStyles(theme => ({
   },
 }));
 
-export const useBoardStyles = makeStyles(theme => ({
-  loading: {
-    width: '100%',
-    height: theme.spacing(20),
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}));
-
 export const useCreateProjectStyles = makeStyles(theme => ({
   formWrapper: {
     maxWidth: 700,
@@ -90,5 +80,51 @@ export const useCreateProjectStyles = makeStyles(theme => ({
   inputField: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
+  },
+}));
+
+export const useBoardPageStyles = makeStyles(theme => ({
+  pageWrapper: {
+    padding: theme.spacing(3),
+  },
+  pageHeader: {
+    paddingBottom: theme.spacing(3),
+  },
+  titleWrapper: {
+    paddingBottom: theme.spacing(1),
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+    [theme.breakpoints.only('xs')]: {
+      display: 'flex',
+    },
+  },
+}));
+
+export const useBoardStyles = makeStyles(theme => ({
+  boardWrapper: {
+    display: 'flex',
+  },
+  list: {
+    width: `calc(50% - ${theme.spacing(1)}px)`,
+    minHeight: 180,
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.background.default,
+    boxShadow:
+      ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+  },
+  listCaption: {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: '1.1em',
+    padding: theme.spacing(1),
+  },
+  issueWrapper: {
+    padding: theme.spacing(1),
+  },
+  issue: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    padding: theme.spacing(2),
   },
 }));

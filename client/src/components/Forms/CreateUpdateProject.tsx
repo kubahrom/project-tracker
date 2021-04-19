@@ -70,8 +70,7 @@ const CreateUpdateProject = ({
         category: data.category ? data.category : defaultValues?.category,
       };
       //FIXME: cannot update project because defaultValue is not counted in register
-      console.log(updatedData);
-      //  callback({ variables: updatedData });
+      callback({ variables: updatedData });
     } else {
       callback({ variables: data });
     }

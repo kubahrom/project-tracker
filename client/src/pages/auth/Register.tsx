@@ -16,7 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { AuthContext } from '../../context/auth';
 import { ApolloError, useMutation } from '@apollo/client';
-import { REGISTER_USER } from '../../graphql/user_mutations';
+import { REGISTER_USER } from '../../graphql/userMutations';
 import { useAuthStyles } from '../../styles/muiStyles';
 import {
   Email,
