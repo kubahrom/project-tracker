@@ -56,6 +56,7 @@ module.exports = gql`
     estimatedTime: Int
     timeSpend: Int
     timeRemaining: Int
+    index: String
     project: Project!
     author: User!
     reporter: User
@@ -73,11 +74,8 @@ module.exports = gql`
   input CreateIssueInput {
     name: String!
     description: String
-    status: String!
     priority: String!
-    estimatedTime: Int
-    timeSpend: Int
-    timeRemaining: Int
+    index: String
     projectId: ID!
     reporter: ID
     asignees: [ID]
@@ -91,6 +89,7 @@ module.exports = gql`
     status: String
     priority: String
     estimatedTime: Int
+    index: String
     timeSpend: Int
     timeRemaining: Int
     reporter: ID
