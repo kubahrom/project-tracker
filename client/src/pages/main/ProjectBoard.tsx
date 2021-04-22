@@ -1,7 +1,11 @@
 import { Paper, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useLocation, useParams } from 'react-router';
 import Board from '../../components/Board/Board';
+import { IssueContext } from '../../context/issue';
+import { ProjectContext } from '../../context/project';
 import { useBoardPageStyles } from '../../styles/muiStyles';
+import { isCreateIssueLink } from '../../utils/checkLink';
 
 interface IProjectProps {
   project: {
@@ -14,8 +18,27 @@ interface IProjectProps {
   };
 }
 
+interface ParamType {
+  projectId: string;
+}
+
 const ProjectBoard = ({ project }: IProjectProps) => {
   const classes = useBoardPageStyles();
+  const location = useLocation();
+  const { setIssueState } = useContext(IssueContext);
+  const { setSidebarState } = useContext(ProjectContext);
+  const { projectId } = useParams<ParamType>();
+
+  useEffect(() => {
+    setSidebarState({ currProject: projectId, projectAction: 'board' });
+  }, [projectId, setSidebarState]);
+
+  useEffect(() => {
+    if (isCreateIssueLink(location.pathname)) {
+      setIssueState({ open: true });
+    }
+  }, [location.pathname, setIssueState]);
+
   return (
     <Paper elevation={2}>
       <div className={classes.pageWrapper}>

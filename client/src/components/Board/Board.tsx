@@ -1,6 +1,7 @@
 import { useApolloClient, useQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
 import React from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { useBoardStyles } from '../../styles/muiStyles';
 import List from './List';
@@ -42,22 +43,28 @@ const Board = ({ projectId }: IBoardProps) => {
     }
   );
 
+  const handleDragEnd = (result: any) => {
+    console.log(result);
+  };
+
   return (
     <>
       {loading ? (
         <CircularProgress />
       ) : (
-        <div className={classes.boardWrapper}>
-          {statusList.map((status: string) => (
-            <List
-              key={status}
-              issues={issues!.filter(
-                (issue: IIssue) => issue.status === status
-              )}
-              status={status}
-            />
-          ))}
-        </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className={classes.boardWrapper}>
+            {statusList.map((status: string) => (
+              <List
+                key={status}
+                issues={issues!.filter(
+                  (issue: IIssue) => issue.status === status
+                )}
+                status={status}
+              />
+            ))}
+          </div>
+        </DragDropContext>
       )}
     </>
   );

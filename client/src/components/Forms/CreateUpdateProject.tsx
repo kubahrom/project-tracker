@@ -69,7 +69,7 @@ const CreateUpdateProject = ({
           : defaultValues?.description,
         category: data.category ? data.category : defaultValues?.category,
       };
-      //FIXME: cannot update project because defaultValue is not counted in register
+      //FIXME: cannot update project because defaultValue is not counted in register useForm
       callback({ variables: updatedData });
     } else {
       callback({ variables: data });

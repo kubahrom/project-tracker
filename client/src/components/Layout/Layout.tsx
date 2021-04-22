@@ -1,6 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import React from 'react';
 import Routes from '../../Routes';
+import IssueModal from '../Modals/IssueModal';
 import Navbar from '../Navbar/Navbar';
 import { drawerWidth } from '../Navbar/Sidebar';
 
@@ -32,6 +33,7 @@ const Layout: React.FC = () => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Routes />
+        <IssueModal />
       </main>
     </div>
   );

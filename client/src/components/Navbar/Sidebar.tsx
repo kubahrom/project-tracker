@@ -10,7 +10,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { SwipeableDrawer } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_PROJECTS } from '../../graphql/projectQuery';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ProjectContext, ProjectAction } from '../../context/project';
 import {
   AddBox,
@@ -19,6 +19,7 @@ import {
   Dashboard,
   Settings,
 } from '@material-ui/icons';
+import { IssueContext } from '../../context/issue';
 
 export const drawerWidth = 240;
 
@@ -61,6 +62,8 @@ interface IProjects {
 const Sidebar = (props: Props) => {
   const { window, handleDrawerToggle, mobileOpen } = props;
   const classes = useStyles();
+  const { setIssueState } = useContext(IssueContext);
+  const location = useLocation();
   const { loading, data: { getProjects: projects } = {} } = useQuery<IProjects>(
     GET_PROJECTS
   );
@@ -78,6 +81,12 @@ const Sidebar = (props: Props) => {
   const handleCreateProjectClick = () => {
     setSidebarState({ currProject: '', projectAction: 'createProject' });
     props.handleDrawerClose();
+  };
+
+  const handleClickCreateIssue = () => {
+    setIssueState({
+      open: true,
+    });
   };
 
   const drawer = (
@@ -103,8 +112,9 @@ const Sidebar = (props: Props) => {
         <ListItem
           button
           disabled={!Boolean(sidebarState.currProject)}
-          // component={}
-          // to={}
+          onClick={handleClickCreateIssue}
+          component={Link}
+          to={`${location.pathname}/create-issue`}
         >
           <ListItemIcon>
             <AddComment />

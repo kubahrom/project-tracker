@@ -18,12 +18,24 @@ const Routes: React.FC = () => {
       <SecureRoute exact path="/project/create" component={CreateProject} />
       <SecureRoute
         exact
-        path="/project/:projectId"
+        path="/project/:projectId/"
+        component={ProjectBoardCheck}
+      />
+      <SecureRoute
+        path="/project/:projectId/issue/:issueId"
+        component={ProjectBoardCheck}
+      />
+      <SecureRoute
+        path="/project/:projectId/create-issue"
         component={ProjectBoardCheck}
       />
       <SecureRoute
         exact
         path="/project/settings/:projectId"
+        component={ProjectSettingsCheck}
+      />
+      <SecureRoute
+        path="/project/settings/:projectId/create-issue"
         component={ProjectSettingsCheck}
       />
       <AuthRoute exact path="/login" component={Login} />

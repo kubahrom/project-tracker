@@ -1,5 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { useBoardStyles } from '../../styles/muiStyles';
 import { IIssue } from './Board';
 import Issue from './Issue';
@@ -20,11 +21,20 @@ const List = ({ issues, status }: IListProps) => {
       >
         {status.toUpperCase()}
       </Typography>
-      <div className={classes.issueWrapper}>
-        {issues.map((issue: IIssue) => (
-          <Issue issue={issue} key={issue.id} />
-        ))}
-      </div>
+      <Droppable droppableId={status}>
+        {provided => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={classes.issueWrapper}
+          >
+            {issues.map((issue: IIssue, index: number) => (
+              <Issue issue={issue} key={issue.id} index={index} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

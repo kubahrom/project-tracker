@@ -1,10 +1,15 @@
 import { ApolloError, useMutation } from '@apollo/client';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation, useParams } from 'react-router';
 import CreateUpdateProject, {
   IProjectForm,
 } from '../../components/Forms/CreateUpdateProject';
+import { IssueContext } from '../../context/issue';
+import { ProjectContext } from '../../context/project';
 import { UPDATE_PROJECT } from '../../graphql/projectMutations';
 import { GET_PROJECTS } from '../../graphql/projectQuery';
+import { isCreateIssueLink } from '../../utils/checkLink';
 
 interface IProjectProps {
   project: {
@@ -17,7 +22,15 @@ interface IProjectProps {
   };
 }
 
+interface ParamType {
+  projectId: string;
+}
+
 const ProjectSettings = ({ project }: IProjectProps) => {
+  const { projectId } = useParams<ParamType>();
+  const { setSidebarState } = useContext(ProjectContext);
+  const { setIssueState } = useContext(IssueContext);
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -45,6 +58,17 @@ const ProjectSettings = ({ project }: IProjectProps) => {
       console.error(err.graphQLErrors);
     },
   });
+
+  useEffect(() => {
+    if (isCreateIssueLink(location.pathname)) {
+      setIssueState({ open: true });
+    }
+  }, [location.pathname, setIssueState]);
+
+  useEffect(() => {
+    setSidebarState({ currProject: projectId, projectAction: 'settings' });
+  }, [setSidebarState, projectId]);
+
   return (
     <CreateUpdateProject
       updateForm

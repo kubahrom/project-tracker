@@ -86,6 +86,9 @@ export const useCreateProjectStyles = makeStyles(theme => ({
 export const useBoardPageStyles = makeStyles(theme => ({
   pageWrapper: {
     padding: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    },
   },
   pageHeader: {
     paddingBottom: theme.spacing(3),
@@ -104,14 +107,25 @@ export const useBoardPageStyles = makeStyles(theme => ({
 export const useBoardStyles = makeStyles(theme => ({
   boardWrapper: {
     display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      flexWrap: 'wrap',
+    },
   },
   list: {
-    width: `calc(50% - ${theme.spacing(1)}px)`,
+    width: `calc(25% - ${theme.spacing(1)}px)`,
     minHeight: 180,
     margin: theme.spacing(1),
     backgroundColor: theme.palette.background.default,
     boxShadow:
       ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+    [theme.breakpoints.down('md')]: {
+      width: `calc(50% - ${theme.spacing(2)}px)`,
+    },
+    [theme.breakpoints.down('xs')]: {
+      margin: 0,
+      marginBottom: theme.spacing(1),
+      width: '100%',
+    },
   },
   listCaption: {
     display: 'flex',
@@ -126,5 +140,15 @@ export const useBoardStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
+    cursor: 'pointer',
+  },
+}));
+
+export const useIssueModalStyle = makeStyles(theme => ({
+  modalWrapper: {
+    padding: theme.spacing(2),
+  },
+  formWrapper: {
+    paddingTop: theme.spacing(2),
   },
 }));
