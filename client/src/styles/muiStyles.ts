@@ -150,7 +150,7 @@ export const useBoardStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
-    cursor: 'pointer',
+    cursor: 'pointer !important',
   },
 }));
 

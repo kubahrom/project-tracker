@@ -7,6 +7,12 @@ import { ProjectContext } from '../../context/project';
 import { useBoardPageStyles } from '../../styles/muiStyles';
 import { isCreateIssueLink } from '../../utils/checkLink';
 
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
 interface IProjectProps {
   project: {
     id: string;
@@ -14,6 +20,7 @@ interface IProjectProps {
     category: string;
     description: string;
     createdAt: string;
+    shared: IUser[];
     __typename: string;
   };
 }
@@ -66,6 +73,17 @@ const ProjectBoard = ({ project }: IProjectProps) => {
                 {project.description}
               </Typography>
             </>
+          )}
+          {project.shared.length !== 0 && (
+            <Typography variant="body1" component="p">
+              <span className={classes.helperText}>Shared to: </span>
+              {project.shared.map(
+                (user: IUser, index: number) =>
+                  `${user.firstName} ${user.lastName} ${
+                    project.shared[index + 1] ? ', ' : ''
+                  }`
+              )}
+            </Typography>
           )}
         </div>
         <Board projectId={project.id} />

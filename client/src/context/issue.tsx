@@ -20,7 +20,6 @@ const IssueProvider: React.FC = children => {
     open: false,
     issueId: '',
   });
-  // console.log(issueState);
   return (
     <IssueContext.Provider
       value={{ issueState, setIssueState }}

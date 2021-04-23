@@ -17,6 +17,11 @@ export const GET_PROJECT = gql`
       description
       category
       createdAt
+      shared {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;

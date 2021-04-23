@@ -20,7 +20,6 @@ const ProjectContext = createContext<IContext>({
   sidebarState: {},
   setSidebarState: (newState: IProjectContextState) => {},
 });
-//FIXME: Default value when load exact URL
 const ProjectProvider: React.FC = children => {
   const [sidebarState, setSidebarState] = useState<IProjectContextState>({
     currProject: '',

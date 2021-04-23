@@ -22,6 +22,11 @@ const ProjectBoardCheck: React.FC = () => {
         description
         createdAt
         category
+        shared {
+          id
+          firstName
+          lastName
+        }
       }
     `,
   });

@@ -25,12 +25,15 @@ const Issue = ({ issue, index }: IIssueProps) => {
       {provided => (
         <Link
           to={`/project/${sidebarState.currProject}/issue/${issue.id}`}
-          ref={provided.innerRef}
-          {...provided.dragHandleProps}
-          {...provided.draggableProps}
           onClick={handleClick}
         >
-          <Paper elevation={2} className={classes.issue}>
+          <Paper
+            elevation={2}
+            className={classes.issue}
+            ref={provided.innerRef}
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+          >
             <Typography variant="subtitle1" component="span">
               {issue.name}
             </Typography>
