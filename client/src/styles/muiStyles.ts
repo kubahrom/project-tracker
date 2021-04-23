@@ -83,6 +83,16 @@ export const useCreateProjectStyles = makeStyles(theme => ({
   },
 }));
 
+export const useDeleteBtnStyles = makeStyles(theme => ({
+  dialogActionsWrapper: {
+    paddingRight: 16,
+    paddingBottom: 8,
+  },
+  actionBtn: {
+    marginLeft: 8,
+  },
+}));
+
 export const useBoardPageStyles = makeStyles(theme => ({
   pageWrapper: {
     padding: theme.spacing(3),

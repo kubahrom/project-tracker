@@ -19,6 +19,7 @@ import {
   FieldError,
 } from 'react-hook-form';
 import { useCreateProjectStyles } from '../../styles/muiStyles';
+import DeleteProjectBtn from './DeleteProjectBtn';
 
 type ProjectCategoryType = '' | 'Software' | 'Marketing' | 'Business';
 
@@ -163,6 +164,12 @@ const CreateUpdateProject = ({
               {updateForm ? 'Update Project' : 'Create project'}
             </Button>
           </div>
+          {updateForm && (
+            <DeleteProjectBtn
+              projectId={defaultValues?.id ? defaultValues.id : ''}
+              name={defaultValues?.name ? defaultValues.name : ''}
+            />
+          )}
         </form>
       </div>
     </Paper>
