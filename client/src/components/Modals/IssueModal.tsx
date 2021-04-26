@@ -1,4 +1,4 @@
-import { Dialog, useMediaQuery, useTheme } from '@material-ui/core';
+import { Dialog, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { IssueContext } from '../../context/issue';
@@ -6,7 +6,14 @@ import { ProjectContext } from '../../context/project';
 import CreateIssue from '../../pages/main/CreateIssue';
 import IssueDetail from '../../pages/main/IssueDetail';
 
+const useStyles = makeStyles(theme => ({
+  toolbar: {
+    [theme.breakpoints.only('xs')]: theme.mixins.toolbar,
+  },
+}));
+
 const IssueModal = () => {
+  const classes = useStyles();
   const theme = useTheme();
   const fullscreen = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -17,14 +24,11 @@ const IssueModal = () => {
   const history = useHistory();
 
   const handleModalClose = () => {
-    console.log('Before', issueState.issueId);
     if (!issueState.issueId) {
-      console.log('create');
       const previousLink = location.pathname.replace('/create-issue', '');
       history.push(previousLink);
       setIssueState({ open: false, issueId: '' });
     } else {
-      console.log('update');
       history.push(`/project/${sidebarState.currProject}`);
       setIssueState({ ...issueState, open: false });
     }
@@ -34,8 +38,15 @@ const IssueModal = () => {
       fullScreen={fullscreen}
       open={issueState.open}
       onClose={handleModalClose}
+      fullWidth
+      maxWidth="md"
     >
-      {issueState.issueId ? <IssueDetail /> : <CreateIssue />}
+      <div className={classes.toolbar} />
+      {issueState.issueId ? (
+        <IssueDetail />
+      ) : (
+        <CreateIssue handleModalClose={handleModalClose} />
+      )}
     </Dialog>
   );
 };

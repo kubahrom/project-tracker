@@ -15,6 +15,8 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { ExitToApp, ExpandLess, ExpandMore, Person } from '@material-ui/icons';
 import { useApolloClient } from '@apollo/client';
+import { IssueContext } from '../../context/issue';
+import { ProjectContext } from '../../context/project';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -44,6 +46,8 @@ const useStyles = makeStyles(theme => ({
 
 const TopbarMenu: React.FC = () => {
   const { user, logout } = useContext(AuthContext);
+  const { setIssueState } = useContext(IssueContext);
+  const { setSidebarState } = useContext(ProjectContext);
   const client = useApolloClient();
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
   const classes = useStyles();
@@ -69,6 +73,8 @@ const TopbarMenu: React.FC = () => {
   const handleLogout = () => {
     handleClose();
     logout();
+    setIssueState({ open: false, issueId: '' });
+    setSidebarState({ currProject: '', projectAction: '' });
     client.clearStore();
   };
 

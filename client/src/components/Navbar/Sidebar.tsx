@@ -87,6 +87,7 @@ const Sidebar = (props: Props) => {
     setIssueState({
       open: true,
     });
+    props.handleDrawerClose();
   };
 
   const drawer = (

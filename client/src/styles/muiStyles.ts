@@ -156,9 +156,14 @@ export const useBoardStyles = makeStyles(theme => ({
 
 export const useIssueModalStyle = makeStyles(theme => ({
   modalWrapper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
   },
   formWrapper: {
     paddingTop: theme.spacing(2),
   },
+  inputField: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  btnCancel: { textAlign: 'right', paddingTop: 8 },
 }));
