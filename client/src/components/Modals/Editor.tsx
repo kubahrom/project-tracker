@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { ThemeContext } from '../../context/theme';
@@ -11,9 +11,11 @@ const useStyles = makeStyles(theme => ({
       zIndex: 2,
       border: 0,
     },
+    //editor toolbar
     // '& .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected,': {
     //   color: theme.palette.primary.main,
     // },
+    //
   },
   editorDarkTheme: {
     '& .ql-snow .ql-stroke': {
@@ -30,6 +32,13 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.common.white,
       '&:hover': {},
     },
+    '& .ql-container.ql-snow, & .ql-toolbar.ql-snow': {
+      borderColor: 'rgba(255, 255, 255, 0.23)',
+    },
+    //Editor border
+    // '&:hover .ql-container.ql-snow, &:hover .ql-toolbar.ql-snow': {
+    //   borderColor: theme.palette.common.white,
+    // },
   },
 }));
 
@@ -68,14 +77,18 @@ const formats = [
   'link',
 ];
 
-const Editor = () => {
-  const [data, setData] = useState('');
+interface IProps {
+  editor: string;
+  setEditor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Editor = ({ editor, setEditor }: IProps) => {
   const { darkTheme } = useContext(ThemeContext);
   const classes = useStyles();
   return (
     <ReactQuill
-      value={data}
-      onChange={setData}
+      value={editor}
+      onChange={setEditor}
       modules={modules}
       formats={formats}
       //   className={darkTheme ? classes.editor : ''}

@@ -1,4 +1,4 @@
-module.exports.validateIssueInput = (name, priority, status) => {
+module.exports.validateIssueInput = (name, status, priority) => {
   const errors = {};
   if (name && name.trim() === '') {
     errors.name = 'Issue name must not be empty';

@@ -10,6 +10,7 @@ const issueSchema = new Schema({
   estimatedTime: Number,
   timeSpend: Number,
   timeRemaining: Number,
+  index: String,
   project: { type: Schema.Types.ObjectId, ref: 'Project' },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   reporter: { type: Schema.Types.ObjectId, ref: 'User' },

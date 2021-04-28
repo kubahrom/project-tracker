@@ -51,7 +51,7 @@ module.exports = {
         createIssueInput: {
           name,
           description,
-          priority,
+          status,
           index,
           projectId,
           reporter,
@@ -64,7 +64,7 @@ module.exports = {
       try {
         const checkProject = await checkProjectAccess(id, projectId);
         if (checkProject) {
-          const { valid, errors } = validateIssueInput(name, priority);
+          const { valid, errors } = validateIssueInput(name, status);
           if (!valid) {
             throw new UserInputError('Errors', errors);
           }
@@ -74,7 +74,7 @@ module.exports = {
             description,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-            priority,
+            status,
             project: projectId,
             author: id,
             reporter,
@@ -110,8 +110,8 @@ module.exports = {
         if (checkProject) {
           const { valid, errors } = validateIssueInput(
             updateIssueInput.name,
-            updateIssueInput.priority,
-            updateIssueInput.status
+            updateIssueInput.status,
+            updateIssueInput.priority
           );
           if (!valid) {
             throw new UserInputError('Errors', errors);

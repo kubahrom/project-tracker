@@ -74,10 +74,10 @@ module.exports = gql`
   input CreateIssueInput {
     name: String!
     description: String
-    priority: String!
-    index: String
+    status: String!
+    index: String!
     projectId: ID!
-    reporter: ID
+    reporter: ID!
     asignees: [ID]
   }
 

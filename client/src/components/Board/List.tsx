@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { useBoardStyles } from '../../styles/muiStyles';
 import { IIssue } from './Board';
@@ -7,11 +7,23 @@ import Issue from './Issue';
 
 interface IListProps {
   status: string;
-  issues: IIssue[];
+  issues?: IIssue[];
 }
 
 const List = ({ issues, status }: IListProps) => {
+  const [sortedIssues, setSortedIssues] = useState<IIssue[]>([]);
   const classes = useBoardStyles();
+
+  useEffect(() => {
+    if (issues)
+      setSortedIssues(
+        issues.sort((a, b) => {
+          if (a.index > b.index) return 1;
+          return -1;
+        })
+      );
+  }, [issues]);
+
   return (
     <div className={classes.list}>
       <Typography
@@ -28,7 +40,7 @@ const List = ({ issues, status }: IListProps) => {
             ref={provided.innerRef}
             className={classes.issueWrapper}
           >
-            {issues.map((issue: IIssue, index: number) => (
+            {sortedIssues.map((issue: IIssue, index: number) => (
               <Issue issue={issue} key={issue.id} index={index} />
             ))}
             {provided.placeholder}

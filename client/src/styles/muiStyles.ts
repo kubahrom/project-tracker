@@ -145,12 +145,12 @@ export const useBoardStyles = makeStyles(theme => ({
   },
   issueWrapper: {
     padding: theme.spacing(1),
+    height: 'calc(100% - 41px)',
   },
   issue: {
-    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
-    cursor: 'pointer !important',
+    // cursor: 'pointer !important',
   },
 }));
 

@@ -4,9 +4,12 @@ import { useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { useIssueModalStyle } from '../../styles/muiStyles';
 import { Autocomplete } from '@material-ui/lab';
-import { gql, useApolloClient } from '@apollo/client';
+import { ApolloError, gql, useApolloClient, useMutation } from '@apollo/client';
 import { ProjectContext } from '../../context/project';
 import Editor from '../../components/Modals/Editor';
+import { CREATE_ISSUE } from '../../graphql/issuesMutation';
+import { GET_ISSUES } from '../../graphql/issuesQuery';
+import { LexoRank } from 'lexorank';
 
 interface ICreateIssueForm {
   name: string;
@@ -34,7 +37,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
   const { sidebarState } = useContext(ProjectContext);
   const [projectUsers, setProjectUsers] = useState<IUser[]>([]);
   const [asignees, setAsignees] = useState<IUser[]>([]);
-  // const [editor, setEditor] = useState<string>('');
+  const [editor, setEditor] = useState<string>('');
   const {
     register,
     handleSubmit,
@@ -60,13 +63,61 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     `,
   });
 
-  const onSubmit = (data: ICreateIssueForm) => {
+  const cachedIssues = client.readQuery({
+    query: GET_ISSUES,
+    variables: {
+      projectId: sidebarState.currProject,
+    },
+  });
+  const previousIndex =
+    cachedIssues.getIssues.length !== 0
+      ? cachedIssues.getIssues
+          .filter((issue: any) => issue.status === 'backlog')
+          .sort((a: any, b: any) => {
+            if (a.index > b.index) return 1;
+            return -1;
+          })[0]?.index
+      : '';
+
+  const [createIssue, { loading }] = useMutation(CREATE_ISSUE, {
+    update(proxy, result) {
+      const data: any = proxy.readQuery({
+        query: GET_ISSUES,
+        variables: {
+          projectId: sidebarState.currProject,
+        },
+      });
+      proxy.writeQuery({
+        query: GET_ISSUES,
+        variables: {
+          projectId: sidebarState.currProject,
+        },
+        data: { getIssues: [result.data.createIssue, ...data.getIssues] },
+      });
+      handleModalClose();
+    },
+    onError(err: ApolloError) {
+      console.log(err);
+    },
+  });
+  const onSubmit = (result: ICreateIssueForm) => {
+    const data = {
+      name: result.name,
+      description: editor,
+      reporter: projectUsers.filter(
+        (user: IUser) =>
+          result.reporter === `${user.firstName} ${user.lastName}`
+      )[0].id,
+      asignees: asignees.map((asignee: IUser) => asignee.id),
+      projectId: sidebarState.currProject,
+      index:
+        previousIndex.length !== 0
+          ? LexoRank.parse(previousIndex).genPrev().toString()
+          : LexoRank.middle().toString(),
+      status: 'backlog',
+    };
     console.log(data);
-    console.log(asignees);
-    // {/* name, description, reporter, asignees, priority */}
-    //Find user id by name
-    //ReactQuill
-    //DOM purify??
+    createIssue({ variables: data });
   };
 
   useEffect(() => {
@@ -99,7 +150,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
             />
           </div>
           <div className={classes.inputField}>
-            <Editor />
+            <Editor editor={editor} setEditor={setEditor} />
           </div>
           <div className={classes.inputField}>
             <Autocomplete
@@ -150,7 +201,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
               type="submit"
               startIcon={<AddComment />}
               fullWidth
-              // disabled={loading}
+              disabled={loading}
             >
               Create Issue
             </Button>

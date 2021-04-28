@@ -14,6 +14,7 @@ export interface IIssue {
   id: string;
   name: string;
   status: string;
+  index: string;
 }
 
 interface IIssues {
@@ -31,17 +32,16 @@ const Board = ({ projectId }: IBoardProps) => {
   const client = useApolloClient();
   const cachedIssues = client.readQuery({
     query: GET_ISSUES,
+    variables: {
+      projectId,
+    },
   });
-
-  const { loading, data: { getIssues: issues } = {} } = useQuery<IIssues>(
-    GET_ISSUES,
-    {
-      variables: {
-        projectId,
-      },
-      skip: Boolean(cachedIssues),
-    }
-  );
+  const { loading } = useQuery<IIssues>(GET_ISSUES, {
+    variables: {
+      projectId,
+    },
+    skip: Boolean(cachedIssues),
+  });
 
   const handleDragEnd = (result: any) => {
     console.log(result);
@@ -57,9 +57,16 @@ const Board = ({ projectId }: IBoardProps) => {
             {statusList.map((status: string) => (
               <List
                 key={status}
-                issues={issues!.filter(
-                  (issue: IIssue) => issue.status === status
-                )}
+                issues={
+                  // issues
+                  //   ? issues.filter((issue: IIssue) => issue.status === status)
+                  //   : cachedIssues.getIssues.filter(
+                  //       (issue: IIssue) => issue.status === status
+                  //     )
+                  cachedIssues.getIssues.filter(
+                    (issue: IIssue) => issue.status === status
+                  )
+                }
                 status={status}
               />
             ))}
