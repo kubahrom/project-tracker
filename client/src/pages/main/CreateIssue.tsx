@@ -10,11 +10,13 @@ import Editor from '../../components/Modals/Editor';
 import { CREATE_ISSUE } from '../../graphql/issuesMutation';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
+import IssuePriorityAutoComplete from '../../components/Forms/IssuePriorityAutoComplete';
 
 interface ICreateIssueForm {
   name: string;
   reporter: string;
   asignees: string[];
+  priority: string;
 }
 
 interface IUser {
@@ -70,7 +72,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     },
   });
   const previousIndex =
-    cachedIssues.getIssues.length !== 0
+    cachedIssues?.getIssues && cachedIssues.getIssues.length !== 0
       ? cachedIssues.getIssues
           .filter((issue: any) => issue.status === 'backlog')
           .sort((a: any, b: any) => {
@@ -115,8 +117,8 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
           ? LexoRank.parse(previousIndex).genPrev().toString()
           : LexoRank.middle().toString(),
       status: 'backlog',
+      priority: result.priority,
     };
-    console.log(data);
     createIssue({ variables: data });
   };
 
@@ -191,6 +193,12 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
                   fullWidth
                 />
               )}
+            />
+          </div>
+          <div className={classes.inputField}>
+            <IssuePriorityAutoComplete
+              register={register}
+              error={errors?.priority}
             />
           </div>
           <div className={classes.inputField}>

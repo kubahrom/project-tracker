@@ -4,3 +4,5 @@ export const statusList: string[] = [
   'in progress',
   'done',
 ];
+
+export const priorityList: string[] = ['Highest', 'High', 'Low', 'Lowest'];

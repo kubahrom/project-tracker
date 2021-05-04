@@ -79,6 +79,7 @@ module.exports = gql`
     projectId: ID!
     reporter: ID!
     asignees: [ID]
+    priority: String!
   }
 
   input UpdateIssueInput {

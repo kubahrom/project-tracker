@@ -56,6 +56,7 @@ module.exports = {
           projectId,
           reporter,
           asignees,
+          priority,
         },
       },
       context
@@ -64,7 +65,7 @@ module.exports = {
       try {
         const checkProject = await checkProjectAccess(id, projectId);
         if (checkProject) {
-          const { valid, errors } = validateIssueInput(name, status);
+          const { valid, errors } = validateIssueInput(name, status, priority);
           if (!valid) {
             throw new UserInputError('Errors', errors);
           }
@@ -81,6 +82,7 @@ module.exports = {
             index,
             asignees,
             comments: [],
+            priority,
           });
 
           const issue = await newIssue.save().then(t => {

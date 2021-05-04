@@ -9,6 +9,7 @@ export const CREATE_ISSUE = gql`
     $asignees: [ID]
     $index: String!
     $status: String!
+    $priority: String!
   ) {
     createIssue(
       createIssueInput: {
@@ -19,12 +20,25 @@ export const CREATE_ISSUE = gql`
         asignees: $asignees
         index: $index
         status: $status
+        priority: $priority
       }
     ) {
       id
       name
+      description
+      reporter {
+        id
+        firstName
+        lastName
+      }
+      asignees {
+        id
+        firstName
+        lastName
+      }
       status
       index
+      priority
     }
   }
 `;

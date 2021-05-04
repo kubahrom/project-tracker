@@ -167,3 +167,25 @@ export const useIssueModalStyle = makeStyles(theme => ({
   },
   btnCancel: { textAlign: 'right', paddingTop: 8 },
 }));
+
+export const usePriorityListStyle = makeStyles(theme => ({
+  icon: { marginRight: theme.spacing(1) },
+
+  highest: {
+    color: theme.palette.error.main,
+  },
+  high: { color: theme.palette.error.light },
+  low: {
+    color: theme.palette.primary.main,
+  },
+  lowest: {
+    color: theme.palette.info.light,
+  },
+}));
+
+export const useUpdateIssueDetailStyle = makeStyles(theme => ({
+  inputField: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+}));
