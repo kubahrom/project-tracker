@@ -10,7 +10,7 @@ import Editor from '../../components/Modals/Editor';
 import { CREATE_ISSUE } from '../../graphql/issuesMutation';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
-import IssuePriorityAutoComplete from '../../components/Forms/IssuePriorityAutoComplete';
+import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 
 interface ICreateIssueForm {
   name: string;
@@ -103,6 +103,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     },
   });
   const onSubmit = (result: ICreateIssueForm) => {
+    //FIXME: value different than from select for reporter
     const data = {
       name: result.name,
       description: editor,

@@ -27,6 +27,7 @@ interface IProjectProps {
 
 interface ParamType {
   projectId: string;
+  issueId: string;
 }
 
 const ProjectBoard = ({ project }: IProjectProps) => {
@@ -34,7 +35,7 @@ const ProjectBoard = ({ project }: IProjectProps) => {
   const location = useLocation();
   const { setIssueState } = useContext(IssueContext);
   const { setSidebarState } = useContext(ProjectContext);
-  const { projectId } = useParams<ParamType>();
+  const { projectId, issueId } = useParams<ParamType>();
 
   useEffect(() => {
     setSidebarState({ currProject: projectId, projectAction: 'board' });
@@ -44,7 +45,10 @@ const ProjectBoard = ({ project }: IProjectProps) => {
     if (isCreateIssueLink(location.pathname)) {
       setIssueState({ open: true });
     }
-  }, [location.pathname, setIssueState]);
+    if (issueId) {
+      setIssueState({ open: true, issueId });
+    }
+  }, [location.pathname, setIssueState, issueId]);
 
   return (
     <Paper elevation={2}>

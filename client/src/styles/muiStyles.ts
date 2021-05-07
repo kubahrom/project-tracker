@@ -176,10 +176,10 @@ export const usePriorityListStyle = makeStyles(theme => ({
   },
   high: { color: theme.palette.error.light },
   low: {
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.light,
   },
   lowest: {
-    color: theme.palette.info.light,
+    color: theme.palette.info.main,
   },
 }));
 
