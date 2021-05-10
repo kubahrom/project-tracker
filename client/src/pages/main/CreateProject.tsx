@@ -9,6 +9,16 @@ import CreateUpdateProject, {
   IProjectForm,
 } from '../../components/Forms/CreateUpdateProject';
 
+interface IProject {
+  id: string;
+}
+
+interface IProjects {
+  getProjects: IProject[];
+}
+
+type ProjectQueryType = IProjects | null;
+
 const CreateProject: React.FC = () => {
   const history = useHistory();
   const { setSidebarState } = useContext(ProjectContext);
@@ -21,13 +31,16 @@ const CreateProject: React.FC = () => {
 
   const [createProject, { loading }] = useMutation(CREATE_PROJECT, {
     update(proxy, result) {
-      const data: any = proxy.readQuery({
+      const data: ProjectQueryType = proxy.readQuery({
         query: GET_PROJECTS,
       });
-      proxy.writeQuery({
-        query: GET_PROJECTS,
-        data: { getProjects: [result.data.createProject, ...data.getProjects] },
-      });
+      if (data)
+        proxy.writeQuery({
+          query: GET_PROJECTS,
+          data: {
+            getProjects: [result.data.createProject, ...data.getProjects],
+          },
+        });
       setSidebarState({
         currProject: `${result.data.createProject.id}`,
         projectAction: 'board',

@@ -4,6 +4,11 @@ import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
 import { UPDATE_BOARD_ISSUE } from '../../graphql/issuesMutation';
 
+interface IIssue {
+  status: string;
+  index: string;
+}
+
 const useReorderHook = (projectId: string) => {
   const client = useApolloClient();
 
@@ -31,8 +36,8 @@ const useReorderHook = (projectId: string) => {
     const targetStatusIssues =
       cachedIssues.getIssues.length !== 0
         ? cachedIssues.getIssues
-            .filter((issue: any) => issue.status === destination.droppableId)
-            .sort((a: any, b: any) => {
+            .filter((issue: IIssue) => issue.status === destination.droppableId)
+            .sort((a: IIssue, b: IIssue) => {
               if (a.index > b.index) return 1;
               return -1;
             })

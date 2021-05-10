@@ -11,6 +11,15 @@ interface IProps {
   projectId: string;
   name: string;
 }
+interface IProject {
+  id: string;
+}
+
+interface IProjects {
+  getProjects: IProject[];
+}
+
+type ProjectQueryType = IProjects | null;
 
 const DeleteProjectBtn = ({ projectId, name }: IProps) => {
   const classes = useDeleteBtnStyles();
@@ -24,17 +33,18 @@ const DeleteProjectBtn = ({ projectId, name }: IProps) => {
 
   const [deleteProject] = useMutation(DELETE_PROJECT, {
     update(proxy) {
-      const data: any = proxy.readQuery({
+      const data: ProjectQueryType = proxy.readQuery({
         query: GET_PROJECTS,
       });
-      proxy.writeQuery({
-        query: GET_PROJECTS,
-        data: {
-          getProjects: data.getProjects.filter(
-            (project: any) => project.id !== projectId
-          ),
-        },
-      });
+      if (data)
+        proxy.writeQuery({
+          query: GET_PROJECTS,
+          data: {
+            getProjects: data.getProjects.filter(
+              (project: IProject) => project.id !== projectId
+            ),
+          },
+        });
     },
     variables: {
       projectId,

@@ -5,14 +5,34 @@ import { Controller, useForm } from 'react-hook-form';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import { useUpdateIssueDetailStyle } from '../../styles/muiStyles';
 import IssueStatusAutoComplete from '../../components/Forms/inputs/issueStatusAutoComplete';
+import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
 import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
+
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
 
 interface IUpdateIssueForm {
   name: string;
   status: string;
   priority: string;
-  reporter: string;
+  reporter: IUser;
   estimatedTime: number;
+  asignees: IUser[];
+}
+
+interface IProps {
+  issue: {
+    id: string;
+    name: string;
+    status: string;
+    priority: string;
+    reporter: IUser;
+    asignees: IUser[];
+    estimatedTime: number;
+  };
 }
 // Useformhook --- name(textField), status(select 1 opt), priority (select 1 opt),
 //                 reporter(select 1 opt), estimatedTime(inputFild),
@@ -23,8 +43,9 @@ interface IUpdateIssueForm {
 //comments
 
 //Auto Change --- createdAt, updatedAt
-const UpdateIssueDetail = ({ issue }: any) => {
+const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
+
   const {
     register,
     handleSubmit,
@@ -36,7 +57,8 @@ const UpdateIssueDetail = ({ issue }: any) => {
       name: issue.name,
       status: issue.status,
       priority: issue.priority,
-      reporter: `${issue.reporter.firstName} ${issue.reporter.lastName}`,
+      reporter: issue.reporter,
+      asignees: issue.asignees,
       estimatedTime: issue.estimatedTime ? issue.estimatedTime : 0,
     },
   });
@@ -77,11 +99,10 @@ const UpdateIssueDetail = ({ issue }: any) => {
         />
       </div>
       <div className={classes.inputField}>
-        <IssueReporterAutoComplete
-          register={register}
-          error={errors.reporter}
-          control={control}
-        />
+        <IssueReporterAutoComplete control={control} error={errors.reporter} />
+      </div>
+      <div className={classes.inputField}>
+        <IssueAsigneesAutoComplete control={control} />
       </div>
       <div className={classes.inputField}>
         <Controller
@@ -90,7 +111,6 @@ const UpdateIssueDetail = ({ issue }: any) => {
           render={({ field }) => (
             <TextField
               {...field}
-              required
               fullWidth
               label="Estimated time"
               type="number"

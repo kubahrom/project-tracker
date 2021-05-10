@@ -1,6 +1,7 @@
 import { TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import React, { useContext } from 'react';
+import { Control, Controller } from 'react-hook-form';
 import { ProjectContext } from '../../../context/project';
 import useGetProjectUsers from '../../../utils/hooks/useGetProjectUsers';
 
@@ -11,28 +12,38 @@ interface IUser {
 }
 
 interface IProps {
-  setAsignees: React.Dispatch<React.SetStateAction<IUser[]>>;
+  control: Control<any>;
 }
 
-const IssueAsigneesAutoComplete = ({ setAsignees }: IProps) => {
+const IssueAsigneesAutoComplete = ({ control }: IProps) => {
   const { sidebarState } = useContext(ProjectContext);
   const projectUsers = useGetProjectUsers(sidebarState.currProject);
+
+  const renderTextField = (params: AutocompleteRenderInputParams) => {
+    return (
+      <TextField
+        {...params}
+        label="Asignees"
+        placeholder="Add asignee"
+        variant="outlined"
+      />
+    );
+  };
+
   return (
-    <Autocomplete
-      multiple
-      onChange={(_, values) => setAsignees(values)}
-      id="issue-asignees-chips"
-      options={projectUsers}
-      getOptionLabel={(option: IUser) =>
-        `${option.firstName} ${option.lastName}`
-      }
-      renderInput={params => (
-        <TextField
-          {...params}
-          label="Asignees"
-          placeholder="Add asignee"
-          variant="outlined"
-          fullWidth
+    <Controller
+      control={control}
+      name="asignees"
+      render={({ field }) => (
+        <Autocomplete
+          {...field}
+          multiple
+          id="issue-asignees-chips"
+          options={projectUsers}
+          getOptionLabel={(user: IUser) => `${user.firstName} ${user.lastName}`}
+          getOptionSelected={(option, value) => option.id === value.id}
+          onChange={(_, data) => field.onChange(data)}
+          renderInput={params => renderTextField(params)}
         />
       )}
     />

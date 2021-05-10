@@ -48,6 +48,7 @@ const IssuePriorityAutoComplete = ({ register, error, control }: IProps) => {
     return (
       <TextField
         {...params}
+        required
         label="Priority"
         variant="outlined"
         error={error ? true : false}

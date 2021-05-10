@@ -28,7 +28,7 @@ const issueStatusAutoComplete = ({ control, error }: IProps) => {
             renderInput={params => (
               <TextField
                 {...params}
-                label="Priority"
+                label="Status"
                 variant="outlined"
                 error={error ? true : false}
                 helperText={error ? error.message : ''}

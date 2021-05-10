@@ -10,22 +10,32 @@ import { CREATE_ISSUE } from '../../graphql/issuesMutation';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
-import useGetProjectUsers from '../../utils/hooks/useGetProjectUsers';
-import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
 import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
-
-interface ICreateIssueForm {
-  name: string;
-  reporter: string;
-  asignees: string[];
-  priority: string;
-}
+import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
 
 interface IUser {
   id: string;
   firstName: string;
   lastName: string;
 }
+
+interface ICreateIssueForm {
+  name: string;
+  reporter: IUser | null;
+  asignees: IUser[];
+  priority: string;
+}
+
+interface IIssue {
+  status: string;
+  index: string;
+}
+
+interface Issues {
+  getIssues: IIssue[];
+}
+
+type Issuetype = Issues | null;
 
 interface IProps {
   handleModalClose: () => void;
@@ -34,14 +44,18 @@ interface IProps {
 const CreateIssue = ({ handleModalClose }: IProps) => {
   const classes = useIssueModalStyle();
   const { sidebarState } = useContext(ProjectContext);
-  const projectUsers = useGetProjectUsers(sidebarState.currProject);
-  const [asignees, setAsignees] = useState<IUser[]>([]);
   const [editor, setEditor] = useState<string>('');
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm<ICreateIssueForm>();
+  } = useForm<ICreateIssueForm>({
+    defaultValues: {
+      asignees: [],
+      reporter: null,
+    },
+  });
 
   const client = useApolloClient();
   const cachedIssues = client.readQuery({
@@ -53,19 +67,20 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
 
   const [createIssue, { loading }] = useMutation(CREATE_ISSUE, {
     update(proxy, result) {
-      const data: any = proxy.readQuery({
+      const data: Issuetype = proxy.readQuery({
         query: GET_ISSUES,
         variables: {
           projectId: sidebarState.currProject,
         },
       });
-      proxy.writeQuery({
-        query: GET_ISSUES,
-        variables: {
-          projectId: sidebarState.currProject,
-        },
-        data: { getIssues: [result.data.createIssue, ...data.getIssues] },
-      });
+      if (data)
+        proxy.writeQuery({
+          query: GET_ISSUES,
+          variables: {
+            projectId: sidebarState.currProject,
+          },
+          data: { getIssues: [result.data.createIssue, ...data.getIssues] },
+        });
       handleModalClose();
     },
     onError(err: ApolloError) {
@@ -73,12 +88,11 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     },
   });
   const onSubmit = (result: ICreateIssueForm) => {
-    //FIXME: value different than from select for reporter
     const previousIndex =
       cachedIssues?.getIssues && cachedIssues.getIssues.length !== 0
         ? cachedIssues.getIssues
-            .filter((issue: any) => issue.status === 'backlog')
-            .sort((a: any, b: any) => {
+            .filter((issue: IIssue) => issue.status === 'backlog')
+            .sort((a: IIssue, b: IIssue) => {
               if (a.index > b.index) return 1;
               return -1;
             })[0]?.index
@@ -87,11 +101,8 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     const data = {
       name: result.name,
       description: editor,
-      reporter: projectUsers.filter(
-        (user: IUser) =>
-          result.reporter === `${user.firstName} ${user.lastName}`
-      )[0].id,
-      asignees: asignees.map((asignee: IUser) => asignee.id),
+      reporter: result.reporter!.id,
+      asignees: result.asignees.map((asignee: IUser) => asignee.id),
       projectId: sidebarState.currProject,
       index:
         previousIndex.length !== 0
@@ -129,12 +140,12 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
           </div>
           <div className={classes.inputField}>
             <IssueReporterAutoComplete
-              register={register}
+              control={control}
               error={errors.reporter}
             />
           </div>
           <div className={classes.inputField}>
-            <IssueAsigneesAutoComplete setAsignees={setAsignees} />
+            <IssueAsigneesAutoComplete control={control} />
           </div>
           <div className={classes.inputField}>
             <IssuePriorityAutoComplete

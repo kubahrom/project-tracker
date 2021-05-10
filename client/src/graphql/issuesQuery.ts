@@ -23,6 +23,11 @@ export const GET_ISSUE = gql`
         firstName
         lastName
       }
+      asignees {
+        id
+        firstName
+        lastName
+      }
       estimatedTime
     }
   }

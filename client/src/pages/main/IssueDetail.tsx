@@ -26,6 +26,11 @@ const IssueDetail = () => {
           firstName
           lastName
         }
+        asignees {
+          id
+          firstName
+          lastName
+        }
         estimatedTime
         # FIXME: add another fields based on need
       }

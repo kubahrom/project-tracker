@@ -26,6 +26,16 @@ interface ParamType {
   projectId: string;
 }
 
+interface IProject {
+  id: string;
+}
+
+interface IProjects {
+  getProjects: IProject[];
+}
+
+type ProjectQueryType = IProjects | null;
+
 const ProjectSettings = ({ project }: IProjectProps) => {
   const { projectId } = useParams<ParamType>();
   const { setSidebarState } = useContext(ProjectContext);
@@ -40,19 +50,20 @@ const ProjectSettings = ({ project }: IProjectProps) => {
 
   const [updateProject, { loading }] = useMutation(UPDATE_PROJECT, {
     update(proxy, result) {
-      const data: any = proxy.readQuery({
+      const data: ProjectQueryType = proxy.readQuery({
         query: GET_PROJECTS,
       });
-      proxy.writeQuery({
-        query: GET_PROJECTS,
-        data: {
-          getProjects: data.getProjects.map((project: any) =>
-            project.id === result.data.updateProject.id
-              ? { ...project, ...result.data.updateProject }
-              : project
-          ),
-        },
-      });
+      if (data)
+        proxy.writeQuery({
+          query: GET_PROJECTS,
+          data: {
+            getProjects: data.getProjects.map((project: IProject) =>
+              project.id === result.data.updateProject.id
+                ? { ...project, ...result.data.updateProject }
+                : project
+            ),
+          },
+        });
     },
     onError(err: ApolloError) {
       console.error(err.graphQLErrors);
