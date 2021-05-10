@@ -1,16 +1,14 @@
 import { TextField } from '@material-ui/core';
-import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import React from 'react';
-import { usePriorityListStyle } from '../../../styles/muiStyles';
 import { priorityList } from '../../../utils/constants';
-import clsx from 'clsx';
 import {
   Control,
   Controller,
   FieldError,
   UseFormRegister,
 } from 'react-hook-form';
+import PriorityArrow from '../../Other/PriorityArrow';
 
 type ErrorType = FieldError | undefined;
 
@@ -21,29 +19,6 @@ interface IProps {
 }
 
 const IssuePriorityAutoComplete = ({ register, error, control }: IProps) => {
-  const classes = usePriorityListStyle();
-
-  const renderRenderOption = (option: string) => (
-    <>
-      {option === 'Highest' || option === 'High' ? (
-        <ArrowUpward
-          className={clsx(
-            classes.icon,
-            option === 'Highest' ? classes.highest : classes.high
-          )}
-        />
-      ) : (
-        <ArrowDownward
-          className={clsx(
-            classes.icon,
-            option === 'Low' ? classes.low : classes.lowest
-          )}
-        />
-      )}
-      {option}
-    </>
-  );
-
   const renderTextField = (params: AutocompleteRenderInputParams) => {
     return (
       <TextField
@@ -73,7 +48,9 @@ const IssuePriorityAutoComplete = ({ register, error, control }: IProps) => {
               options={priorityList}
               getOptionLabel={(option: string) => option}
               onChange={(_, data) => field.onChange(data)}
-              renderOption={(option: string) => renderRenderOption(option)}
+              renderOption={(option: string) => (
+                <PriorityArrow option={option} />
+              )}
               renderInput={params => renderTextField(params)}
             />
           )}
@@ -83,7 +60,7 @@ const IssuePriorityAutoComplete = ({ register, error, control }: IProps) => {
           id="issue-priority-combo-box"
           options={priorityList}
           getOptionLabel={(option: string) => option}
-          renderOption={(option: string) => renderRenderOption(option)}
+          renderOption={(option: string) => <PriorityArrow option={option} />}
           renderInput={params => renderTextField(params)}
         />
       )}

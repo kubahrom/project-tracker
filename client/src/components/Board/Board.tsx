@@ -12,11 +12,19 @@ interface IBoardProps {
   projectId: string;
 }
 
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface IIssue {
   id: string;
   name: string;
   status: string;
   index: string;
+  priority: string;
+  asignees: IUser[];
 }
 
 interface IIssues {

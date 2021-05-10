@@ -152,6 +152,10 @@ export const useBoardStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     // cursor: 'pointer !important',
   },
+  issueArrow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));
 
 export const useIssueModalStyle = makeStyles(theme => ({

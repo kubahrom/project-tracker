@@ -7,6 +7,12 @@ export const GET_ISSUES = gql`
       name
       status
       index
+      priority
+      asignees {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;

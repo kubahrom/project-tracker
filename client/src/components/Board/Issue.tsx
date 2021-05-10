@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { useBoardStyles } from '../../styles/muiStyles';
+import BoardIssueAvatars from '../Other/BoardIssueAvatars';
+import PriorityArrow from '../Other/PriorityArrow';
 import { IIssue } from './Board';
 
 interface IIssueProps {
@@ -37,8 +39,13 @@ const Issue = ({ issue, index }: IIssueProps) => {
             <Typography variant="subtitle1" component="span">
               {issue.name}
             </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              {issue.status}
+            <Typography
+              variant="subtitle2"
+              color="textSecondary"
+              className={classes.issueArrow}
+            >
+              <PriorityArrow option={issue.priority} board={true} />
+              <BoardIssueAvatars asignees={issue.asignees} />
             </Typography>
           </Paper>
         </Link>
