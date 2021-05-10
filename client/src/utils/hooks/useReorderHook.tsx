@@ -1,8 +1,8 @@
 import { ApolloError, gql, useApolloClient, useMutation } from '@apollo/client';
 import { DropResult } from 'react-beautiful-dnd';
-import { GET_ISSUES } from '../graphql/issuesQuery';
+import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
-import { UPDATE_BOARD_ISSUE } from '../graphql/issuesMutation';
+import { UPDATE_BOARD_ISSUE } from '../../graphql/issuesMutation';
 
 const useReorderHook = (projectId: string) => {
   const client = useApolloClient();

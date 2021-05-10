@@ -6,7 +6,7 @@ import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { useBoardStyles } from '../../styles/muiStyles';
 import { statusList } from '../../utils/constants';
 import List from './List';
-import useReorderHook from '../../utils/useReorderHook';
+import useReorderHook from '../../utils/hooks/useReorderHook';
 
 interface IBoardProps {
   projectId: string;

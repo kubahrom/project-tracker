@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import { useUpdateIssueDetailStyle } from '../../styles/muiStyles';
 import IssueStatusAutoComplete from '../../components/Forms/inputs/issueStatusAutoComplete';
+import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
 
 interface IUpdateIssueForm {
   name: string;
@@ -35,6 +36,7 @@ const UpdateIssueDetail = ({ issue }: any) => {
       name: issue.name,
       status: issue.status,
       priority: issue.priority,
+      reporter: `${issue.reporter.firstName} ${issue.reporter.lastName}`,
       estimatedTime: issue.estimatedTime ? issue.estimatedTime : 0,
     },
   });
@@ -71,6 +73,13 @@ const UpdateIssueDetail = ({ issue }: any) => {
         <IssuePriorityAutoComplete
           register={register}
           error={errors?.priority}
+          control={control}
+        />
+      </div>
+      <div className={classes.inputField}>
+        <IssueReporterAutoComplete
+          register={register}
+          error={errors.reporter}
           control={control}
         />
       </div>

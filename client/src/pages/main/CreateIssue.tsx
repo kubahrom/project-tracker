@@ -1,16 +1,18 @@
 import { AddComment } from '@material-ui/icons';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { useIssueModalStyle } from '../../styles/muiStyles';
-import { Autocomplete } from '@material-ui/lab';
-import { ApolloError, gql, useApolloClient, useMutation } from '@apollo/client';
+import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import { ProjectContext } from '../../context/project';
 import Editor from '../../components/Modals/Editor';
 import { CREATE_ISSUE } from '../../graphql/issuesMutation';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { LexoRank } from 'lexorank';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
+import useGetProjectUsers from '../../utils/hooks/useGetProjectUsers';
+import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
+import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
 
 interface ICreateIssueForm {
   name: string;
@@ -25,11 +27,6 @@ interface IUser {
   lastName: string;
 }
 
-interface IcachedProjectUsers {
-  author: IUser;
-  shared: IUser[];
-}
-
 interface IProps {
   handleModalClose: () => void;
 }
@@ -37,7 +34,7 @@ interface IProps {
 const CreateIssue = ({ handleModalClose }: IProps) => {
   const classes = useIssueModalStyle();
   const { sidebarState } = useContext(ProjectContext);
-  const [projectUsers, setProjectUsers] = useState<IUser[]>([]);
+  const projectUsers = useGetProjectUsers(sidebarState.currProject);
   const [asignees, setAsignees] = useState<IUser[]>([]);
   const [editor, setEditor] = useState<string>('');
   const {
@@ -47,39 +44,12 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
   } = useForm<ICreateIssueForm>();
 
   const client = useApolloClient();
-  const cachedProjectUsers = client.readFragment<IcachedProjectUsers>({
-    id: `Project:${sidebarState.currProject}`,
-    fragment: gql`
-      fragment ProjectUsers on Project {
-        author {
-          id
-          firstName
-          lastName
-        }
-        shared {
-          id
-          firstName
-          lastName
-        }
-      }
-    `,
-  });
-
   const cachedIssues = client.readQuery({
     query: GET_ISSUES,
     variables: {
       projectId: sidebarState.currProject,
     },
   });
-  const previousIndex =
-    cachedIssues?.getIssues && cachedIssues.getIssues.length !== 0
-      ? cachedIssues.getIssues
-          .filter((issue: any) => issue.status === 'backlog')
-          .sort((a: any, b: any) => {
-            if (a.index > b.index) return 1;
-            return -1;
-          })[0]?.index
-      : '';
 
   const [createIssue, { loading }] = useMutation(CREATE_ISSUE, {
     update(proxy, result) {
@@ -104,6 +74,16 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
   });
   const onSubmit = (result: ICreateIssueForm) => {
     //FIXME: value different than from select for reporter
+    const previousIndex =
+      cachedIssues?.getIssues && cachedIssues.getIssues.length !== 0
+        ? cachedIssues.getIssues
+            .filter((issue: any) => issue.status === 'backlog')
+            .sort((a: any, b: any) => {
+              if (a.index > b.index) return 1;
+              return -1;
+            })[0]?.index
+        : '';
+
     const data = {
       name: result.name,
       description: editor,
@@ -122,14 +102,6 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     };
     createIssue({ variables: data });
   };
-
-  useEffect(() => {
-    if (cachedProjectUsers)
-      setProjectUsers([
-        cachedProjectUsers.author,
-        ...cachedProjectUsers.shared,
-      ]);
-  }, [cachedProjectUsers]);
 
   return (
     <div className={classes.modalWrapper}>
@@ -156,45 +128,13 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
             <Editor editor={editor} setEditor={setEditor} />
           </div>
           <div className={classes.inputField}>
-            <Autocomplete
-              id="issue-reporter-combo-box"
-              options={projectUsers}
-              getOptionLabel={(option: IUser) =>
-                `${option.firstName} ${option.lastName}`
-              }
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  {...register('reporter', {
-                    required: 'Reporter of the issue is required',
-                  })}
-                  label="Reporter"
-                  variant="outlined"
-                  error={errors.reporter ? true : false}
-                  helperText={errors.reporter ? errors.reporter.message : ''}
-                />
-              )}
+            <IssueReporterAutoComplete
+              register={register}
+              error={errors.reporter}
             />
           </div>
           <div className={classes.inputField}>
-            <Autocomplete
-              multiple
-              onChange={(event, values) => setAsignees(values)}
-              id="issue-asignees-chips"
-              options={projectUsers}
-              getOptionLabel={(option: IUser) =>
-                `${option.firstName} ${option.lastName}`
-              }
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  label="Asignees"
-                  placeholder="Add asignee"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-            />
+            <IssueAsigneesAutoComplete setAsignees={setAsignees} />
           </div>
           <div className={classes.inputField}>
             <IssuePriorityAutoComplete
