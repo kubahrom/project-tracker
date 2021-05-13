@@ -54,7 +54,7 @@ module.exports = gql`
     status: String!
     priority: String!
     estimatedTime: Int
-    timeSpend: Int
+    timeSpent: Int
     timeRemaining: Int
     index: String
     project: Project!
@@ -91,7 +91,7 @@ module.exports = gql`
     priority: String
     estimatedTime: Int
     index: String
-    timeSpend: Int
+    timeSpent: Int
     timeRemaining: Int
     reporter: ID
     asignees: [ID]

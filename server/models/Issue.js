@@ -8,7 +8,7 @@ const issueSchema = new Schema({
   status: String,
   priority: String,
   estimatedTime: Number,
-  timeSpend: Number,
+  timet: Number,
   timeRemaining: Number,
   index: String,
   project: { type: Schema.Types.ObjectId, ref: 'Project' },
