@@ -22,6 +22,7 @@ export const GET_ISSUE = gql`
     getIssue(issueId: $issueId, projectId: $projectId) {
       id
       name
+      description
       status
       priority
       reporter {
@@ -35,6 +36,10 @@ export const GET_ISSUE = gql`
         lastName
       }
       estimatedTime
+      timeSpent
+      timeRemaining
+      createdAt
+      updatedAt
     }
   }
 `;

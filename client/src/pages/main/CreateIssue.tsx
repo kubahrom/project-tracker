@@ -104,10 +104,9 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
       reporter: result.reporter!.id,
       asignees: result.asignees.map((asignee: IUser) => asignee.id),
       projectId: sidebarState.currProject,
-      index:
-        previousIndex.length !== 0
-          ? LexoRank.parse(previousIndex).genPrev().toString()
-          : LexoRank.middle().toString(),
+      index: previousIndex
+        ? LexoRank.parse(previousIndex).genPrev().toString()
+        : LexoRank.middle().toString(),
       status: 'backlog',
       priority: result.priority,
     };

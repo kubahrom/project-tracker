@@ -11,7 +11,7 @@ interface IProps {
 const PriorityArrow = ({ option, board }: IProps) => {
   const classes = usePriorityListStyle();
   return (
-    <>
+    <span className={classes.iconWrapper}>
       {option === 'Highest' || option === 'High' ? (
         <ArrowUpward
           className={clsx(
@@ -27,8 +27,8 @@ const PriorityArrow = ({ option, board }: IProps) => {
           )}
         />
       )}
-      {!board && option}
-    </>
+      {!board && <span>{option}</span>}
+    </span>
   );
 };
 

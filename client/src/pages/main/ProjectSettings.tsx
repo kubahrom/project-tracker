@@ -1,7 +1,7 @@
 import { ApolloError, useMutation } from '@apollo/client';
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useParams } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import CreateUpdateProject, {
   IProjectForm,
 } from '../../components/Forms/CreateUpdateProject';
@@ -41,6 +41,7 @@ const ProjectSettings = ({ project }: IProjectProps) => {
   const { setSidebarState } = useContext(ProjectContext);
   const { setIssueState } = useContext(IssueContext);
   const location = useLocation();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -64,6 +65,7 @@ const ProjectSettings = ({ project }: IProjectProps) => {
             ),
           },
         });
+      history.push(`/project/${result.data.updateProject.id}`);
     },
     onError(err: ApolloError) {
       console.error(err.graphQLErrors);

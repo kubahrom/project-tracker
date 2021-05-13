@@ -53,7 +53,7 @@ export const UPDATE_ISSUE = gql`
     $status: String
     $priority: String
     $estimatedTime: Int
-    $timeSpend: Int
+    $timeSpent: Int
     $timeRemaining: Int
     $index: String
     $reporter: ID
@@ -68,7 +68,7 @@ export const UPDATE_ISSUE = gql`
         status: $status
         priority: $priority
         estimatedTime: $estimatedTime
-        timeSpend: $timeSpend
+        timeSpent: $timeSpent
         timeRemaining: $timeRemaining
         index: $index
         reporter: $reporter
@@ -102,5 +102,11 @@ export const UPDATE_BOARD_ISSUE = gql`
       status
       index
     }
+  }
+`;
+
+export const DELETE_ISSUE = gql`
+  mutation deleteIssue($issueId: ID!, $projectId: ID!) {
+    deleteIssue(issueId: $issueId, projectId: $projectId)
   }
 `;

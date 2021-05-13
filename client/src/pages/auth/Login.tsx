@@ -56,7 +56,7 @@ const Login: React.FC = () => {
       context.login(userData);
     },
     onError(err: ApolloError) {
-      if (err.graphQLErrors[0].extensions) {
+      if (err.graphQLErrors[0]?.extensions) {
         setServerError(
           err.graphQLErrors[0].extensions.exception.errors.general
         );

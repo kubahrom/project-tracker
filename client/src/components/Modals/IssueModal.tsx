@@ -1,14 +1,34 @@
-import { Dialog, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  Dialog,
+  IconButton,
+  makeStyles,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import CreateIssue from '../../pages/main/CreateIssue';
-import IssueDetail from '../../pages/main/IssueDetail';
+import IssueDetailController from '../../pages/main/IssueDetailController';
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
     [theme.breakpoints.only('xs')]: theme.mixins.toolbar,
+  },
+  dialog: {
+    marginTop: theme.spacing(12),
+  },
+  closeBtn: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+    [theme.breakpoints.only('xs')]: {
+      right: theme.spacing(1),
+      top: theme.spacing(8),
+    },
   },
 }));
 
@@ -40,10 +60,19 @@ const IssueModal = () => {
       onClose={handleModalClose}
       fullWidth
       maxWidth="md"
+      scroll="body"
+      PaperProps={{ className: classes.dialog }}
     >
+      <IconButton
+        aria-label="close modal"
+        className={classes.closeBtn}
+        onClick={handleModalClose}
+      >
+        <CloseIcon />
+      </IconButton>
       <div className={classes.toolbar} />
       {issueState.issueId ? (
-        <IssueDetail />
+        <IssueDetailController />
       ) : (
         <CreateIssue handleModalClose={handleModalClose} />
       )}

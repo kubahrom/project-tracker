@@ -161,6 +161,9 @@ export const useBoardStyles = makeStyles(theme => ({
 export const useIssueModalStyle = makeStyles(theme => ({
   modalWrapper: {
     padding: theme.spacing(4),
+    [theme.breakpoints.only('xs')]: {
+      padding: theme.spacing(2),
+    },
   },
   formWrapper: {
     paddingTop: theme.spacing(2),
@@ -174,7 +177,9 @@ export const useIssueModalStyle = makeStyles(theme => ({
 
 export const usePriorityListStyle = makeStyles(theme => ({
   icon: { marginRight: theme.spacing(1) },
-
+  iconWrapper: {
+    display: 'flex',
+  },
   highest: {
     color: theme.palette.error.main,
   },
@@ -191,5 +196,53 @@ export const useUpdateIssueDetailStyle = makeStyles(theme => ({
   inputField: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
+  },
+}));
+
+export const useIssueDetail = makeStyles(theme => ({
+  col1: {},
+  col2: {},
+  description: {
+    paddingTop: theme.spacing(2),
+  },
+  sidebarText: {
+    lineHeight: 1.8,
+    paddingBottom: theme.spacing(1),
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+    display: 'flex',
+  },
+  chip: {
+    margin: 4,
+    marginLeft: 0,
+  },
+  line: {
+    marginTop: theme.spacing(3),
+    paddingTop: theme.spacing(1),
+    borderTop: '1px solid',
+    borderColor: theme.palette.grey[400],
+  },
+  timeTrackerWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  progressWrapper: {
+    width: '100%',
+    paddingLeft: theme.spacing(1),
+  },
+  progress: {
+    height: 5,
+  },
+  progressValues: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: 6,
+    fontSize: '0.8em',
+    color: theme.palette.text.secondary,
+  },
+  timeNumber: {
+    fontSize: '1.3em',
+    lineHeight: 1,
   },
 }));
