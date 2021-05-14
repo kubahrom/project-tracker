@@ -19,6 +19,7 @@ interface IProjectProps {
     name: string;
     category: string;
     description: string;
+    type: string;
     createdAt: string;
     shared: IUser[];
     __typename: string;

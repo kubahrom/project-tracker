@@ -152,9 +152,12 @@ export const useBoardStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     // cursor: 'pointer !important',
   },
-  issueArrow: {
+  issueInfo: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  issueIcons: {
+    display: 'flex',
   },
 }));
 
@@ -189,6 +192,22 @@ export const usePriorityListStyle = makeStyles(theme => ({
   },
   lowest: {
     color: theme.palette.info.main,
+  },
+}));
+
+export const useIssueTypeStyle = makeStyles(theme => ({
+  iconWrapper: {
+    display: 'flex',
+  },
+  icon: { marginRight: theme.spacing(1) },
+  task: {
+    color: theme.palette.info.light,
+  },
+  bug: {
+    color: theme.palette.error.light,
+  },
+  story: {
+    color: theme.palette.success.light,
   },
 }));
 

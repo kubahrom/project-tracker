@@ -23,6 +23,7 @@ export interface IIssue {
   name: string;
   status: string;
   index: string;
+  type: string;
   priority: string;
   asignees: IUser[];
 }

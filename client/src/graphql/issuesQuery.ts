@@ -6,6 +6,7 @@ export const GET_ISSUES = gql`
       id
       name
       status
+      type
       index
       priority
       asignees {

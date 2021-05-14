@@ -6,3 +6,5 @@ export const statusList: string[] = [
 ];
 
 export const priorityList: string[] = ['Highest', 'High', 'Low', 'Lowest'];
+
+export const typeList: string[] = ['Task', 'Bug', 'Story'];

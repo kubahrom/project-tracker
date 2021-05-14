@@ -60,7 +60,7 @@ const IssueDetailController = () => {
         <CircularProgress />
       ) : (
         <>
-          {true && <IssueDetail issue={cachedIssue} />}
+          {false && <IssueDetail issue={cachedIssue} />}
           {true && <UpdateIssueDetail issue={cachedIssue} />}
         </>
       )}
