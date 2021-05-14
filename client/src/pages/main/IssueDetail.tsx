@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useIssueDetail } from '../../styles/muiStyles';
+import { useIssueDetailStyle } from '../../styles/muiStyles';
 import DOMPurify from 'dompurify';
 import PriorityArrow from '../../components/Other/PriorityArrow';
 import moment from 'moment';
@@ -24,6 +24,7 @@ interface IProps {
     name: string;
     description: string;
     status: string;
+    type: string;
     priority: string;
     reporter: IUser;
     asignees: IUser[];
@@ -36,7 +37,7 @@ interface IProps {
 }
 
 const IssueDetail = ({ issue }: IProps) => {
-  const classes = useIssueDetail();
+  const classes = useIssueDetailStyle();
 
   const [timeProgress, setTimeProgress] = useState<number>(0);
   useEffect(() => {

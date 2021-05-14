@@ -7,6 +7,7 @@ export const CREATE_ISSUE = gql`
     $projectId: ID!
     $reporter: ID!
     $asignees: [ID]
+    $type: String!
     $index: String!
     $status: String!
     $priority: String!
@@ -18,6 +19,7 @@ export const CREATE_ISSUE = gql`
         projectId: $projectId
         reporter: $reporter
         asignees: $asignees
+        type: $type
         index: $index
         status: $status
         priority: $priority
@@ -37,6 +39,7 @@ export const CREATE_ISSUE = gql`
         lastName
       }
       status
+      type
       index
       priority
     }

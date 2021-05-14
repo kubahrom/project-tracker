@@ -14,6 +14,7 @@ const PriorityArrow = ({ option, board }: IProps) => {
     <span className={classes.iconWrapper}>
       {option === 'Highest' || option === 'High' ? (
         <ArrowUpward
+          fontSize="small"
           className={clsx(
             classes.icon,
             option === 'Highest' ? classes.highest : classes.high
@@ -21,6 +22,7 @@ const PriorityArrow = ({ option, board }: IProps) => {
         />
       ) : (
         <ArrowDownward
+          fontSize="small"
           className={clsx(
             classes.icon,
             option === 'Low' ? classes.low : classes.lowest

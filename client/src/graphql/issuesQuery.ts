@@ -26,6 +26,13 @@ export const GET_ISSUE = gql`
       description
       status
       priority
+      type
+      # Chyba
+      author {
+        id
+        firstName
+        lastName
+      }
       reporter {
         id
         firstName

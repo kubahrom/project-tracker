@@ -1,6 +1,7 @@
 import { ApolloError, gql, useApolloClient, useQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
 import React, { useContext } from 'react';
+import IssueModalHeader from '../../components/Modals/IssueModalHeader';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { GET_ISSUE } from '../../graphql/issuesQuery';
@@ -8,7 +9,11 @@ import { useIssueModalStyle } from '../../styles/muiStyles';
 import IssueDetail from './IssueDetail';
 import UpdateIssueDetail from './UpdateIssueDetail';
 
-const IssueDetailController = () => {
+interface IProps {
+  handleModalClose: () => void;
+}
+
+const IssueDetailController = ({ handleModalClose }: IProps) => {
   const classes = useIssueModalStyle();
   const { issueState } = useContext(IssueContext);
   const { sidebarState } = useContext(ProjectContext);
@@ -23,6 +28,11 @@ const IssueDetailController = () => {
         description
         status
         priority
+        author {
+          id
+          firstName
+          lastName
+        }
         reporter {
           id
           firstName
@@ -34,6 +44,7 @@ const IssueDetailController = () => {
           lastName
         }
         estimatedTime
+        type
         timeSpent
         timeRemaining
         createdAt
@@ -60,8 +71,15 @@ const IssueDetailController = () => {
         <CircularProgress />
       ) : (
         <>
-          {false && <IssueDetail issue={cachedIssue} />}
-          {true && <UpdateIssueDetail issue={cachedIssue} />}
+          <IssueModalHeader
+            id={cachedIssue.id}
+            type={cachedIssue.type}
+            handleModalClose={handleModalClose}
+            author={cachedIssue.author}
+            reporter={cachedIssue.reporter}
+          />
+          {true && <IssueDetail issue={cachedIssue} />}
+          {false && <UpdateIssueDetail issue={cachedIssue} />}
         </>
       )}
     </div>

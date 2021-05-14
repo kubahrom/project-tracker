@@ -12,6 +12,7 @@ import { LexoRank } from 'lexorank';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
 import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
+import IssueTypeAutoComplete from '../../components/Forms/inputs/issueTypeAutoComplete';
 
 interface IUser {
   id: string;
@@ -24,6 +25,7 @@ interface ICreateIssueForm {
   reporter: IUser | null;
   asignees: IUser[];
   priority: string;
+  type: string;
 }
 
 interface IIssue {
@@ -101,6 +103,7 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
     const data = {
       name: result.name,
       description: editor,
+      type: result.type,
       reporter: result.reporter!.id,
       asignees: result.asignees.map((asignee: IUser) => asignee.id),
       projectId: sidebarState.currProject,
@@ -136,6 +139,9 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
           </div>
           <div className={classes.inputField}>
             <Editor editor={editor} setEditor={setEditor} />
+          </div>
+          <div className={classes.inputField}>
+            <IssueTypeAutoComplete register={register} error={errors?.type} />
           </div>
           <div className={classes.inputField}>
             <IssueReporterAutoComplete

@@ -13,13 +13,22 @@ const IssueType = ({ type, board }: IProps) => {
   return (
     <span className={classes.iconWrapper}>
       {type === 'Task' && (
-        <CheckBox className={clsx(!board && classes.icon, classes.task)} />
+        <CheckBox
+          fontSize="small"
+          className={clsx(!board && classes.icon, classes.task)}
+        />
       )}
       {type === 'Bug' && (
-        <Error className={clsx(!board && classes.icon, classes.bug)} />
+        <Error
+          fontSize="small"
+          className={clsx(!board && classes.icon, classes.bug)}
+        />
       )}
       {type === 'Story' && (
-        <Bookmark className={clsx(!board && classes.icon, classes.story)} />
+        <Bookmark
+          fontSize="small"
+          className={clsx(!board && classes.icon, classes.story)}
+        />
       )}
       {!board && <span>{type}</span>}
     </span>

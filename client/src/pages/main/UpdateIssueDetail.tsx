@@ -10,6 +10,7 @@ import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReport
 import Editor from '../../components/Modals/Editor';
 import DeleteBtn from '../../components/Forms/DeleteBtn';
 import { ProjectContext } from '../../context/project';
+import IssueTypeAutoComplete from '../../components/Forms/inputs/issueTypeAutoComplete';
 
 interface IUser {
   id: string;
@@ -21,6 +22,7 @@ interface IUpdateIssueForm {
   name: string;
   status: string;
   priority: string;
+  type: string;
   reporter: IUser;
   estimatedTime: number;
   asignees: IUser[];
@@ -32,6 +34,7 @@ interface IProps {
     name: string;
     description: string;
     status: string;
+    type: string;
     priority: string;
     reporter: IUser;
     asignees: IUser[];
@@ -61,13 +64,13 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
     defaultValues: {
       name: issue.name,
       status: issue.status,
+      type: issue.type,
       priority: issue.priority,
       reporter: issue.reporter,
       asignees: issue.asignees,
       estimatedTime: issue.estimatedTime ? issue.estimatedTime : 0,
     },
   });
-
   const onSubmit = (result: IUpdateIssueForm) => {
     console.log(result);
   };
@@ -75,7 +78,7 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
   return (
     <>
       <Typography variant="h4" component="h1">
-        {/* FIXME: depends on text */}
+        {/* FIXME: depends on title */}
         Update Issue:
       </Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -100,6 +103,13 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
         </div>
         <div className={classes.inputField}>
           <Editor editor={editor} setEditor={setEditor} />
+        </div>
+        <div className={classes.inputField}>
+          <IssueTypeAutoComplete
+            register={register}
+            error={errors?.type}
+            control={control}
+          />
         </div>
         <div className={classes.inputField}>
           <IssueStatusAutoComplete control={control} error={errors?.status} />

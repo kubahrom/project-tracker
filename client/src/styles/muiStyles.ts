@@ -182,6 +182,7 @@ export const usePriorityListStyle = makeStyles(theme => ({
   icon: { marginRight: theme.spacing(1) },
   iconWrapper: {
     display: 'flex',
+    alignItems: 'center',
   },
   highest: {
     color: theme.palette.error.main,
@@ -198,6 +199,7 @@ export const usePriorityListStyle = makeStyles(theme => ({
 export const useIssueTypeStyle = makeStyles(theme => ({
   iconWrapper: {
     display: 'flex',
+    alignItems: 'center',
   },
   icon: { marginRight: theme.spacing(1) },
   task: {
@@ -218,7 +220,28 @@ export const useUpdateIssueDetailStyle = makeStyles(theme => ({
   },
 }));
 
-export const useIssueDetail = makeStyles(theme => ({
+export const useIssueHeaderStyle = makeStyles(theme => ({
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: theme.spacing(1),
+  },
+  id: {
+    paddingLeft: theme.spacing(1),
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  btn: {
+    color: theme.palette.grey[500],
+    marginLeft: theme.spacing(1),
+    minWidth: 'auto',
+  },
+}));
+
+export const useIssueDetailStyle = makeStyles(theme => ({
   col1: {},
   col2: {},
   description: {
