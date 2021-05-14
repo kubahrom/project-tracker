@@ -5,6 +5,7 @@ const issueSchema = new Schema({
   description: String,
   createdAt: String,
   updatedAt: String,
+  type: String,
   status: String,
   priority: String,
   estimatedTime: Number,

@@ -51,6 +51,7 @@ module.exports = {
         createIssueInput: {
           name,
           description,
+          type,
           status,
           index,
           projectId,
@@ -76,6 +77,7 @@ module.exports = {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
             status,
+            type,
             project: projectId,
             author: id,
             reporter,

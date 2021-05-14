@@ -51,6 +51,7 @@ module.exports = gql`
     description: String
     createdAt: String!
     updatedAt: String!
+    type: String!
     status: String!
     priority: String!
     estimatedTime: Int
@@ -74,6 +75,7 @@ module.exports = gql`
   input CreateIssueInput {
     name: String!
     description: String
+    type: String!
     status: String!
     index: String!
     projectId: ID!
@@ -87,6 +89,7 @@ module.exports = gql`
     projectId: ID!
     name: String
     description: String
+    type: String
     status: String
     priority: String
     estimatedTime: Int
