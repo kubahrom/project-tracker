@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     appBar: {
-      zIndex: 2000,
+      zIndex: 1301,
       [theme.breakpoints.up('md')]: {},
     },
     menuButton: {

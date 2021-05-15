@@ -91,6 +91,11 @@ export const useDeleteBtnStyles = makeStyles(theme => ({
   actionBtn: {
     marginLeft: 8,
   },
+  btn: {
+    color: theme.palette.grey[500],
+    marginLeft: theme.spacing(1),
+    minWidth: 'auto',
+  },
 }));
 
 export const useBoardPageStyles = makeStyles(theme => ({
@@ -225,6 +230,15 @@ export const useIssueHeaderStyle = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     paddingBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse',
+    },
+  },
+  headerActions: {
+    alignSelf: 'flex-end',
+    [theme.breakpoints.only('xs')]: {
+      paddingBottom: theme.spacing(1),
+    },
   },
   id: {
     paddingLeft: theme.spacing(1),

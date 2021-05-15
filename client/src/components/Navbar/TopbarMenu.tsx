@@ -1,11 +1,11 @@
 import {
   Avatar,
   Button,
-  IconButton,
   makeStyles,
   MenuItem,
   MenuList,
   Popover,
+  Tooltip,
 } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  themeIcon: {
+    minWidth: 'auto',
+  },
   avatar: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -51,9 +54,8 @@ const TopbarMenu: React.FC = () => {
   const client = useApolloClient();
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (anchorEl === null) {
@@ -80,13 +82,16 @@ const TopbarMenu: React.FC = () => {
 
   return (
     <div>
-      <IconButton
-        aria-label="dark-mode"
-        onClick={() => setDarkTheme(!darkTheme)}
-        color="inherit"
-      >
-        {darkTheme ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
+      <Tooltip title={darkTheme ? 'Turn light mode' : 'Turn dark mode'} arrow>
+        <Button
+          aria-label="dark-mode"
+          onClick={() => setDarkTheme(!darkTheme)}
+          color="inherit"
+          className={classes.themeIcon}
+        >
+          {darkTheme ? <Brightness7Icon /> : <Brightness4Icon />}
+        </Button>
+      </Tooltip>
       {user ? (
         <>
           <Button color="inherit" onClick={handleClick}>

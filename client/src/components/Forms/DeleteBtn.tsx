@@ -1,5 +1,12 @@
 import { useMutation } from '@apollo/client';
-import { Button, Dialog, DialogActions, DialogTitle } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Tooltip,
+} from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { IssueContext } from '../../context/issue';
@@ -106,9 +113,23 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
   };
   return (
     <>
-      <Button variant="contained" color="secondary" onClick={handleClick}>
-        Delete {issueId ? 'issue' : 'project'}
-      </Button>
+      {issueId ? (
+        <Tooltip title="Delete issue" arrow>
+          <Button
+            variant="outlined"
+            aria-label="delete issue"
+            size="small"
+            onClick={handleClick}
+            className={classes.btn}
+          >
+            <Delete />
+          </Button>
+        </Tooltip>
+      ) : (
+        <Button variant="contained" color="secondary" onClick={handleClick}>
+          DeleteProject
+        </Button>
+      )}
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle>
           Are you sure you want to delete this{' '}
