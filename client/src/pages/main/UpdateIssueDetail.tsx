@@ -1,6 +1,6 @@
-import { Button, TextField, Typography } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Save } from '@material-ui/icons';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import { useUpdateIssueDetailStyle } from '../../styles/muiStyles';
@@ -8,8 +8,6 @@ import IssueStatusAutoComplete from '../../components/Forms/inputs/issueStatusAu
 import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
 import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
 import Editor from '../../components/Modals/Editor';
-import DeleteBtn from '../../components/Forms/DeleteBtn';
-import { ProjectContext } from '../../context/project';
 import IssueTypeAutoComplete from '../../components/Forms/inputs/issueTypeAutoComplete';
 
 interface IUser {
@@ -53,7 +51,6 @@ interface IProps {
 const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
   const [editor, setEditor] = useState<string>(issue.description);
-  const { sidebarState } = useContext(ProjectContext);
   const {
     register,
     handleSubmit,
@@ -77,10 +74,6 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
 
   return (
     <>
-      <Typography variant="h4" component="h1">
-        {/* FIXME: depends on title */}
-        Update Issue:
-      </Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.inputField}>
           <Controller
@@ -164,12 +157,6 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
           </Button>
         </div>
       </form>
-      <div className={classes.inputField}>
-        <DeleteBtn
-          issueId={issue.id}
-          projectId={sidebarState.currProject ? sidebarState.currProject : ''}
-        />
-      </div>
     </>
   );
 };

@@ -78,8 +78,11 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
             author={cachedIssue.author}
             reporter={cachedIssue.reporter}
           />
-          {true && <IssueDetail issue={cachedIssue} />}
-          {false && <UpdateIssueDetail issue={cachedIssue} />}
+          {issueState.updateIssue ? (
+            <UpdateIssueDetail issue={cachedIssue} />
+          ) : (
+            <IssueDetail issue={cachedIssue} />
+          )}
         </>
       )}
     </div>

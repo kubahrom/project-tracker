@@ -1,8 +1,9 @@
 import { Button, Grid, Tooltip, Typography } from '@material-ui/core';
-import { Edit, Link } from '@material-ui/icons';
+import { Edit, Link, Redo } from '@material-ui/icons';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
+import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { useIssueHeaderStyle } from '../../styles/muiStyles';
 import DeleteBtn from '../Forms/DeleteBtn';
@@ -33,6 +34,7 @@ const IssueModalHeader = ({
   const [isLinkCopied, setIsLinkCopied] = useState<boolean>(false);
   const { sidebarState } = useContext(ProjectContext);
   const { user: currentUser } = useContext(AuthContext);
+  const { issueState, setIssueState } = useContext(IssueContext);
 
   const handleCopyLinkClick = () => {
     setIsLinkCopied(true);
@@ -40,26 +42,47 @@ const IssueModalHeader = ({
     navigator?.clipboard.writeText(window.location.href);
   };
 
+  const handleUpdateIssueClick = () => {
+    setIssueState({ ...issueState, updateIssue: true });
+  };
+
+  const handleCancelUpdateIssueClick = () => {
+    setIssueState({ ...issueState, updateIssue: false });
+  };
+
   return (
     <Grid item sm={12}>
       <div className={classes.headerWrapper}>
         <Typography variant="body1" className={classes.helperText}>
-          <IssueType type={type} /> <span className={classes.id}>- {id}</span>
+          <IssueType type={type} text={issueState.updateIssue ? 'Edit' : ''} />{' '}
+          <span className={classes.id}>- {id}</span>
         </Typography>
         <div className={classes.headerActions}>
           {author.id === currentUser?.id || reporter.id === currentUser?.id ? (
             <>
-              <Tooltip title="Edit issue" arrow>
-                <Button variant="outlined" size="small" className={classes.btn}>
-                  <Edit />
-                </Button>
-              </Tooltip>
-              <DeleteBtn
-                issueId={id}
-                projectId={
-                  sidebarState.currProject ? sidebarState.currProject : ''
-                }
-              />
+              {issueState.updateIssue ? (
+                <Tooltip title="Cancel edit issue" arrow>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.btn}
+                    onClick={handleCancelUpdateIssueClick}
+                  >
+                    <Redo />
+                  </Button>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Edit issue" arrow>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.btn}
+                    onClick={handleUpdateIssueClick}
+                  >
+                    <Edit />
+                  </Button>
+                </Tooltip>
+              )}
             </>
           ) : (
             ''
@@ -75,6 +98,16 @@ const IssueModalHeader = ({
               <Link />
             </Button>
           </Tooltip>
+          {author.id === currentUser?.id || reporter.id === currentUser?.id ? (
+            <DeleteBtn
+              issueId={id}
+              projectId={
+                sidebarState.currProject ? sidebarState.currProject : ''
+              }
+            />
+          ) : (
+            ''
+          )}
           <Tooltip title="Close window" arrow>
             <Button
               variant="outlined"

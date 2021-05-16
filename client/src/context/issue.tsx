@@ -3,6 +3,7 @@ import React, { useState, createContext } from 'react';
 interface IIssueContextState {
   open: boolean;
   issueId?: string;
+  updateIssue?: boolean;
 }
 
 interface IContext {
@@ -19,6 +20,7 @@ const IssueProvider: React.FC = children => {
   const [issueState, setIssueState] = useState<IIssueContextState>({
     open: false,
     issueId: '',
+    updateIssue: false,
   });
   return (
     <IssueContext.Provider

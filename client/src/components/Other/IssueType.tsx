@@ -6,9 +6,10 @@ import { useIssueTypeStyle } from '../../styles/muiStyles';
 interface IProps {
   type: string;
   board?: boolean;
+  text?: string;
 }
 
-const IssueType = ({ type, board }: IProps) => {
+const IssueType = ({ type, board, text }: IProps) => {
   const classes = useIssueTypeStyle();
   return (
     <span className={classes.iconWrapper}>
@@ -30,7 +31,7 @@ const IssueType = ({ type, board }: IProps) => {
           className={clsx(!board && classes.icon, classes.story)}
         />
       )}
-      {!board && <span>{type}</span>}
+      {!board && <span>{text ? `${text} ${type}` : type}</span>}
     </span>
   );
 };
