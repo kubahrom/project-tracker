@@ -223,6 +223,41 @@ export const useUpdateIssueDetailStyle = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
+  inputFieldSmallWrapper: {
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      display: 'flex',
+    },
+  },
+  inputFieldSmall: {
+    width: 'calc(100% / 3)',
+    [theme.breakpoints.only('xs')]: {
+      width: '100%',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      '&:first-child': {
+        paddingBottom: theme.spacing(1),
+        paddintTop: 0,
+      },
+      '&:last-child': {
+        paddingTop: theme.spacing(1),
+        paddingBottom: 0,
+      },
+    },
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      '&:first-child': {
+        paddingRight: theme.spacing(1),
+        paddingLeft: 0,
+      },
+      '&:last-child': {
+        paddingLeft: theme.spacing(1),
+        paddingRight: 0,
+      },
+    },
+  },
 }));
 
 export const useIssueHeaderStyle = makeStyles(theme => ({
@@ -242,11 +277,23 @@ export const useIssueHeaderStyle = makeStyles(theme => ({
   },
   id: {
     paddingLeft: theme.spacing(1),
+    [theme.breakpoints.only('xs')]: {
+      paddingLeft: 0,
+      wordBreak: 'break-all',
+    },
+  },
+  dash: {
+    [theme.breakpoints.only('xs')]: {
+      display: 'none',
+    },
   },
   helperText: {
     color: theme.palette.text.secondary,
     display: 'flex',
     alignItems: 'center',
+    [theme.breakpoints.only('xs')]: {
+      display: 'block',
+    },
   },
   btn: {
     color: theme.palette.grey[500],
@@ -256,8 +303,14 @@ export const useIssueHeaderStyle = makeStyles(theme => ({
 }));
 
 export const useIssueDetailStyle = makeStyles(theme => ({
-  col1: {},
-  col2: {},
+  container: {
+    [theme.breakpoints.only('xs')]: {
+      flexDirection: 'column',
+    },
+  },
+  body: {
+    paddingBottom: theme.spacing(2),
+  },
   description: {
     paddingTop: theme.spacing(2),
   },

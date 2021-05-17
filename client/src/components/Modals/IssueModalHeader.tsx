@@ -55,7 +55,10 @@ const IssueModalHeader = ({
       <div className={classes.headerWrapper}>
         <Typography variant="body1" className={classes.helperText}>
           <IssueType type={type} text={issueState.updateIssue ? 'Edit' : ''} />{' '}
-          <span className={classes.id}>- {id}</span>
+          <span className={classes.id}>
+            <span className={classes.dash}>- </span>
+            {id}
+          </span>
         </Typography>
         <div className={classes.headerActions}>
           {author.id === currentUser?.id || reporter.id === currentUser?.id ? (

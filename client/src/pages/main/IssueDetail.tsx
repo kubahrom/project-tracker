@@ -46,8 +46,7 @@ const IssueDetail = ({ issue }: IProps) => {
       timeValue =
         (issue.timeSpent * 100) / (issue.timeRemaining + issue.timeSpent);
     } else if (issue.timeSpent && issue.estimatedTime) {
-      timeValue =
-        (issue.timeSpent * 100) / (issue.estimatedTime + issue.timeSpent);
+      timeValue = (issue.timeSpent * 100) / issue.estimatedTime;
     } else if (issue.timeSpent) {
       timeValue = 100;
     }
@@ -55,19 +54,21 @@ const IssueDetail = ({ issue }: IProps) => {
   }, [issue.timeSpent, issue.timeRemaining, issue.estimatedTime]);
 
   return (
-    <Grid container>
-      <Grid item sm={8} className={classes.col1}>
+    <Grid container className={classes.container}>
+      <Grid item sm={8} className={classes.body}>
         <Typography variant="h5" component="h1" color="initial">
           {issue.name}
         </Typography>
-        <div
-          className={classes.description}
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(issue.description),
-          }}
-        />
+        {issue.description && (
+          <div
+            className={classes.description}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(issue.description),
+            }}
+          />
+        )}
       </Grid>
-      <Grid item sm={4} className={classes.col2}>
+      <Grid item sm={4}>
         <Typography
           variant="overline"
           component="p"
@@ -160,7 +161,11 @@ const IssueDetail = ({ issue }: IProps) => {
                 )}
               </span>
               <span className={classes.timeNumber}>
-                {issue.timeRemaining && <>{issue.timeRemaining}h remaining</>}
+                {issue.timeRemaining ? (
+                  <>{issue.timeRemaining}h remaining</>
+                ) : (
+                  ''
+                )}
               </span>
             </div>
           </div>

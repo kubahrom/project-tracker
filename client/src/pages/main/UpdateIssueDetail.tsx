@@ -23,6 +23,8 @@ interface IUpdateIssueForm {
   type: string;
   reporter: IUser;
   estimatedTime: number;
+  timeSpent: number;
+  timeRemaining: number;
   asignees: IUser[];
 }
 
@@ -37,19 +39,29 @@ interface IProps {
     reporter: IUser;
     asignees: IUser[];
     estimatedTime: number;
+    timeSpent: number;
+    timeRemaining: number;
   };
 }
+
+const timeValidation = {
+  max: {
+    value: 999999,
+    message: 'Number cannot more than 6 digits long',
+  },
+};
 // Useformhook --- name(textField), status(select 1 opt), priority (select 1 opt),
-//                 reporter(select 1 opt), estimatedTime(inputFild),
+//                 reporter(select 1 opt), estimatedTime(inputFild),asignees(multiple choice)
 
 //TODO another modal --- timeSpent(inputField), timeRemaining(inputField)
 
-//Additional add --- description(editor), asignees(multiple choice)
+//Additional add --- description(editor),
 //comments
 
 //Auto Change --- createdAt, updatedAt
 const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
+
   const [editor, setEditor] = useState<string>(issue.description);
   const {
     register,
@@ -66,10 +78,13 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
       reporter: issue.reporter,
       asignees: issue.asignees,
       estimatedTime: issue.estimatedTime ? issue.estimatedTime : 0,
+      timeSpent: issue.timeSpent ? issue.timeSpent : 0,
+      timeRemaining: issue.timeRemaining ? issue.timeRemaining : 0,
     },
   });
   const onSubmit = (result: IUpdateIssueForm) => {
-    console.log(result);
+    const data = { ...result, description: editor };
+    console.log(data);
   };
 
   return (
@@ -123,26 +138,66 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
         <div className={classes.inputField}>
           <IssueAsigneesAutoComplete control={control} />
         </div>
-        <div className={classes.inputField}>
-          <Controller
-            control={control}
-            name="estimatedTime"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Estimated time"
-                type="number"
-                variant="outlined"
-                error={errors.estimatedTime ? true : false}
-                helperText={
-                  errors.estimatedTime ? errors.estimatedTime.message : ''
-                }
-              />
-            )}
-          />
+        <div className={classes.inputFieldSmallWrapper}>
+          <div className={classes.inputFieldSmall}>
+            <Controller
+              control={control}
+              name="estimatedTime"
+              rules={timeValidation}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  label="Estimated time"
+                  type="number"
+                  variant="outlined"
+                  error={errors.estimatedTime ? true : false}
+                  helperText={
+                    errors.estimatedTime ? errors.estimatedTime.message : ''
+                  }
+                />
+              )}
+            />
+          </div>
+          <div className={classes.inputFieldSmall}>
+            <Controller
+              control={control}
+              name="timeSpent"
+              rules={timeValidation}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  label="Time spent"
+                  type="number"
+                  variant="outlined"
+                  error={errors.timeSpent ? true : false}
+                  helperText={errors.timeSpent ? errors.timeSpent.message : ''}
+                />
+              )}
+            />
+          </div>
+          <div className={classes.inputFieldSmall}>
+            <Controller
+              control={control}
+              name="timeRemaining"
+              rules={timeValidation}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  label="Time remaining"
+                  type="number"
+                  variant="outlined"
+                  error={errors.timeRemaining ? true : false}
+                  helperText={
+                    errors.timeRemaining ? errors.timeRemaining.message : ''
+                  }
+                />
+              )}
+            />
+          </div>
         </div>
-        <div className={classes.inputField}></div>
         <div className={classes.inputField}>
           <Button
             color="primary"
