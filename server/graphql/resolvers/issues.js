@@ -133,7 +133,7 @@ module.exports = {
             });
             const updatedIssue = await Issue.findByIdAndUpdate(
               updateIssueInput.issueId,
-              updatedFields,
+              { ...updatedFields, updatedAt: new Date().toISOString() },
               { new: true }
             ).then(t => {
               return t

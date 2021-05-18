@@ -28,12 +28,17 @@ const client = new ApolloClient({
       Query: {
         fields: {
           getProjects: {
-            merge(existing, incoming) {
+            merge(_, incoming) {
               return incoming;
             },
           },
           getIssues: {
-            merge(existing, incoming) {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
+          getIssue: {
+            merge(_, incoming) {
               return incoming;
             },
           },

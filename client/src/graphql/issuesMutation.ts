@@ -46,13 +46,13 @@ export const CREATE_ISSUE = gql`
   }
 `;
 
-//FIXME: update when update issue needed
 export const UPDATE_ISSUE = gql`
   mutation updateIssue(
     $issueId: ID!
     $projectId: ID!
-    $name: String
+    $name: String!
     $description: String
+    $type: String!
     $status: String
     $priority: String
     $estimatedTime: Int
@@ -68,6 +68,7 @@ export const UPDATE_ISSUE = gql`
         projectId: $projectId
         name: $name
         description: $description
+        type: $type
         status: $status
         priority: $priority
         estimatedTime: $estimatedTime
@@ -80,7 +81,25 @@ export const UPDATE_ISSUE = gql`
     ) {
       id
       name
+      description
+      type
+      status
+      priority
+      estimatedTime
+      timeSpent
+      timeRemaining
       index
+      updatedAt
+      reporter {
+        id
+        firstName
+        lastName
+      }
+      asignees {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;

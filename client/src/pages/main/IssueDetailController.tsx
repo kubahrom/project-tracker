@@ -1,4 +1,4 @@
-import { ApolloError, gql, useApolloClient, useQuery } from '@apollo/client';
+import { ApolloError, useQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
 import React, { useContext } from 'react';
 import IssueModalHeader from '../../components/Modals/IssueModalHeader';
@@ -17,44 +17,8 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
   const classes = useIssueModalStyle();
   const { issueState } = useContext(IssueContext);
   const { sidebarState } = useContext(ProjectContext);
-  const client = useApolloClient();
 
-  const cachedIssue = client.readFragment({
-    id: `Issue:${issueState.issueId}`,
-    fragment: gql`
-      fragment IssueDetailPart on Issue {
-        id
-        name
-        description
-        status
-        priority
-        author {
-          id
-          firstName
-          lastName
-        }
-        reporter {
-          id
-          firstName
-          lastName
-        }
-        asignees {
-          id
-          firstName
-          lastName
-        }
-        estimatedTime
-        type
-        timeSpent
-        timeRemaining
-        createdAt
-        updatedAt
-        # FIXME: add another fields based on need
-      }
-    `,
-  });
-
-  const { loading } = useQuery(GET_ISSUE, {
+  const { data, loading } = useQuery(GET_ISSUE, {
     onError(err: ApolloError) {
       console.log(err);
     },
@@ -62,7 +26,6 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
       issueId: issueState.issueId,
       projectId: sidebarState.currProject,
     },
-    skip: Boolean(cachedIssue),
   });
 
   return (
@@ -72,16 +35,16 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
       ) : (
         <>
           <IssueModalHeader
-            id={cachedIssue.id}
-            type={cachedIssue.type}
+            id={data.getIssue.id}
+            type={data.getIssue.type}
             handleModalClose={handleModalClose}
-            author={cachedIssue.author}
-            reporter={cachedIssue.reporter}
+            author={data.getIssue.author}
+            reporter={data.getIssue.reporter}
           />
           {issueState.updateIssue ? (
-            <UpdateIssueDetail issue={cachedIssue} />
+            <UpdateIssueDetail issue={data.getIssue} />
           ) : (
-            <IssueDetail issue={cachedIssue} />
+            <IssueDetail issue={data.getIssue} />
           )}
         </>
       )}

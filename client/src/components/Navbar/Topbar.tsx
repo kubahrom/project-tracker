@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/auth';
 import { Link } from 'react-router-dom';
 import TopbarMenu from './TopbarMenu';
 import { ProjectContext } from '../../context/project';
+import { IssueContext } from '../../context/issue';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,12 @@ const Topbar = ({ handleDrawerToggle }: Props) => {
   const classes = useStyles();
   const { user } = useContext(AuthContext);
   const { setSidebarState } = useContext(ProjectContext);
+  const { setIssueState } = useContext(IssueContext);
+
+  const handleLogoClick = () => {
+    setSidebarState({ currProject: '', projectAction: '' });
+    setIssueState({ open: false, issueId: '', updateIssue: false });
+  };
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -64,13 +71,7 @@ const Topbar = ({ handleDrawerToggle }: Props) => {
             </IconButton>
           )}
           <Typography variant="h6" noWrap>
-            <Link
-              to="/"
-              className={classes.logo}
-              onClick={() =>
-                setSidebarState({ currProject: '', projectAction: '' })
-              }
-            >
+            <Link to="/" className={classes.logo} onClick={handleLogoClick}>
               Project tracker
             </Link>
           </Typography>

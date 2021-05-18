@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { Save } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import { useUpdateIssueDetailStyle } from '../../styles/muiStyles';
@@ -9,6 +9,10 @@ import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigne
 import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
 import Editor from '../../components/Modals/Editor';
 import IssueTypeAutoComplete from '../../components/Forms/inputs/issueTypeAutoComplete';
+import { ApolloError, useMutation } from '@apollo/client';
+import { UPDATE_ISSUE } from '../../graphql/issuesMutation';
+import { ProjectContext } from '../../context/project';
+import { IssueContext } from '../../context/issue';
 
 interface IUser {
   id: string;
@@ -22,9 +26,9 @@ interface IUpdateIssueForm {
   priority: string;
   type: string;
   reporter: IUser;
-  estimatedTime: number;
-  timeSpent: number;
-  timeRemaining: number;
+  estimatedTime: string;
+  timeSpent: string;
+  timeRemaining: string;
   asignees: IUser[];
 }
 
@@ -38,9 +42,9 @@ interface IProps {
     priority: string;
     reporter: IUser;
     asignees: IUser[];
-    estimatedTime: number;
-    timeSpent: number;
-    timeRemaining: number;
+    estimatedTime: string;
+    timeSpent: string;
+    timeRemaining: string;
   };
 }
 
@@ -63,6 +67,8 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
 
   const [editor, setEditor] = useState<string>(issue.description);
+  const { sidebarState } = useContext(ProjectContext);
+  const { issueState, setIssueState } = useContext(IssueContext);
   const {
     register,
     handleSubmit,
@@ -77,14 +83,33 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
       priority: issue.priority,
       reporter: issue.reporter,
       asignees: issue.asignees,
-      estimatedTime: issue.estimatedTime ? issue.estimatedTime : 0,
-      timeSpent: issue.timeSpent ? issue.timeSpent : 0,
-      timeRemaining: issue.timeRemaining ? issue.timeRemaining : 0,
+      estimatedTime: issue.estimatedTime ? issue.estimatedTime : '0',
+      timeSpent: issue.timeSpent ? issue.timeSpent : '0',
+      timeRemaining: issue.timeRemaining ? issue.timeRemaining : '0',
     },
   });
+
+  const [updateIssue, { loading }] = useMutation(UPDATE_ISSUE, {
+    onError(err: ApolloError) {
+      console.log(err.graphQLErrors);
+    },
+  });
+
   const onSubmit = (result: IUpdateIssueForm) => {
-    const data = { ...result, description: editor };
-    console.log(data);
+    const data = {
+      ...result,
+      estimatedTime: parseInt(result.estimatedTime),
+      timeSpent: parseInt(result.timeSpent),
+      timeRemaining: parseInt(result.timeRemaining),
+      description: editor,
+      issueId: issue.id,
+      projectId: sidebarState.currProject,
+      reporter: result.reporter.id,
+      asignees: result.asignees.map((asignee: IUser) => asignee.id),
+    };
+    //FIXME: index if change status
+    updateIssue({ variables: data });
+    setIssueState({ ...issueState, updateIssue: false });
   };
 
   return (
@@ -206,7 +231,7 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
             type="submit"
             startIcon={<Save />}
             fullWidth
-            //FIXME:   disabled={loading}
+            disabled={loading}
           >
             Save Issue
           </Button>

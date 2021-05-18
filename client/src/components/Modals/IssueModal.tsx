@@ -47,11 +47,12 @@ const IssueModal = () => {
       PaperProps={{ className: classes.dialog }}
     >
       <div className={classes.toolbar} />
-      {issueState.issueId ? (
-        <IssueDetailController handleModalClose={handleModalClose} />
-      ) : (
-        <CreateIssue handleModalClose={handleModalClose} />
-      )}
+      {issueState.open &&
+        (issueState.issueId ? (
+          <IssueDetailController handleModalClose={handleModalClose} />
+        ) : (
+          <CreateIssue handleModalClose={handleModalClose} />
+        ))}
     </Dialog>
   );
 };
