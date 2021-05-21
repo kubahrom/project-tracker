@@ -308,6 +308,11 @@ export const useIssueDetailStyle = makeStyles(theme => ({
       flexDirection: 'column',
     },
   },
+  infoCol: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(1),
+    },
+  },
   body: {
     paddingBottom: theme.spacing(2),
   },
@@ -333,6 +338,22 @@ export const useIssueDetailStyle = makeStyles(theme => ({
     borderColor: theme.palette.grey[400],
   },
   timeTrackerWrapper: {
+    marginLeft: theme.spacing(-1),
+    padding: theme.spacing(1),
+    paddingTop: 0,
+    cursor: 'pointer',
+    transition: 'all 200ms',
+    borderRadius: 4,
+    '&:hover': {
+      backgroundColor: theme.palette.background.default,
+      boxShadow: theme.shadows[2],
+    },
+    '&:focus': {
+      backgroundColor: theme.palette.background.default,
+      boxShadow: theme.shadows[2],
+    },
+  },
+  timeTracker: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -353,5 +374,44 @@ export const useIssueDetailStyle = makeStyles(theme => ({
   timeNumber: {
     fontSize: '1.3em',
     lineHeight: 1,
+  },
+}));
+
+export const useTimeTrackerStyle = makeStyles(theme => ({
+  dialogTitle: {
+    paddingBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  form: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
+  },
+  inputWrapper: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
+  },
+  inputField: {
+    [theme.breakpoints.up('sm')]: {
+      width: '50%',
+      '&:first-child': {
+        paddingRight: theme.spacing(1),
+      },
+      '&:last-child': {
+        paddingLeft: theme.spacing(1),
+      },
+    },
+    [theme.breakpoints.only('xs')]: {
+      paddingBottom: theme.spacing(1),
+    },
+  },
+  dialogActions: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  [theme.breakpoints.only('xs')]: {
+    paddingTop: theme.spacing(1),
   },
 }));

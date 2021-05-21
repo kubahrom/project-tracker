@@ -1,6 +1,6 @@
-import { ApolloError, useQuery } from '@apollo/client';
+import { ApolloError, useLazyQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import IssueModalHeader from '../../components/Modals/IssueModalHeader';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
@@ -18,7 +18,7 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
   const { issueState } = useContext(IssueContext);
   const { sidebarState } = useContext(ProjectContext);
 
-  const { data, loading } = useQuery(GET_ISSUE, {
+  const [getIssue, { data, loading }] = useLazyQuery(GET_ISSUE, {
     onError(err: ApolloError) {
       console.log(err);
     },
@@ -28,25 +28,37 @@ const IssueDetailController = ({ handleModalClose }: IProps) => {
     },
   });
 
+  const [isMounted, setMounted] = useState(true);
+  useEffect(() => {
+    if (isMounted) {
+      getIssue();
+    }
+    return () => {
+      setMounted(false);
+    };
+  }, [getIssue, isMounted]);
+
   return (
     <div className={classes.modalWrapper}>
       {loading ? (
         <CircularProgress />
       ) : (
-        <>
-          <IssueModalHeader
-            id={data.getIssue.id}
-            type={data.getIssue.type}
-            handleModalClose={handleModalClose}
-            author={data.getIssue.author}
-            reporter={data.getIssue.reporter}
-          />
-          {issueState.updateIssue ? (
-            <UpdateIssueDetail issue={data.getIssue} />
-          ) : (
-            <IssueDetail issue={data.getIssue} />
-          )}
-        </>
+        data?.getIssue && (
+          <>
+            <IssueModalHeader
+              id={data.getIssue.id}
+              type={data.getIssue.type}
+              handleModalClose={handleModalClose}
+              author={data.getIssue.author}
+              reporter={data.getIssue.reporter}
+            />
+            {issueState.updateIssue ? (
+              <UpdateIssueDetail issue={data.getIssue} />
+            ) : (
+              <IssueDetail issue={data.getIssue} />
+            )}
+          </>
+        )
       )}
     </div>
   );

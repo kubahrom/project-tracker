@@ -1,6 +1,6 @@
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useApolloClient, useLazyQuery } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { GET_ISSUES } from '../../graphql/issuesQuery';
 import { useBoardStyles } from '../../styles/muiStyles';
@@ -42,11 +42,10 @@ const Board = ({ projectId }: IBoardProps) => {
       projectId,
     },
   });
-  const { loading } = useQuery<IIssues>(GET_ISSUES, {
+  const [getIssues, { loading }] = useLazyQuery<IIssues>(GET_ISSUES, {
     variables: {
       projectId,
     },
-    skip: Boolean(cachedIssues),
   });
 
   const { reorderIssue } = useReorderHook(projectId);
@@ -54,6 +53,16 @@ const Board = ({ projectId }: IBoardProps) => {
   const handleDragEnd = (result: DropResult) => {
     reorderIssue(result);
   };
+
+  const [isMounted, setMounted] = useState(true);
+  useEffect(() => {
+    if (isMounted && !Boolean(cachedIssues)) {
+      getIssues();
+    }
+    return () => {
+      setMounted(false);
+    };
+  }, [getIssues, isMounted, cachedIssues]);
 
   return (
     <>
@@ -65,7 +74,7 @@ const Board = ({ projectId }: IBoardProps) => {
             {statusList.map((status: string) => (
               <List
                 key={status}
-                issues={cachedIssues.getIssues.filter(
+                issues={cachedIssues?.getIssues.filter(
                   (issue: IIssue) => issue.status === status
                 )}
                 status={status}

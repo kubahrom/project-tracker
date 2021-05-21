@@ -127,6 +127,31 @@ export const UPDATE_BOARD_ISSUE = gql`
   }
 `;
 
+export const UPDATE_ISSUE_TIME = gql`
+  mutation updateIssueTime(
+    $issueId: ID!
+    $projectId: ID!
+    $estimatedTime: Int
+    $timeSpent: Int
+    $timeRemaining: Int
+  ) {
+    updateIssue(
+      updateIssueInput: {
+        issueId: $issueId
+        projectId: $projectId
+        estimatedTime: $estimatedTime
+        timeSpent: $timeSpent
+        timeRemaining: $timeRemaining
+      }
+    ) {
+      id
+      estimatedTime
+      timeSpent
+      timeRemaining
+    }
+  }
+`;
+
 export const DELETE_ISSUE = gql`
   mutation deleteIssue($issueId: ID!, $projectId: ID!) {
     deleteIssue(issueId: $issueId, projectId: $projectId)

@@ -53,6 +53,10 @@ const timeValidation = {
     value: 999999,
     message: 'Number cannot more than 6 digits long',
   },
+  pattern: {
+    value: /^[0-9\b]{0,6}$/,
+    message: 'Not a number',
+  },
 };
 // Useformhook --- name(textField), status(select 1 opt), priority (select 1 opt),
 //                 reporter(select 1 opt), estimatedTime(inputFild),asignees(multiple choice)
@@ -60,9 +64,8 @@ const timeValidation = {
 //TODO another modal --- timeSpent(inputField), timeRemaining(inputField)
 
 //Additional add --- description(editor),
-//comments
-
-//Auto Change --- createdAt, updatedAt
+//FIXME: issue timers return null if empty
+//TODO: comments
 const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
 
@@ -83,9 +86,9 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
       priority: issue.priority,
       reporter: issue.reporter,
       asignees: issue.asignees,
-      estimatedTime: issue.estimatedTime ? issue.estimatedTime : '0',
-      timeSpent: issue.timeSpent ? issue.timeSpent : '0',
-      timeRemaining: issue.timeRemaining ? issue.timeRemaining : '0',
+      estimatedTime: issue.estimatedTime ? issue.estimatedTime : '',
+      timeSpent: issue.timeSpent ? issue.timeSpent : '',
+      timeRemaining: issue.timeRemaining ? issue.timeRemaining : '',
     },
   });
 
@@ -98,9 +101,13 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
   const onSubmit = (result: IUpdateIssueForm) => {
     const data = {
       ...result,
-      estimatedTime: parseInt(result.estimatedTime),
-      timeSpent: parseInt(result.timeSpent),
-      timeRemaining: parseInt(result.timeRemaining),
+      estimatedTime: result.estimatedTime
+        ? parseInt(result.estimatedTime)
+        : null,
+      timeSpent: result.timeSpent ? parseInt(result.timeSpent) : null,
+      timeRemaining: result.timeRemaining
+        ? parseInt(result.timeRemaining)
+        : null,
       description: editor,
       issueId: issue.id,
       projectId: sidebarState.currProject,
@@ -174,7 +181,7 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
                   {...field}
                   fullWidth
                   label="Estimated time"
-                  type="number"
+                  type="text"
                   variant="outlined"
                   error={errors.estimatedTime ? true : false}
                   helperText={
@@ -194,7 +201,7 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
                   {...field}
                   fullWidth
                   label="Time spent"
-                  type="number"
+                  type="text"
                   variant="outlined"
                   error={errors.timeSpent ? true : false}
                   helperText={errors.timeSpent ? errors.timeSpent.message : ''}
@@ -212,7 +219,7 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
                   {...field}
                   fullWidth
                   label="Time remaining"
-                  type="number"
+                  type="text"
                   variant="outlined"
                   error={errors.timeRemaining ? true : false}
                   helperText={

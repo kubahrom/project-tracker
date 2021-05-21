@@ -1,16 +1,10 @@
-import {
-  Avatar,
-  Chip,
-  Grid,
-  LinearProgress,
-  Typography,
-} from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { Avatar, Chip, Grid, Typography } from '@material-ui/core';
+import React from 'react';
 import { useIssueDetailStyle } from '../../styles/muiStyles';
 import DOMPurify from 'dompurify';
 import PriorityArrow from '../../components/Other/PriorityArrow';
 import moment from 'moment';
-import { Alarm } from '@material-ui/icons';
+import TimeTrackerWrapper from '../../components/Modals/TimeTrackerWrapper';
 
 interface IUser {
   id: string;
@@ -39,20 +33,6 @@ interface IProps {
 const IssueDetail = ({ issue }: IProps) => {
   const classes = useIssueDetailStyle();
 
-  const [timeProgress, setTimeProgress] = useState<number>(0);
-  useEffect(() => {
-    let timeValue: number = 0;
-    if (issue.timeSpent && issue.timeRemaining) {
-      timeValue =
-        (issue.timeSpent * 100) / (issue.timeRemaining + issue.timeSpent);
-    } else if (issue.timeSpent && issue.estimatedTime) {
-      timeValue = (issue.timeSpent * 100) / issue.estimatedTime;
-    } else if (issue.timeSpent) {
-      timeValue = 100;
-    }
-    setTimeProgress(timeValue);
-  }, [issue.timeSpent, issue.timeRemaining, issue.estimatedTime]);
-
   return (
     <Grid container className={classes.container}>
       <Grid item sm={8} className={classes.body}>
@@ -68,7 +48,7 @@ const IssueDetail = ({ issue }: IProps) => {
           />
         )}
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={4} className={classes.infoCol}>
         <Typography
           variant="overline"
           component="p"
@@ -140,36 +120,11 @@ const IssueDetail = ({ issue }: IProps) => {
             'None'
           )}
         </Typography>
-        <Typography variant="overline" component="p">
-          <span className={classes.helperText}>Time tracking:</span>
-        </Typography>
-
-        <div className={classes.timeTrackerWrapper}>
-          <Alarm />
-          <div className={classes.progressWrapper}>
-            <LinearProgress
-              className={classes.progress}
-              variant="determinate"
-              value={timeProgress}
-            />
-            <div className={classes.progressValues}>
-              <span className={classes.timeNumber}>
-                {issue.timeSpent ? (
-                  <>{issue.timeSpent}h logged</>
-                ) : (
-                  'No time logged'
-                )}
-              </span>
-              <span className={classes.timeNumber}>
-                {issue.timeRemaining ? (
-                  <>{issue.timeRemaining}h remaining</>
-                ) : (
-                  ''
-                )}
-              </span>
-            </div>
-          </div>
-        </div>
+        <TimeTrackerWrapper
+          estimatedTime={issue.estimatedTime}
+          timeSpent={issue.timeSpent}
+          timeRemaining={issue.timeRemaining}
+        />
         <div className={classes.line}>
           <Typography variant="caption" component="p">
             <span className={classes.helperText}>

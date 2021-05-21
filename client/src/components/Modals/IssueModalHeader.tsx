@@ -1,6 +1,5 @@
 import { Button, Grid, Tooltip, Typography } from '@material-ui/core';
 import { Edit, Link, Redo } from '@material-ui/icons';
-import CloseIcon from '@material-ui/icons/Close';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
 import { IssueContext } from '../../context/issue';
@@ -8,6 +7,7 @@ import { ProjectContext } from '../../context/project';
 import { useIssueHeaderStyle } from '../../styles/muiStyles';
 import DeleteBtn from '../Forms/DeleteBtn';
 import IssueType from '../Other/IssueType';
+import CloseModalBtn from './CloseModalBtn';
 
 interface IUser {
   id: string;
@@ -111,17 +111,7 @@ const IssueModalHeader = ({
           ) : (
             ''
           )}
-          <Tooltip title="Close window" arrow>
-            <Button
-              variant="outlined"
-              size="small"
-              aria-label="close modal"
-              className={classes.btn}
-              onClick={handleModalClose}
-            >
-              <CloseIcon />
-            </Button>
-          </Tooltip>
+          <CloseModalBtn handleClose={handleModalClose} />
         </div>
       </div>
     </Grid>
