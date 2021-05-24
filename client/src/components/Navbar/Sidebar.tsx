@@ -12,14 +12,10 @@ import { useQuery } from '@apollo/client';
 import { GET_PROJECTS } from '../../graphql/projectQuery';
 import { Link, useLocation } from 'react-router-dom';
 import { ProjectContext, ProjectAction } from '../../context/project';
-import {
-  AddBox,
-  AddComment,
-  Assessment,
-  Dashboard,
-  Settings,
-} from '@material-ui/icons';
+import { AddBox, AddComment, Dashboard, Settings } from '@material-ui/icons';
 import { IssueContext } from '../../context/issue';
+import ProjectList from './ProjectList';
+import { AuthContext } from '../../context/auth';
 
 export const drawerWidth = 240;
 
@@ -53,6 +49,9 @@ interface Props {
 interface IProject {
   id: string;
   name: string;
+  author: {
+    id: string;
+  };
 }
 
 interface IProjects {
@@ -62,17 +61,13 @@ interface IProjects {
 const Sidebar = (props: Props) => {
   const { window, handleDrawerToggle, mobileOpen } = props;
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
   const { setIssueState } = useContext(IssueContext);
   const location = useLocation();
-  const { loading, data: { getProjects: projects } = {} } = useQuery<IProjects>(
-    GET_PROJECTS
-  );
+  const { loading, data: { getProjects: projects } = {} } =
+    useQuery<IProjects>(GET_PROJECTS);
   const { sidebarState, setSidebarState } = useContext(ProjectContext);
 
-  const handleProjectClick = (projectId: string) => {
-    setSidebarState({ projectAction: 'board', currProject: projectId });
-    props.handleDrawerClose();
-  };
   const handleProjectActionClick = (action: ProjectAction) => {
     setSidebarState({ ...sidebarState, projectAction: action });
     props.handleDrawerClose();
@@ -153,36 +148,33 @@ const Sidebar = (props: Props) => {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        <ListItem>
-          <ListItemText primary="Your Projects:" />
-        </ListItem>
-        {projects && projects.length !== 0 ? (
-          projects.map((project: IProject) => (
-            <ListItem
-              button
-              key={project.id}
-              component={Link}
-              to={`/project/${project.id}`}
-              onClick={() => handleProjectClick(project.id)}
-              selected={project.id === sidebarState.currProject}
-            >
-              <ListItemIcon>
-                <Assessment />
-              </ListItemIcon>
-              <ListItemText primary={project.name} />
-            </ListItem>
-          ))
-        ) : (
+      {loading ? (
+        <List>
           <ListItem disabled>
-            <ListItemText
-              primary={
-                loading ? 'Loading projects' : "You don't have any project"
-              }
-            />
+            <ListItemText primary="Loading projects" />
           </ListItem>
-        )}
-      </List>
+        </List>
+      ) : (
+        <>
+          <ProjectList
+            title="Your projects"
+            noProjectText="You don't have any project"
+            projects={projects?.filter(
+              (project: any) => project.author.id === user?.id
+            )}
+            handleDrawerClose={props.handleDrawerClose}
+          />
+          <Divider />
+          <ProjectList
+            title="Shared projects"
+            noProjectText="You don't have any shared project"
+            projects={projects?.filter(
+              (project: any) => project.author.id !== user?.id
+            )}
+            handleDrawerClose={props.handleDrawerClose}
+          />
+        </>
+      )}
     </>
   );
 

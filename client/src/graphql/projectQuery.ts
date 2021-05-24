@@ -5,6 +5,9 @@ export const GET_PROJECTS = gql`
     getProjects {
       id
       name
+      author {
+        id
+      }
     }
   }
 `;
