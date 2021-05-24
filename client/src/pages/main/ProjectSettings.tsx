@@ -47,7 +47,11 @@ const ProjectSettings = ({ project }: IProjectProps) => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IProjectForm>();
+  } = useForm<IProjectForm>({
+    defaultValues: {
+      name: project.name,
+    },
+  });
 
   const [updateProject, { loading }] = useMutation(UPDATE_PROJECT, {
     update(proxy, result) {

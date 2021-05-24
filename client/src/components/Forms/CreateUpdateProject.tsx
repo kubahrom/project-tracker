@@ -70,7 +70,6 @@ const CreateUpdateProject = ({
           : defaultValues?.description,
         category: data.category ? data.category : defaultValues?.category,
       };
-      //FIXME: cannot update project because defaultValue is not counted in register useForm
       callback({ variables: updatedData });
     } else {
       callback({ variables: data });
@@ -90,19 +89,39 @@ const CreateUpdateProject = ({
           className={classes.form}
         >
           <div className={classes.inputField}>
-            <TextField
-              fullWidth
-              required
-              label="Name"
-              defaultValue={defaultValues?.name}
-              {...register('name', {
-                required: 'Name of the project must not be empty',
-              })}
-              type="text"
-              variant="outlined"
-              error={errors.name ? true : false}
-              helperText={errors.name ? errors.name.message : ''}
-            />
+            {updateForm ? (
+              <Controller
+                control={control}
+                name="name"
+                rules={{ required: 'Name of the project must not be empty' }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    required
+                    label="Name"
+                    type="text"
+                    variant="outlined"
+                    error={errors.name ? true : false}
+                    helperText={errors.name ? errors.name.message : ''}
+                  />
+                )}
+              />
+            ) : (
+              <TextField
+                fullWidth
+                required
+                label="Name"
+                defaultValue={defaultValues?.name}
+                {...register('name', {
+                  required: 'Name of the project must not be empty',
+                })}
+                type="text"
+                variant="outlined"
+                error={errors.name ? true : false}
+                helperText={errors.name ? errors.name.message : ''}
+              />
+            )}
           </div>
           <div className={classes.inputField}>
             <TextField
