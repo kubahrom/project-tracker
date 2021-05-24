@@ -21,6 +21,7 @@ interface IProjectProps {
     description: string;
     type: string;
     createdAt: string;
+    author: IUser;
     shared: IUser[];
     __typename: string;
   };
@@ -79,6 +80,10 @@ const ProjectBoard = ({ project }: IProjectProps) => {
               </Typography>
             </>
           )}
+          <Typography variant="body1" component="p">
+            <span className={classes.helperText}>Author: </span>
+            {`${project.author.firstName} ${project.author.lastName}`}
+          </Typography>
           {project.shared.length !== 0 && (
             <Typography variant="body1" component="p">
               <span className={classes.helperText}>Shared to: </span>
