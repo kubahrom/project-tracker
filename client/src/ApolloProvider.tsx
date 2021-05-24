@@ -44,6 +44,15 @@ const client = new ApolloClient({
           },
         },
       },
+      Issue: {
+        fields: {
+          comments: {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
     },
   }),
 });

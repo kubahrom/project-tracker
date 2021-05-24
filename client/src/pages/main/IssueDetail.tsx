@@ -5,6 +5,9 @@ import DOMPurify from 'dompurify';
 import PriorityArrow from '../../components/Other/PriorityArrow';
 import moment from 'moment';
 import TimeTrackerWrapper from '../../components/Modals/TimeTrackerWrapper';
+import CommentsWrapper, {
+  IComment,
+} from '../../components/Comments/CommentsWrapper';
 
 interface IUser {
   id: string;
@@ -27,6 +30,7 @@ interface IProps {
     timeRemaining: number;
     createdAt: string;
     updatedAt: string;
+    comments: IComment[];
   };
 }
 
@@ -47,8 +51,9 @@ const IssueDetail = ({ issue }: IProps) => {
             }}
           />
         )}
+        <CommentsWrapper comments={issue.comments} />
       </Grid>
-      <Grid item sm={4} className={classes.infoCol}>
+      <Grid item sm={4}>
         <Typography
           variant="overline"
           component="p"

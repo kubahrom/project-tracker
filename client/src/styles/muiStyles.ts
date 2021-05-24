@@ -96,6 +96,15 @@ export const useDeleteBtnStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     minWidth: 'auto',
   },
+  link: {
+    cursor: 'pointer',
+  },
+  dialogTitle: {
+    paddingBottom: theme.spacing(1),
+  },
+  dialogContent: {
+    paddingTop: 0,
+  },
 }));
 
 export const useBoardPageStyles = makeStyles(theme => ({
@@ -305,16 +314,14 @@ export const useIssueHeaderStyle = makeStyles(theme => ({
 export const useIssueDetailStyle = makeStyles(theme => ({
   container: {
     [theme.breakpoints.only('xs')]: {
-      flexDirection: 'column',
-    },
-  },
-  infoCol: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(1),
+      flexDirection: 'column-reverse',
     },
   },
   body: {
     paddingBottom: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing(4),
+    },
   },
   description: {
     paddingTop: theme.spacing(2),
@@ -413,5 +420,56 @@ export const useTimeTrackerStyle = makeStyles(theme => ({
   },
   [theme.breakpoints.only('xs')]: {
     paddingTop: theme.spacing(1),
+  },
+}));
+
+export const useCommentStyle = makeStyles(theme => ({
+  commentsSection: { paddingTop: theme.spacing(4) },
+  newComment: {
+    padding: 8,
+    paddingLeft: 12,
+    border: '1px solid',
+    borderColor: theme.palette.text.secondary,
+    borderRadius: 6,
+    transition: 'all 200ms',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: theme.palette.background.default,
+      boxShadow: theme.shadows[2],
+    },
+    '&:focus': {
+      backgroundColor: theme.palette.background.default,
+      boxShadow: theme.shadows[2],
+    },
+  },
+  newCommentActions: {
+    margin: theme.spacing(1),
+    marginLeft: 0,
+    marginBottom: 0,
+  },
+  commentsWrapper: {
+    marginTop: theme.spacing(2),
+  },
+  commentWrapper: {
+    paddingBottom: theme.spacing(1),
+    display: 'flex',
+  },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    fontSize: theme.typography.subtitle1.fontSize,
+    marginRight: theme.spacing(2),
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+  },
+  commentAction: {
+    display: 'flex',
+    color: theme.palette.text.secondary,
+  },
+  action: {
+    paddingRight: 6,
+    paddingLeft: 0,
+    cursor: 'pointer',
   },
 }));

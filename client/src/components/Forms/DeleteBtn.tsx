@@ -127,7 +127,7 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
         </Tooltip>
       ) : (
         <Button variant="contained" color="secondary" onClick={handleClick}>
-          DeleteProject
+          Delete Project
         </Button>
       )}
       <Dialog onClose={handleClose} open={open}>

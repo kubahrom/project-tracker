@@ -17,7 +17,7 @@ export const GET_ISSUES = gql`
     }
   }
 `;
-// FIXME: add anotehr fields based on need
+
 export const GET_ISSUE = gql`
   query getIssue($issueId: ID!, $projectId: ID!) {
     getIssue(issueId: $issueId, projectId: $projectId) {
@@ -27,7 +27,6 @@ export const GET_ISSUE = gql`
       status
       priority
       type
-      # Chyba
       author {
         id
         firstName
@@ -42,6 +41,16 @@ export const GET_ISSUE = gql`
         id
         firstName
         lastName
+      }
+      comments {
+        id
+        body
+        createdAt
+        author {
+          id
+          firstName
+          lastName
+        }
       }
       estimatedTime
       timeSpent
