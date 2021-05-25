@@ -13,6 +13,7 @@ import { ApolloError, useMutation } from '@apollo/client';
 import { UPDATE_ISSUE } from '../../graphql/issuesMutation';
 import { ProjectContext } from '../../context/project';
 import { IssueContext } from '../../context/issue';
+import useIndexUpdate from '../../utils/hooks/useIndexUpdate';
 
 interface IUser {
   id: string;
@@ -38,6 +39,7 @@ interface IProps {
     name: string;
     description: string;
     status: string;
+    index: string;
     type: string;
     priority: string;
     reporter: IUser;
@@ -58,20 +60,13 @@ const timeValidation = {
     message: 'Not a number',
   },
 };
-// Useformhook --- name(textField), status(select 1 opt), priority (select 1 opt),
-//                 reporter(select 1 opt), estimatedTime(inputFild),asignees(multiple choice)
-
-//TODO another modal --- timeSpent(inputField), timeRemaining(inputField)
-
-//Additional add --- description(editor),
-//FIXME: issue timers return null if empty
-//TODO: comments
 const UpdateIssueDetail = ({ issue }: IProps) => {
   const classes = useUpdateIssueDetailStyle();
 
   const [editor, setEditor] = useState<string>(issue.description);
   const { sidebarState } = useContext(ProjectContext);
   const { issueState, setIssueState } = useContext(IssueContext);
+  const { newIssueIndex } = useIndexUpdate();
   const {
     register,
     handleSubmit,
@@ -113,8 +108,11 @@ const UpdateIssueDetail = ({ issue }: IProps) => {
       projectId: sidebarState.currProject,
       reporter: result.reporter.id,
       asignees: result.asignees.map((asignee: IUser) => asignee.id),
+      index:
+        issue.status !== result.status
+          ? newIssueIndex(result.status)
+          : issue.index,
     };
-    //FIXME: index if change status
     updateIssue({ variables: data });
     setIssueState({ ...issueState, updateIssue: false });
   };
