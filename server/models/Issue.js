@@ -22,6 +22,7 @@ const issueSchema = new Schema({
       author: { type: Schema.Types.ObjectId, ref: 'User' },
       body: String,
       createdAt: String,
+      updated: Boolean,
     },
   ],
 });

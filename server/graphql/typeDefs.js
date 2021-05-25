@@ -70,6 +70,7 @@ module.exports = gql`
     createdAt: String!
     body: String!
     author: User!
+    updated: Boolean
   }
 
   input CreateIssueInput {
@@ -123,6 +124,12 @@ module.exports = gql`
     updateIssue(updateIssueInput: UpdateIssueInput): Issue!
     deleteIssue(issueId: ID!, projectId: ID!): String!
     createComment(issueId: ID!, projectId: ID!, body: String!): Issue!
+    updateComment(
+      issueId: ID!
+      projectId: ID!
+      commentId: ID!
+      body: String!
+    ): Issue!
     deleteComment(issueId: ID!, projectId: ID!, commentId: ID!): Issue!
   }
 `;
