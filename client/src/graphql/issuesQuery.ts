@@ -46,6 +46,7 @@ export const GET_ISSUE = gql`
         id
         body
         createdAt
+        updated
         author {
           id
           firstName

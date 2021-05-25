@@ -6,14 +6,14 @@ import DeleteComment from './DeleteComment';
 interface IProps {
   commentId: string;
   commentBody: string;
+  updateComment: () => void;
 }
 
-const CommentActions = ({ commentId, commentBody }: IProps) => {
+const CommentActions = ({ commentId, commentBody, updateComment }: IProps) => {
   const classes = useCommentStyle();
 
   const handleEditClick = () => {
-    //TODO: Edit comment
-    console.log(`Edit comment ${commentId} clicked.`);
+    updateComment();
   };
   return (
     <Typography

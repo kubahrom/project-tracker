@@ -1,10 +1,10 @@
 import { ApolloError, useMutation } from '@apollo/client';
 import { Button, TextField } from '@material-ui/core';
 import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
-import { CREATE_COMMENT } from '../../graphql/commentMutation';
+import { CREATE_COMMENT, UPDATE_COMMENT } from '../../graphql/commentMutation';
 import { useCommentStyle } from '../../styles/muiStyles';
 
 interface INewComment {
@@ -13,29 +13,39 @@ interface INewComment {
 
 interface IProps {
   unsetNewComment: () => void;
+  commentId?: string;
+  commentBody?: string;
 }
 
-const AddComment = ({ unsetNewComment }: IProps) => {
+const AddComment = ({ unsetNewComment, commentId, commentBody }: IProps) => {
   const classes = useCommentStyle();
   const { sidebarState } = useContext(ProjectContext);
   const { issueState } = useContext(IssueContext);
   const {
-    register,
+    // register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm<INewComment>();
+  } = useForm<INewComment>({
+    defaultValues: {
+      body: commentId ? commentBody : '',
+    },
+  });
 
-  const [createComment, { loading }] = useMutation(CREATE_COMMENT, {
+  const GQL_MUTATION = commentId ? UPDATE_COMMENT : CREATE_COMMENT;
+
+  const [createUpdateComment, { loading }] = useMutation(GQL_MUTATION, {
     onError(err: ApolloError) {
       console.log(err.graphQLErrors);
     },
   });
 
   const onSubmit = async (data: INewComment) => {
-    await createComment({
+    await createUpdateComment({
       variables: {
         issueId: issueState.issueId,
         projectId: sidebarState.currProject,
+        commentId: commentId ? commentId : null,
         body: data.body,
       },
     });
@@ -43,15 +53,22 @@ const AddComment = ({ unsetNewComment }: IProps) => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        variant="outlined"
-        label="Add comment"
-        {...register('body', { required: true })}
-        fullWidth
-        size="small"
-        autoFocus
-        error={errors.body ? true : false}
-        multiline
+      <Controller
+        name="body"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => (
+          <TextField
+            {...field}
+            variant="outlined"
+            label="Add comment"
+            fullWidth
+            size="small"
+            autoFocus
+            error={errors.body ? true : false}
+            multiline
+          />
+        )}
       />
       <Button
         variant="contained"

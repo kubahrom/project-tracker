@@ -8,6 +8,7 @@ export interface IComment {
   id: string;
   body: string;
   createdAt: string;
+  updated: boolean;
   author: {
     id: string;
     firstName: string;
