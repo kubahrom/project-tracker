@@ -37,7 +37,6 @@ module.exports = {
         throw new Error(error);
       }
     },
-    //TODO: Update comment
     async updateComment(_, { issueId, projectId, commentId, body }, context) {
       const { id } = checkAuth(context);
       try {
@@ -52,7 +51,6 @@ module.exports = {
               issue.comments[commentIndex].author.toString() === id ||
               issue.author.toString() === id
             ) {
-              //Update
               const comment = issue.comments[commentIndex];
               comment.body = body;
               comment.updated = true;
