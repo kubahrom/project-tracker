@@ -25,6 +25,7 @@ export interface IIssue {
   index: string;
   type: string;
   priority: string;
+  commentCount: number;
   asignees: IUser[];
 }
 

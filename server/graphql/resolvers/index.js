@@ -4,6 +4,11 @@ const issuesResolvers = require('./issues');
 const commentsResolvers = require('./comments');
 
 module.exports = {
+  Issue: {
+    commentCount(parent) {
+      return parent.comments.length;
+    },
+  },
   Query: {
     ...usersResolvers.Query,
     ...projectsResolvers.Query,

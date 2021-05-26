@@ -189,6 +189,7 @@ const CreateUpdateProject = ({
               name={defaultValues?.name ? defaultValues.name : ''}
             />
           )}
+          {/* TODO: sharing project to others */}
         </form>
       </div>
     </Paper>

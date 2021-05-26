@@ -63,6 +63,7 @@ module.exports = gql`
     reporter: User
     asignees: [User]!
     comments: [Comment]!
+    commentCount: Int!
   }
 
   type Comment {

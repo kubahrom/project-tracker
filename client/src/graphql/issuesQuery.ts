@@ -9,6 +9,7 @@ export const GET_ISSUES = gql`
       type
       index
       priority
+      commentCount
       asignees {
         id
         firstName

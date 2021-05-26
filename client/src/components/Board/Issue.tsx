@@ -6,6 +6,7 @@ import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { useBoardStyles } from '../../styles/muiStyles';
 import BoardIssueAvatars from '../Other/BoardIssueAvatars';
+import BoardIssueComments from '../Other/BoardIssueComments';
 import IssueType from '../Other/IssueType';
 import PriorityArrow from '../Other/PriorityArrow';
 import { IIssue } from './Board';
@@ -48,6 +49,9 @@ const Issue = ({ issue, index }: IIssueProps) => {
               <span className={classes.issueIcons}>
                 <IssueType type={issue.type} board={true} />
                 <PriorityArrow option={issue.priority} board={true} />
+                {issue.commentCount > 0 && (
+                  <BoardIssueComments commentCount={issue.commentCount} />
+                )}
               </span>
               <BoardIssueAvatars asignees={issue.asignees} />
             </Typography>
