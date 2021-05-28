@@ -48,7 +48,11 @@ module.exports = {
       try {
         const issues = await Issue.find({
           $or: [{ author: id }, { reporter: id }, { asignees: id }],
-        }).populate('project');
+        })
+          .populate('author')
+          .populate('project')
+          .populate('reporter')
+          .populate('asignees');
         return issues;
       } catch (error) {
         throw new Error(error);

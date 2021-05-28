@@ -62,3 +62,29 @@ export const GET_ISSUE = gql`
     }
   }
 `;
+
+export const GET_ISSUES_BY_ID = gql`
+  query getIssuesByUserId {
+    getIssuesByUserId {
+      id
+      name
+      type
+      project {
+        id
+        name
+      }
+      updatedAt
+      author {
+        id
+      }
+      reporter {
+        id
+      }
+      asignees {
+        id
+      }
+      priority
+      status
+    }
+  }
+`;

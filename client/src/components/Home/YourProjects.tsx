@@ -35,7 +35,7 @@ const YourProjects = () => {
 
   return (
     <div>
-      <Typography variant="h4" component="h1">
+      <Typography variant="h5" component="h1" className={classes.title}>
         Your Projects
       </Typography>
       {loading ? (

@@ -81,15 +81,12 @@ export const useYourProjectsStyle = makeStyles(theme => ({
   card: {
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
     height: '100%',
-    // margin: theme.spacing(1),
-    // [theme.breakpoints.up('sm')]: {
-    //   '&:nth-child(even)': {
-    //     margin: 40,
-    //   },
-    // },
   },
   helperText: {
     color: theme.palette.text.secondary,
+  },
+  title: {
+    paddingBottom: theme.spacing(2),
   },
   subTitle: {
     paddingBottom: theme.spacing(1),
@@ -98,6 +95,36 @@ export const useYourProjectsStyle = makeStyles(theme => ({
     margin: 4,
     marginLeft: 0,
   },
+}));
+
+export const useYourIssuesStyle = makeStyles(theme => ({
+  paperWrapper: {
+    padding: theme.spacing(3),
+  },
+  card: {
+    padding: theme.spacing(1),
+  },
+  paper: {
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+    fontSize: theme.typography.body2.fontSize,
+  },
+  issuesWrapper: {
+    background: theme.palette.background.default,
+    boxShadow:
+      ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+    borderRadius: 4,
+    width: '100%',
+    padding: theme.spacing(1),
+  },
+  title: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  cardContent: { display: 'flex' },
+  col: { width: '50%' },
 }));
 
 export const useCreateProjectStyles = makeStyles(theme => ({
@@ -185,6 +212,7 @@ export const useBoardStyles = makeStyles(theme => ({
     minHeight: 180,
     margin: theme.spacing(1),
     backgroundColor: theme.palette.background.default,
+    borderRadius: 4,
     boxShadow:
       ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
     [theme.breakpoints.down('md')]: {
