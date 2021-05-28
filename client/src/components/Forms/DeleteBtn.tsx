@@ -12,10 +12,11 @@ import { useHistory } from 'react-router';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { DELETE_ISSUE } from '../../graphql/issuesMutation';
-import { GET_ISSUES } from '../../graphql/issuesQuery';
+import { GET_ISSUES, GET_ISSUES_BY_ID } from '../../graphql/issuesQuery';
 import { DELETE_PROJECT } from '../../graphql/projectMutations';
 import { GET_PROJECTS } from '../../graphql/projectQuery';
 import { useDeleteBtnStyles } from '../../styles/muiStyles';
+import { IHomeIssuesQuery } from '../../components/Home/YourIssues';
 
 interface IProps {
   projectId: string;
@@ -41,6 +42,8 @@ interface IIssues {
 type ProjectQueryType = IProjects | null;
 
 type IssueQueryType = IIssues | null;
+
+type HomeIssueType = IHomeIssuesQuery | null;
 
 const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
   const classes = useDeleteBtnStyles();
@@ -72,6 +75,20 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
             },
             data: {
               getIssues: data.getIssues.filter(
+                (issue: IIssue) => issue.id !== issueId
+              ),
+            },
+          });
+
+        const homeIssueData: HomeIssueType = proxy.readQuery({
+          query: GET_ISSUES_BY_ID,
+        });
+
+        if (homeIssueData)
+          proxy.writeQuery({
+            query: GET_ISSUES_BY_ID,
+            data: {
+              getIssuesByUserId: homeIssueData.getIssuesByUserId.filter(
                 (issue: IIssue) => issue.id !== issueId
               ),
             },

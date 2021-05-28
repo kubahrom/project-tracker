@@ -7,7 +7,8 @@ import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import { ProjectContext } from '../../context/project';
 import Editor from '../../components/Modals/Editor';
 import { CREATE_ISSUE } from '../../graphql/issuesMutation';
-import { GET_ISSUES } from '../../graphql/issuesQuery';
+import { GET_ISSUES, GET_ISSUES_BY_ID } from '../../graphql/issuesQuery';
+import { IHomeIssuesQuery } from '../../components/Home/YourIssues';
 import { LexoRank } from 'lexorank';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
 import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
@@ -38,6 +39,8 @@ interface Issues {
 }
 
 type Issuetype = Issues | null;
+
+type HomeIssueType = IHomeIssuesQuery | null;
 
 interface IProps {
   handleModalClose: () => void;
@@ -83,6 +86,22 @@ const CreateIssue = ({ handleModalClose }: IProps) => {
           },
           data: { getIssues: [result.data.createIssue, ...data.getIssues] },
         });
+
+      const homeIssueData: HomeIssueType = proxy.readQuery({
+        query: GET_ISSUES_BY_ID,
+      });
+
+      if (homeIssueData)
+        proxy.writeQuery({
+          query: GET_ISSUES_BY_ID,
+          data: {
+            getIssuesByUserId: [
+              ...homeIssueData.getIssuesByUserId,
+              result.data.createIssue,
+            ],
+          },
+        });
+
       handleModalClose();
     },
     onError(err: ApolloError) {

@@ -42,6 +42,11 @@ const client = new ApolloClient({
               return incoming;
             },
           },
+          getIssuesByUserId: {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
         },
       },
       Issue: {
