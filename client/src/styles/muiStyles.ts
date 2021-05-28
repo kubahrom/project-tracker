@@ -55,6 +55,51 @@ export const useAuthStyles = makeStyles(theme => ({
   },
 }));
 
+export const useYourProjectsStyle = makeStyles(theme => ({
+  cardWrapper: {
+    display: 'flex',
+  },
+  gridItem: {
+    padding: theme.spacing(1),
+    [theme.breakpoints.only('sm')]: {
+      '&:nth-child(odd)': {
+        paddingLeft: 0,
+      },
+      '&:nth-child(even)': {
+        paddingRight: 0,
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      '&:nth-child(3n+1)': {
+        paddingLeft: 0,
+      },
+      '&:nth-child(3n+0)': {
+        paddingRight: 0,
+      },
+    },
+  },
+  card: {
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+    height: '100%',
+    // margin: theme.spacing(1),
+    // [theme.breakpoints.up('sm')]: {
+    //   '&:nth-child(even)': {
+    //     margin: 40,
+    //   },
+    // },
+  },
+  helperText: {
+    color: theme.palette.text.secondary,
+  },
+  subTitle: {
+    paddingBottom: theme.spacing(1),
+  },
+  chip: {
+    margin: 4,
+    marginLeft: 0,
+  },
+}));
+
 export const useCreateProjectStyles = makeStyles(theme => ({
   formWrapper: {
     maxWidth: 700,

@@ -7,7 +7,16 @@ export const GET_PROJECTS = gql`
       name
       author {
         id
+        firstName
+        lastName
       }
+      shared {
+        id
+        firstName
+        lastName
+      }
+      createdAt
+      category
     }
   }
 `;
