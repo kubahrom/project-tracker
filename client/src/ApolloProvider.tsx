@@ -53,6 +53,15 @@ const client = new ApolloClient({
           },
         },
       },
+      Project: {
+        fields: {
+          shared: {
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
     },
   }),
 });

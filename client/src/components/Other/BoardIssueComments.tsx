@@ -3,7 +3,7 @@ import { Chat } from '@material-ui/icons';
 import React from 'react';
 
 const useStyles = makeStyles(theme => ({
-  badge: { marginTop: 6 },
+  badge: { marginTop: 0 },
   customBadge: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.primary.contrastText,
@@ -23,7 +23,7 @@ const BoardIssueComments = ({ commentCount }: IProps) => {
       className={classes.badge}
       classes={{ badge: classes.customBadge }}
     >
-      <Chat fontSize="small" color="action" />
+      <Chat fontSize="small" color="inherit" />
     </Badge>
   );
 };

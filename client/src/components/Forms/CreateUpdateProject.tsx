@@ -20,21 +20,28 @@ import {
 } from 'react-hook-form';
 import { useCreateProjectStyles } from '../../styles/muiStyles';
 import DeleteBtn from './DeleteBtn';
+import ProjectSharedAutoComplete from './inputs/ProjectSharedAutoComplete';
 
 type ProjectCategoryType = '' | 'Software' | 'Marketing' | 'Business';
+
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
 
 export interface IProjectForm {
   name: string;
   description: string;
   category: ProjectCategoryType;
-  shared?: string[];
+  shared?: IUser[];
 }
 
 interface IDefaultValues {
   name: string;
   description?: string;
   category: string;
-  shared?: string[];
+  shared: IUser[];
   id?: string;
 }
 
@@ -69,6 +76,9 @@ const CreateUpdateProject = ({
           ? data.description
           : defaultValues?.description,
         category: data.category ? data.category : defaultValues?.category,
+        shared: data.shared
+          ? data.shared.map((user: IUser) => user.id)
+          : defaultValues?.shared,
       };
       callback({ variables: updatedData });
     } else {
@@ -170,6 +180,14 @@ const CreateUpdateProject = ({
             </FormControl>
           </div>
           <div className={classes.inputField}>
+            {updateForm && defaultValues && (
+              <ProjectSharedAutoComplete
+                control={control}
+                sharedTo={defaultValues.shared}
+              />
+            )}
+          </div>
+          <div className={classes.inputField}>
             <Button
               color="primary"
               variant="contained"
@@ -189,7 +207,6 @@ const CreateUpdateProject = ({
               name={defaultValues?.name ? defaultValues.name : ''}
             />
           )}
-          {/* TODO: sharing project to others */}
         </form>
       </div>
     </Paper>

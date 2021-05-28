@@ -16,7 +16,7 @@ const PriorityArrow = ({ option, board }: IProps) => {
         <ArrowUpward
           fontSize="small"
           className={clsx(
-            classes.icon,
+            !board && classes.icon,
             option === 'Highest' ? classes.highest : classes.high
           )}
         />
@@ -24,7 +24,7 @@ const PriorityArrow = ({ option, board }: IProps) => {
         <ArrowDownward
           fontSize="small"
           className={clsx(
-            classes.icon,
+            !board && classes.icon,
             option === 'Low' ? classes.low : classes.lowest
           )}
         />

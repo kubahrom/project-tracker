@@ -22,6 +22,11 @@ const ProjectSettingsCheck: React.FC = () => {
         description
         category
         createdAt
+        shared {
+          id
+          firstName
+          lastName
+        }
       }
     `,
   });

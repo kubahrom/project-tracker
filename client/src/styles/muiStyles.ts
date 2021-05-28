@@ -172,6 +172,7 @@ export const useBoardStyles = makeStyles(theme => ({
   },
   issueIcons: {
     display: 'flex',
+    alignItems: 'center',
   },
 }));
 

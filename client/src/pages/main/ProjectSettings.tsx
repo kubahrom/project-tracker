@@ -11,6 +11,12 @@ import { UPDATE_PROJECT } from '../../graphql/projectMutations';
 import { GET_PROJECTS } from '../../graphql/projectQuery';
 import { isCreateIssueLink } from '../../utils/checkLink';
 
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
 interface IProjectProps {
   project: {
     category: string;
@@ -18,6 +24,7 @@ interface IProjectProps {
     description: string;
     id: string;
     name: string;
+    shared: IUser[];
     __typename: string;
   };
 }
@@ -50,6 +57,7 @@ const ProjectSettings = ({ project }: IProjectProps) => {
   } = useForm<IProjectForm>({
     defaultValues: {
       name: project.name,
+      shared: project.shared,
     },
   });
 
