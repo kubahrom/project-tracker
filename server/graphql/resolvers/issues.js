@@ -43,6 +43,17 @@ module.exports = {
         throw new Error(error);
       }
     },
+    async getIssuesByUserId(_, __, context) {
+      const { id } = checkAuth(context);
+      try {
+        const issues = await Issue.find({
+          $or: [{ author: id }, { reporter: id }, { asignees: id }],
+        }).populate('project');
+        return issues;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
   },
   Mutation: {
     async createIssue(

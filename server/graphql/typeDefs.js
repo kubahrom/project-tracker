@@ -111,6 +111,7 @@ module.exports = gql`
     getProject(projectId: ID!): Project
     getIssues(projectId: ID!): [Issue]!
     getIssue(issueId: ID!, projectId: ID!): Issue
+    getIssuesByUserId: [Issue]!
   }
 
   # MUTATION_________________________________________
