@@ -1,9 +1,10 @@
 import { ApolloError, useLazyQuery } from '@apollo/client';
-import { CircularProgress, Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { GET_ISSUES_BY_ID } from '../../graphql/issuesQuery';
 import { useYourIssuesStyle } from '../../styles/muiStyles';
-import IssueCard from './IssueCard';
+import IssuesFilter from './IssuesFilter';
+import IssuesList from './IssuesList';
 
 export interface IHomeIssue {
   id: string;
@@ -27,6 +28,11 @@ export interface IHomeIssue {
   };
 }
 
+export interface IFilterBy {
+  type: string;
+  value: string;
+}
+
 export interface IHomeIssuesQuery {
   getIssuesByUserId: IHomeIssue[];
 }
@@ -34,6 +40,8 @@ export interface IHomeIssuesQuery {
 const YourIssues = () => {
   const classes = useYourIssuesStyle();
   const [isMounted, setMounted] = useState(true);
+  const [filterBy, setFilterBy] = useState<IFilterBy>({type: '', value: ''});
+  const [sortBy, setSortBy] = useState<string>('');
   const [getIssues, { data, loading }] = useLazyQuery<IHomeIssuesQuery>(
     GET_ISSUES_BY_ID,
     {
@@ -58,21 +66,18 @@ const YourIssues = () => {
         Your Issues
       </Typography>
       <Paper className={classes.paperWrapper}>
-        {/* TODO: filter based on role etc... */}
-        <Typography variant="h6" color="textSecondary">
-          Filter
-        </Typography>
-        <div className={classes.issuesWrapper}>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Grid container>
-              {data?.getIssuesByUserId?.map((issue: IHomeIssue) => (
-                <IssueCard key={issue.id} issue={issue} />
-              ))}
-            </Grid>
-          )}
-        </div>
+        <IssuesFilter
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+        <IssuesList
+          loading={loading}
+          issues={data?.getIssuesByUserId ? data.getIssuesByUserId : []}
+          sortBy={sortBy}
+          filterBy={filterBy}
+        />
       </Paper>
     </Grid>
   );

@@ -32,6 +32,9 @@ export interface IIssue {
 interface IIssues {
   getIssues: IIssue[];
 }
+//TODO: updating(switching) issue will not update on homescreen your issues
+//(check if the same result is when manually updating single issue)
+//check whether the boardFix component is no longer needed otherwise delete it 
 
 const Board = ({ projectId }: IBoardProps) => {
   const classes = useBoardStyles();

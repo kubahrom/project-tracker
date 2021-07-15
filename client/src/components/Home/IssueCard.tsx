@@ -40,7 +40,7 @@ const IssueCard = ({ issue }: IPropsIssueCard) => {
                 {issue.status}
               </Typography>
             </div>
-            <div className={classes.col}>
+            <div className={classes.col2}>
               <IssueType type={issue.type} />
               <PriorityArrow option={issue.priority} />
             </div>

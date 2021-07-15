@@ -106,6 +106,7 @@ export const useYourIssuesStyle = makeStyles(theme => ({
   },
   paper: {
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    height: '100%',
   },
   helperText: {
     color: theme.palette.text.secondary,
@@ -124,7 +125,33 @@ export const useYourIssuesStyle = makeStyles(theme => ({
     paddingBottom: theme.spacing(2),
   },
   cardContent: { display: 'flex' },
-  col: { width: '50%' },
+  col: { width: '60%' },
+  col2: { width: '40%' },
+}));
+
+export const useYourIssuesFilterStyle = makeStyles(theme => ({
+  filterWrapper: {
+    paddingBottom: theme.spacing(2),
+  },
+  title: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  inputField: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.up('sm')]: {
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 'calc((100% - 16px) / 3)',
+      marginRight: 8,
+      '&:last-child': {
+        marginRight: 0
+      }
+
+    }
+  }
 }));
 
 export const useCreateProjectStyles = makeStyles(theme => ({
