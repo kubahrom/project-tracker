@@ -10,9 +10,10 @@ interface IIssuesFilterProps {
     setFilterBy: React.Dispatch<React.SetStateAction<IFilterBy>>;
     sortBy: string;
     setSortBy: React.Dispatch<React.SetStateAction<string>>;
+    resetFilter: () => void;
 }
 
-const IssuesFilter = ({ filterBy, setFilterBy, sortBy, setSortBy }: IIssuesFilterProps) => {
+const IssuesFilter = ({ filterBy, setFilterBy, sortBy, setSortBy, resetFilter }: IIssuesFilterProps) => {
     const classes = useYourIssuesFilterStyle();
     
     const handleChangeFilterBy = (e: React.ChangeEvent<{ value: unknown }>) => {
@@ -24,11 +25,6 @@ const IssuesFilter = ({ filterBy, setFilterBy, sortBy, setSortBy }: IIssuesFilte
 
     const handleChangeSortBy = (e: React.ChangeEvent<{ value: unknown }>) => {
         setSortBy(e.target.value as string);
-    }
-
-    const handleResetBtn = () => {
-        setFilterBy({type: '', value: ''});
-        setSortBy('');
     }
 
     const renderFilterValueOptions = () => {
@@ -58,14 +54,14 @@ const IssuesFilter = ({ filterBy, setFilterBy, sortBy, setSortBy }: IIssuesFilte
 
     return (
         <div className={classes.filterWrapper}>
-            <Typography variant="h6" color="textSecondary" className={classes.title}>
+            <Typography variant="h6" component="h3" color="textSecondary" className={classes.title}>
                 Issues Filter
                 {(filterBy.value || sortBy) && (
                     <Button
                         variant="outlined"
                         startIcon={<CancelPresentation color="primary" />}
                         color="primary"
-                        onClick={handleResetBtn}
+                        onClick={resetFilter}
                     >
                         Reset filter
                     </Button>

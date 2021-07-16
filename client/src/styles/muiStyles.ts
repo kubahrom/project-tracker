@@ -127,6 +127,17 @@ export const useYourIssuesStyle = makeStyles(theme => ({
   cardContent: { display: 'flex' },
   col: { width: '60%' },
   col2: { width: '40%' },
+  noneIssueWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: `${theme.spacing(7)}px ${theme.spacing(3)}px`,
+  },
+  noneIssueText: {
+    paddingBottom: theme.spacing(1), 
+  }
 }));
 
 export const useYourIssuesFilterStyle = makeStyles(theme => ({

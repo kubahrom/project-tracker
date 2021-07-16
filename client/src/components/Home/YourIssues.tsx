@@ -51,6 +51,11 @@ const YourIssues = () => {
     }
   );
 
+  const resetFilter = () => {
+    setFilterBy({type: '', value: ''});
+    setSortBy('');
+}
+
   useEffect(() => {
     if (isMounted && !Boolean(data)) {
       getIssues();
@@ -62,7 +67,7 @@ const YourIssues = () => {
 
   return (
     <Grid item xs={12}>
-      <Typography variant="h5" component="h1" className={classes.title}>
+      <Typography variant="h5" component="h2" className={classes.title}>
         Your Issues
       </Typography>
       <Paper className={classes.paperWrapper}>
@@ -71,12 +76,14 @@ const YourIssues = () => {
           setFilterBy={setFilterBy}
           sortBy={sortBy}
           setSortBy={setSortBy}
-        />
+          resetFilter={resetFilter}
+          />
         <IssuesList
           loading={loading}
           issues={data?.getIssuesByUserId ? data.getIssuesByUserId : []}
           sortBy={sortBy}
           filterBy={filterBy}
+          resetFilter={resetFilter}
         />
       </Paper>
     </Grid>
