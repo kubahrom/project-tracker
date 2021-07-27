@@ -1,6 +1,6 @@
 import { Link, Typography } from '@material-ui/core';
 import React from 'react';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 import DeleteComment from './DeleteComment';
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const CommentActions = ({ commentId, commentBody, updateComment }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
 
   const handleEditClick = () => {
     updateComment();

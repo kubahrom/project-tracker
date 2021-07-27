@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 import AddComment from './AddComment';
 import Comment from './Comment';
 
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 const CommentsWrapper = ({ comments }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
   const [sortedComments, setSortedComments] = useState<IComment[]>([]);
   const [newCommentInput, setNewCommentInput] = useState<boolean>(false);
 

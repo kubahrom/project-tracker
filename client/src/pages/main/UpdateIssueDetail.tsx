@@ -3,7 +3,7 @@ import { Save } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import IssuePriorityAutoComplete from '../../components/Forms/inputs/IssuePriorityAutoComplete';
-import { useUpdateIssueDetailStyle } from '../../styles/muiStyles';
+import { useUpdateIssueDetailStyles } from '../../styles/muiStyles';
 import IssueStatusAutoComplete from '../../components/Forms/inputs/issueStatusAutoComplete';
 import IssueAsigneesAutoComplete from '../../components/Forms/inputs/IssueAsigneesAutoComplete';
 import IssueReporterAutoComplete from '../../components/Forms/inputs/IssueReporterAutoComplete';
@@ -61,7 +61,7 @@ const timeValidation = {
   },
 };
 const UpdateIssueDetail = ({ issue }: IProps) => {
-  const classes = useUpdateIssueDetailStyle();
+  const classes = useUpdateIssueDetailStyles();
 
   const [editor, setEditor] = useState<string>(issue.description);
   const { sidebarState } = useContext(ProjectContext);

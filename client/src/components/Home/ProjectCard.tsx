@@ -2,8 +2,8 @@ import { Avatar, Card, Chip, Grid, Typography } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useYourProjectsStyle } from '../../styles/muiStyles';
-import { IProject } from './YourProjects';
+import { useYourProjectsStyles } from '../../styles/muiStyles';
+import { IProject } from '../../pages/main/Home';
 
 interface IUser {
   id: string;
@@ -16,7 +16,7 @@ interface IProjectCardProps {
 }
 
 const ProjectCard = ({ project }: IProjectCardProps) => {
-  const classes = useYourProjectsStyle();
+  const classes = useYourProjectsStyles();
   return (
     <Grid item md={4} sm={6} xs={12} className={classes.gridItem}>
       <Link to={`/project/${project.id}`}>

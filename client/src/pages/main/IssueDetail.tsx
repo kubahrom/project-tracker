@@ -1,6 +1,6 @@
 import { Avatar, Chip, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { useIssueDetailStyle } from '../../styles/muiStyles';
+import { useIssueDetailStyles } from '../../styles/muiStyles';
 import DOMPurify from 'dompurify';
 import PriorityArrow from '../../components/Other/PriorityArrow';
 import moment from 'moment';
@@ -35,7 +35,7 @@ interface IProps {
 }
 
 const IssueDetail = ({ issue }: IProps) => {
-  const classes = useIssueDetailStyle();
+  const classes = useIssueDetailStyles();
 
   return (
     <Grid container className={classes.container}>

@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
-import { useIssueHeaderStyle } from '../../styles/muiStyles';
+import { useIssueHeaderStyles } from '../../styles/muiStyles';
 import DeleteBtn from '../Forms/DeleteBtn';
 import IssueType from '../Other/IssueType';
 import CloseModalBtn from './CloseModalBtn';
@@ -30,7 +30,7 @@ const IssueModalHeader = ({
   author,
   reporter,
 }: IProps) => {
-  const classes = useIssueHeaderStyle();
+  const classes = useIssueHeaderStyles();
   const [isLinkCopied, setIsLinkCopied] = useState<boolean>(false);
   const { sidebarState } = useContext(ProjectContext);
   const { user: currentUser } = useContext(AuthContext);

@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/auth';
-import { useYourIssuesStyle } from '../../styles/muiStyles';
+import { useYourIssuesStyles } from '../../styles/muiStyles';
 import IssueType from '../Other/IssueType';
 import PriorityArrow from '../Other/PriorityArrow';
 import { IHomeIssue } from './YourIssues';
@@ -13,7 +13,7 @@ interface IPropsIssueCard {
 }
 
 const IssueCard = ({ issue }: IPropsIssueCard) => {
-  const classes = useYourIssuesStyle();
+  const classes = useYourIssuesStyles();
   const { user } = useContext(AuthContext);
   return (
     <Grid item xs={12} sm={6} xl={4} className={classes.card}>

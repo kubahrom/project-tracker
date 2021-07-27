@@ -1,7 +1,7 @@
 import { Bookmark, CheckBox, Error } from '@material-ui/icons';
 import clsx from 'clsx';
 import React from 'react';
-import { useIssueTypeStyle } from '../../styles/muiStyles';
+import { useIssueTypeStyles } from '../../styles/muiStyles';
 
 interface IProps {
   type: string;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const IssueType = ({ type, board, text }: IProps) => {
-  const classes = useIssueTypeStyle();
+  const classes = useIssueTypeStyles();
   return (
     <span className={classes.iconWrapper}>
       {type === 'Task' && (

@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 import UserAvatar from '../Other/UserAvatar';
 import AddComment from './AddComment';
 import CommentActions from './CommentActions';
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const Comment = ({ comment }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
   const { user } = useContext(AuthContext);
   const [updateComment, setUpdateComment] = useState<boolean>(false);
 

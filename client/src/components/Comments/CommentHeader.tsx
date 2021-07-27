@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import moment from 'moment';
 import React from 'react';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 
 interface IProps {
   author: {
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const CommentHeader = ({ author, createdAt, updated }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
   return (
     <div>
       <Typography variant="subtitle1" component="p">

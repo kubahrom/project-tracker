@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { CREATE_COMMENT, UPDATE_COMMENT } from '../../graphql/commentMutation';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 
 interface INewComment {
   body: string;
@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const AddComment = ({ unsetNewComment, commentId, commentBody }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
   const { sidebarState } = useContext(ProjectContext);
   const { issueState } = useContext(IssueContext);
   const {

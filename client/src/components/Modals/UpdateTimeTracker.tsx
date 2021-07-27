@@ -10,7 +10,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { UPDATE_ISSUE_TIME } from '../../graphql/issuesMutation';
-import { useTimeTrackerStyle } from '../../styles/muiStyles';
+import { useTimeTrackerStyles } from '../../styles/muiStyles';
 import TimeTracker from '../Other/TimeTracker';
 import CloseModalBtn from './CloseModalBtn';
 
@@ -33,7 +33,7 @@ const UpdateTimeTracker = ({
   timeSpent,
   timeRemaining,
 }: IProps) => {
-  const classes = useTimeTrackerStyle();
+  const classes = useTimeTrackerStyles();
   const { sidebarState } = useContext(ProjectContext);
   const { issueState } = useContext(IssueContext);
   const [timeValues, setTimeValues] = useState<ITimeValues>({

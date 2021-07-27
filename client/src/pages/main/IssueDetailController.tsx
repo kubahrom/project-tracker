@@ -5,7 +5,7 @@ import IssueModalHeader from '../../components/Modals/IssueModalHeader';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { GET_ISSUE } from '../../graphql/issuesQuery';
-import { useIssueModalStyle } from '../../styles/muiStyles';
+import { useIssueModalStyles } from '../../styles/muiStyles';
 import IssueDetail from './IssueDetail';
 import UpdateIssueDetail from './UpdateIssueDetail';
 
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const IssueDetailController = ({ handleModalClose }: IProps) => {
-  const classes = useIssueModalStyle();
+  const classes = useIssueModalStyles();
   const { issueState } = useContext(IssueContext);
   const { sidebarState } = useContext(ProjectContext);
 

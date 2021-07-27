@@ -2,7 +2,7 @@ import { ApolloError, useLazyQuery } from '@apollo/client';
 import { Grid, Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { GET_ISSUES_BY_ID } from '../../graphql/issuesQuery';
-import { useYourIssuesStyle } from '../../styles/muiStyles';
+import { useYourIssuesStyles } from '../../styles/muiStyles';
 import IssuesFilter from './IssuesFilter';
 import IssuesList from './IssuesList';
 
@@ -38,9 +38,9 @@ export interface IHomeIssuesQuery {
 }
 
 const YourIssues = () => {
-  const classes = useYourIssuesStyle();
+  const classes = useYourIssuesStyles();
   const [isMounted, setMounted] = useState(true);
-  const [filterBy, setFilterBy] = useState<IFilterBy>({type: '', value: ''});
+  const [filterBy, setFilterBy] = useState<IFilterBy>({ type: '', value: '' });
   const [sortBy, setSortBy] = useState<string>('');
   const [getIssues, { data, loading }] = useLazyQuery<IHomeIssuesQuery>(
     GET_ISSUES_BY_ID,
@@ -52,9 +52,9 @@ const YourIssues = () => {
   );
 
   const resetFilter = () => {
-    setFilterBy({type: '', value: ''});
+    setFilterBy({ type: '', value: '' });
     setSortBy('');
-}
+  };
 
   useEffect(() => {
     if (isMounted && !Boolean(data)) {
@@ -77,7 +77,7 @@ const YourIssues = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
           resetFilter={resetFilter}
-          />
+        />
         <IssuesList
           loading={loading}
           issues={data?.getIssuesByUserId ? data.getIssuesByUserId : []}

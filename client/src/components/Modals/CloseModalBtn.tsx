@@ -1,6 +1,6 @@
 import { Button, Tooltip } from '@material-ui/core';
 import React from 'react';
-import { useIssueHeaderStyle } from '../../styles/muiStyles';
+import { useIssueHeaderStyles } from '../../styles/muiStyles';
 import CloseIcon from '@material-ui/icons/Close';
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const CloseModalBtn = ({ handleClose }: IProps) => {
-  const classes = useIssueHeaderStyle();
+  const classes = useIssueHeaderStyles();
   return (
     <Tooltip title="Close window" arrow>
       <Button

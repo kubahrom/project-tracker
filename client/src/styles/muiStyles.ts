@@ -55,7 +55,15 @@ export const useAuthStyles = makeStyles(theme => ({
   },
 }));
 
-export const useYourProjectsStyle = makeStyles(theme => ({
+export const useHomeStyles = makeStyles(theme => ({
+  loadingSpinnerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(8),
+  },
+}));
+
+export const useYourProjectsStyles = makeStyles(theme => ({
   cardWrapper: {
     display: 'flex',
   },
@@ -97,7 +105,7 @@ export const useYourProjectsStyle = makeStyles(theme => ({
   },
 }));
 
-export const useYourIssuesStyle = makeStyles(theme => ({
+export const useYourIssuesStyles = makeStyles(theme => ({
   paperWrapper: {
     padding: theme.spacing(3),
   },
@@ -130,39 +138,73 @@ export const useYourIssuesStyle = makeStyles(theme => ({
   noneIssueWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    flex:1,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: `${theme.spacing(7)}px ${theme.spacing(3)}px`,
   },
   noneIssueText: {
-    paddingBottom: theme.spacing(1), 
-  }
+    paddingBottom: theme.spacing(1),
+  },
 }));
 
-export const useYourIssuesFilterStyle = makeStyles(theme => ({
+export const useYourIssuesFilterStyles = makeStyles(theme => ({
   filterWrapper: {
     paddingBottom: theme.spacing(2),
   },
   title: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   inputField: {
     width: '100%',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    [theme.breakpoints.up('sm')]: {
-    },
+    [theme.breakpoints.up('sm')]: {},
     [theme.breakpoints.up('sm')]: {
       width: 'calc((100% - 16px) / 3)',
       marginRight: 8,
       '&:last-child': {
-        marginRight: 0
-      }
+        marginRight: 0,
+      },
+    },
+  },
+}));
 
-    }
-  }
+export const useNoneProjectsStyles = makeStyles(theme => ({
+  wrapper: {
+    padding: theme.spacing(5),
+    textAlign: 'center',
+    [theme.breakpoints.only('xs')]: {
+      padding: theme.spacing(2),
+    },
+  },
+  logo: {
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+    textAlign: 'center',
+    [theme.breakpoints.only('xs')]: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+    },
+  },
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    [theme.breakpoints.only('xs')]: {
+      fontSize: theme.typography.h5.fontSize,
+      marginBottom: theme.spacing(1),
+    },
+  },
+  subtitle: {
+    [theme.breakpoints.only('xs')]: {
+      fontSize: theme.typography.subtitle1.fontSize,
+    },
+  },
+  button: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export const useCreateProjectStyles = makeStyles(theme => ({
@@ -287,7 +329,7 @@ export const useBoardStyles = makeStyles(theme => ({
   },
 }));
 
-export const useIssueModalStyle = makeStyles(theme => ({
+export const useIssueModalStyles = makeStyles(theme => ({
   modalWrapper: {
     padding: theme.spacing(4),
     [theme.breakpoints.only('xs')]: {
@@ -304,7 +346,7 @@ export const useIssueModalStyle = makeStyles(theme => ({
   btnCancel: { textAlign: 'right', paddingTop: 8 },
 }));
 
-export const usePriorityListStyle = makeStyles(theme => ({
+export const usePriorityListStyles = makeStyles(theme => ({
   icon: { marginRight: theme.spacing(1) },
   iconWrapper: {
     display: 'flex',
@@ -322,7 +364,7 @@ export const usePriorityListStyle = makeStyles(theme => ({
   },
 }));
 
-export const useIssueTypeStyle = makeStyles(theme => ({
+export const useIssueTypeStyles = makeStyles(theme => ({
   iconWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -339,7 +381,7 @@ export const useIssueTypeStyle = makeStyles(theme => ({
   },
 }));
 
-export const useUpdateIssueDetailStyle = makeStyles(theme => ({
+export const useUpdateIssueDetailStyles = makeStyles(theme => ({
   inputField: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -381,7 +423,7 @@ export const useUpdateIssueDetailStyle = makeStyles(theme => ({
   },
 }));
 
-export const useIssueHeaderStyle = makeStyles(theme => ({
+export const useIssueHeaderStyles = makeStyles(theme => ({
   headerWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -423,7 +465,7 @@ export const useIssueHeaderStyle = makeStyles(theme => ({
   },
 }));
 
-export const useIssueDetailStyle = makeStyles(theme => ({
+export const useIssueDetailStyles = makeStyles(theme => ({
   container: {
     [theme.breakpoints.only('xs')]: {
       flexDirection: 'column-reverse',
@@ -496,7 +538,7 @@ export const useIssueDetailStyle = makeStyles(theme => ({
   },
 }));
 
-export const useTimeTrackerStyle = makeStyles(theme => ({
+export const useTimeTrackerStyles = makeStyles(theme => ({
   dialogTitle: {
     paddingBottom: theme.spacing(1),
     display: 'flex',
@@ -535,7 +577,7 @@ export const useTimeTrackerStyle = makeStyles(theme => ({
   },
 }));
 
-export const useCommentStyle = makeStyles(theme => ({
+export const useCommentStyles = makeStyles(theme => ({
   commentsSection: { paddingTop: theme.spacing(4) },
   newComment: {
     padding: 8,

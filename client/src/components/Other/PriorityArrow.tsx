@@ -1,7 +1,7 @@
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
 import clsx from 'clsx';
 import React from 'react';
-import { usePriorityListStyle } from '../../styles/muiStyles';
+import { usePriorityListStyles } from '../../styles/muiStyles';
 
 interface IProps {
   option: string;
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const PriorityArrow = ({ option, board }: IProps) => {
-  const classes = usePriorityListStyle();
+  const classes = usePriorityListStyles();
   return (
     <span className={classes.iconWrapper}>
       {option === 'Highest' || option === 'High' ? (

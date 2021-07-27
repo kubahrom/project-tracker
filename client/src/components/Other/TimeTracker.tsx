@@ -1,7 +1,7 @@
 import { LinearProgress } from '@material-ui/core';
 import { Alarm } from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
-import { useIssueDetailStyle } from '../../styles/muiStyles';
+import { useIssueDetailStyles } from '../../styles/muiStyles';
 
 interface IProps {
   estimatedTime: number | null;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const TimeTracker = ({ estimatedTime, timeSpent, timeRemaining }: IProps) => {
-  const classes = useIssueDetailStyle();
+  const classes = useIssueDetailStyles();
   const [timeProgress, setTimeProgress] = useState<number>(0);
   useEffect(() => {
     let timeValue: number = 0;

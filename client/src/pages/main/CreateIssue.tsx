@@ -2,7 +2,7 @@ import { AddComment } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Typography } from '@material-ui/core';
-import { useIssueModalStyle } from '../../styles/muiStyles';
+import { useIssueModalStyles } from '../../styles/muiStyles';
 import { ApolloError, useApolloClient, useMutation } from '@apollo/client';
 import { ProjectContext } from '../../context/project';
 import Editor from '../../components/Modals/Editor';
@@ -47,7 +47,7 @@ interface IProps {
 }
 
 const CreateIssue = ({ handleModalClose }: IProps) => {
-  const classes = useIssueModalStyle();
+  const classes = useIssueModalStyles();
   const { sidebarState } = useContext(ProjectContext);
   const [editor, setEditor] = useState<string>('');
   const {

@@ -14,7 +14,7 @@ interface IProps {
   asignees: IUser[];
 }
 
-const useAvatarGroupStyle = makeStyles(theme => ({
+const useAvatarGroupStyles = makeStyles(theme => ({
   small: {
     width: theme.spacing(4),
     height: theme.spacing(4),
@@ -35,7 +35,7 @@ const useAvatarGroupStyle = makeStyles(theme => ({
 }));
 
 const BoardIssueAvatars = ({ asignees }: IProps) => {
-  const classes = useAvatarGroupStyle();
+  const classes = useAvatarGroupStyles();
   let classNameHolder = [
     classes.indigo3,
     classes.indigo4,

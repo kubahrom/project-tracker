@@ -1,6 +1,6 @@
 import { Avatar } from '@material-ui/core';
 import React from 'react';
-import { useCommentStyle } from '../../styles/muiStyles';
+import { useCommentStyles } from '../../styles/muiStyles';
 
 interface IProps {
   user: {
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const UserAvatar = ({ user }: IProps) => {
-  const classes = useCommentStyle();
+  const classes = useCommentStyles();
   return (
     <Avatar className={classes.avatar}>
       {user.firstName[0]}

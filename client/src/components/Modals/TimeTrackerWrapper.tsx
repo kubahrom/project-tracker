@@ -1,6 +1,6 @@
 import { Dialog, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useIssueDetailStyle } from '../../styles/muiStyles';
+import { useIssueDetailStyles } from '../../styles/muiStyles';
 import TimeTracker from '../Other/TimeTracker';
 import UpdateTimeTracker from './UpdateTimeTracker';
 
@@ -15,7 +15,7 @@ const TimeTrackerWrapper = ({
   timeSpent,
   timeRemaining,
 }: IProps) => {
-  const classes = useIssueDetailStyle();
+  const classes = useIssueDetailStyles();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
