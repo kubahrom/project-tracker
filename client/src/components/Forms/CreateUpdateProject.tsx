@@ -22,8 +22,6 @@ import { useCreateProjectStyles } from '../../styles/muiStyles';
 import DeleteBtn from './DeleteBtn';
 import ProjectSharedAutoComplete from './inputs/ProjectSharedAutoComplete';
 
-type ProjectCategoryType = '' | 'Software' | 'Marketing' | 'Business';
-
 interface IUser {
   id: string;
   firstName: string;
@@ -33,7 +31,7 @@ interface IUser {
 export interface IProjectForm {
   name: string;
   description: string;
-  category: ProjectCategoryType;
+  category: string;
   shared?: IUser[];
 }
 
