@@ -10,6 +10,7 @@ import PageNotFound from './pages/other/PageNotFound';
 import ProjectBoardCheck from './pages/main/ProjectBoardCheck';
 import ProjectSettingsCheck from './pages/main/ProjectSettingsCheck';
 import CreateProject from './pages/main/CreateProject';
+import SecureSettingsRoute from './utils/SecureSettingsRoute';
 
 const Routes: React.FC = () => {
   return (
@@ -29,7 +30,7 @@ const Routes: React.FC = () => {
         path="/project/:projectId/create-issue"
         component={ProjectBoardCheck}
       />
-      <SecureRoute
+      <SecureSettingsRoute
         exact
         path="/project/settings/:projectId"
         component={ProjectSettingsCheck}

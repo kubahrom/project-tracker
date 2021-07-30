@@ -44,6 +44,7 @@ const CreateProject: React.FC = () => {
       setSidebarState({
         currProject: `${result.data.createProject.id}`,
         projectAction: 'board',
+        isAuthor: true,
       });
       history.push(`/project/${result.data.createProject.id}`);
     },

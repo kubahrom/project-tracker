@@ -74,7 +74,11 @@ const Sidebar = (props: Props) => {
   };
 
   const handleCreateProjectClick = () => {
-    setSidebarState({ currProject: '', projectAction: 'createProject' });
+    setSidebarState({
+      currProject: '',
+      projectAction: 'createProject',
+      isAuthor: false,
+    });
     props.handleDrawerClose();
   };
 
@@ -117,11 +121,11 @@ const Sidebar = (props: Props) => {
           </ListItemIcon>
           <ListItemText primary="Create issue" />
         </ListItem>
-        {/* TODO: settings are disabled when project is shared */}
-        {/* TODO: delete project ---> deletes issues at hoempage */}
         <ListItem
           button
-          disabled={!Boolean(sidebarState.currProject)}
+          disabled={
+            !Boolean(sidebarState.currProject) || !sidebarState.isAuthor
+          }
           component={Link}
           to={`/project/settings/${sidebarState.currProject}`}
           onClick={() => handleProjectActionClick('settings')}

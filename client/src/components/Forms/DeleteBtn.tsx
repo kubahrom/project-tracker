@@ -33,6 +33,9 @@ interface IProjects {
 
 interface IIssue {
   id: string;
+  project: {
+    id: string;
+  };
 }
 
 interface IIssues {
@@ -79,20 +82,6 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
               ),
             },
           });
-
-        const homeIssueData: HomeIssueType = proxy.readQuery({
-          query: GET_ISSUES_BY_ID,
-        });
-
-        if (homeIssueData)
-          proxy.writeQuery({
-            query: GET_ISSUES_BY_ID,
-            data: {
-              getIssuesByUserId: homeIssueData.getIssuesByUserId.filter(
-                (issue: IIssue) => issue.id !== issueId
-              ),
-            },
-          });
       } else {
         const data: ProjectQueryType = proxy.readQuery({
           query: GET_PROJECTS,
@@ -106,6 +95,19 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
               ),
             },
           });
+      }
+      const homeIssueData: HomeIssueType = proxy.readQuery({
+        query: GET_ISSUES_BY_ID,
+      });
+      if (homeIssueData) {
+        proxy.writeQuery({
+          query: GET_ISSUES_BY_ID,
+          data: {
+            getIssuesByUserId: homeIssueData.getIssuesByUserId.filter(
+              (issue: IIssue) => issue.project.id !== projectId
+            ),
+          },
+        });
       }
     },
     variables: {
@@ -125,7 +127,7 @@ const DeleteBtn = ({ projectId, name, issueId }: IProps) => {
     if (issueId) {
       setIssueState({ open: false, issueId: '' });
     } else {
-      setSidebarState({ currProject: '', projectAction: '' });
+      setSidebarState({ currProject: '', projectAction: '', isAuthor: false });
     }
   };
   return (

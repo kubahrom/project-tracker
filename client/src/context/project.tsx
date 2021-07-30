@@ -10,6 +10,7 @@ export type ProjectAction =
 interface IProjectContextState {
   currProject?: string;
   projectAction?: ProjectAction;
+  isAuthor: boolean;
 }
 interface IContext {
   sidebarState: IProjectContextState;
@@ -17,13 +18,14 @@ interface IContext {
 }
 
 const ProjectContext = createContext<IContext>({
-  sidebarState: {},
+  sidebarState: { isAuthor: false },
   setSidebarState: (newState: IProjectContextState) => {},
 });
 const ProjectProvider: React.FC = children => {
   const [sidebarState, setSidebarState] = useState<IProjectContextState>({
     currProject: '',
     projectAction: '',
+    isAuthor: false,
   });
   return (
     <ProjectContext.Provider

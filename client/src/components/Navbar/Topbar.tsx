@@ -61,7 +61,7 @@ const Topbar = ({ handleDrawerToggle, mobileOpen }: ITopbarProps) => {
   const { setIssueState } = useContext(IssueContext);
 
   const handleLogoClick = () => {
-    setSidebarState({ currProject: '', projectAction: '' });
+    setSidebarState({ currProject: '', projectAction: '', isAuthor: false });
     setIssueState({ open: false, issueId: '', updateIssue: false });
   };
 

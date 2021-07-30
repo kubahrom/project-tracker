@@ -2,6 +2,7 @@ import { Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useContext } from 'react';
 import { useLocation, useParams } from 'react-router';
 import Board from '../../components/Board/Board';
+import { AuthContext } from '../../context/auth';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 import { useBoardPageStyles } from '../../styles/muiStyles';
@@ -37,11 +38,16 @@ const ProjectBoard = ({ project }: IProjectProps) => {
   const location = useLocation();
   const { setIssueState } = useContext(IssueContext);
   const { setSidebarState } = useContext(ProjectContext);
+  const { user } = useContext(AuthContext);
   const { projectId, issueId } = useParams<ParamType>();
 
   useEffect(() => {
-    setSidebarState({ currProject: projectId, projectAction: 'board' });
-  }, [projectId, setSidebarState]);
+    setSidebarState({
+      currProject: projectId,
+      projectAction: 'board',
+      isAuthor: project.author.id === user?.id ? true : false,
+    });
+  }, [projectId, user, project.author.id, setSidebarState]);
 
   useEffect(() => {
     if (isCreateIssueLink(location.pathname)) {

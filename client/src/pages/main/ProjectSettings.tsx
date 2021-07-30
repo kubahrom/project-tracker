@@ -91,7 +91,11 @@ const ProjectSettings = ({ project }: IProjectProps) => {
   }, [location.pathname, setIssueState]);
 
   useEffect(() => {
-    setSidebarState({ currProject: projectId, projectAction: 'settings' });
+    setSidebarState({
+      currProject: projectId,
+      projectAction: 'settings',
+      isAuthor: true,
+    });
   }, [setSidebarState, projectId]);
 
   return (

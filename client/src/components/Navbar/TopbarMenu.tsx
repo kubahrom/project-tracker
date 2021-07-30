@@ -54,8 +54,9 @@ const TopbarMenu: React.FC = () => {
   const client = useApolloClient();
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] =
-    React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (anchorEl === null) {
@@ -76,7 +77,7 @@ const TopbarMenu: React.FC = () => {
     handleClose();
     logout();
     setIssueState({ open: false, issueId: '' });
-    setSidebarState({ currProject: '', projectAction: '' });
+    setSidebarState({ currProject: '', projectAction: '', isAuthor: false });
     client.clearStore();
   };
 
