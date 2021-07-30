@@ -6,6 +6,7 @@ const {
   validateRegisterInput,
   validateLoginInput,
 } = require('../../utils/userValidators');
+const checkAuth = require('../../utils/checkAuth');
 
 function generateToken(user) {
   return jwt.sign(
@@ -16,13 +17,14 @@ function generateToken(user) {
       lastName: user.lastName,
     },
     process.env.SECRET_KEY,
-    { expiresIn: '1h' }
+    { expiresIn: '2h' }
   );
 }
 
 module.exports = {
   Query: {
-    async getUsers() {
+    async getUsers(_, __, context) {
+      checkAuth(context);
       try {
         const users = await User.find();
         return users;
@@ -30,7 +32,8 @@ module.exports = {
         throw new Error(error);
       }
     },
-    async getUser(_, { userId }) {
+    async getUser(_, { userId }, context) {
+      checkAuth(context);
       try {
         const user = await User.findById(userId);
         if (user) {
