@@ -1,5 +1,5 @@
 import { Button, Typography } from '@material-ui/core';
-import { Dashboard } from '@material-ui/icons';
+import { DeveloperBoard } from '@material-ui/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNoneProjectsStyles } from '../../styles/muiStyles';
@@ -9,7 +9,7 @@ const NoneProjects = () => {
   return (
     <div className={classes.wrapper}>
       <Typography variant="h4" component="h1" className={classes.title}>
-        <Dashboard color="primary" className={classes.logo} />
+        <DeveloperBoard color="primary" className={classes.logo} />
         You don't have any project yet.
       </Typography>
       <Typography
@@ -19,7 +19,7 @@ const NoneProjects = () => {
         color="textSecondary"
         className={classes.subtitle}
       >
-        So stop hesitating and let's create a new one.
+        Stop hesitating and let's create a new one.
       </Typography>
       <Button
         component={Link}

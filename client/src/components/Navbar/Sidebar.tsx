@@ -117,7 +117,8 @@ const Sidebar = (props: Props) => {
           </ListItemIcon>
           <ListItemText primary="Create issue" />
         </ListItem>
-
+        {/* TODO: settings are disabled when project is shared */}
+        {/* TODO: delete project ---> deletes issues at hoempage */}
         <ListItem
           button
           disabled={!Boolean(sidebarState.currProject)}

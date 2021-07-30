@@ -68,6 +68,15 @@ const Login: React.FC = () => {
     loginUser({ variables: data });
   };
 
+  const signInWithDemoAccount = () => {
+    loginUser({
+      variables: {
+        email: process.env.REACT_APP_DEMO_ACCOUNT_EMAIL,
+        password: process.env.REACT_APP_DEMO_ACCOUNT_PASSWORD,
+      },
+    });
+  };
+
   return (
     <div className={classes.formWrapper}>
       <Grid xs={12} item>
@@ -159,6 +168,16 @@ const Login: React.FC = () => {
                 </Button>
               </div>
             </form>
+            <Button
+              variant="outlined"
+              size="large"
+              className={classes.btnDemo}
+              color="primary"
+              onClick={signInWithDemoAccount}
+              disabled={loading}
+            >
+              Sign in with demo account
+            </Button>
             <Typography variant="body1" align="center">
               Don't have an account?{' '}
               <Link component={RouterLink} to="/register">

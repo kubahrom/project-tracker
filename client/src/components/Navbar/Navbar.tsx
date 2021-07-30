@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
   };
   return (
     <>
-      <Topbar handleDrawerToggle={handleDrawerToggle} />
+      <Topbar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
       {user && (
         <Sidebar
           handleDrawerToggle={handleDrawerToggle}

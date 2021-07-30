@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import TopbarMenu from './TopbarMenu';
 import { ProjectContext } from '../../context/project';
 import { IssueContext } from '../../context/issue';
+import { DeveloperBoard } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       [theme.breakpoints.only('sm')]: {
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(1),
       },
       [theme.breakpoints.up('md')]: {
         display: 'none',
@@ -36,15 +37,24 @@ const useStyles = makeStyles((theme: Theme) =>
     logo: {
       textDecoration: 'none',
       color: theme.palette.common.white,
+      display: 'flex',
+      alignItems: 'center',
+    },
+    icon: {
+      marginRight: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
     },
   })
 );
 
-interface Props {
+interface ITopbarProps {
   handleDrawerToggle: () => void;
+  mobileOpen: boolean;
 }
 
-const Topbar = ({ handleDrawerToggle }: Props) => {
+const Topbar = ({ handleDrawerToggle, mobileOpen }: ITopbarProps) => {
   const classes = useStyles();
   const { user } = useContext(AuthContext);
   const { setSidebarState } = useContext(ProjectContext);
@@ -62,7 +72,7 @@ const Topbar = ({ handleDrawerToggle }: Props) => {
           {user && (
             <IconButton
               color="inherit"
-              aria-label="open drawer"
+              aria-label={mobileOpen ? 'Close drawer' : 'Open drawer'}
               edge="start"
               onClick={handleDrawerToggle}
               className={classes.menuButton}
@@ -72,6 +82,7 @@ const Topbar = ({ handleDrawerToggle }: Props) => {
           )}
           <Typography variant="h6" noWrap>
             <Link to="/" className={classes.logo} onClick={handleLogoClick}>
+              <DeveloperBoard className={classes.icon} />
               Project tracker
             </Link>
           </Typography>

@@ -10,10 +10,11 @@ export const useAuthStyles = makeStyles(theme => ({
     },
   },
   form: {
-    padding: theme.spacing(2),
-    paddingTop: 0,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     [theme.breakpoints.only('xs')]: {
-      padding: 0,
+      paddingLeft: theme.spacing(0),
+      paddingRight: theme.spacing(0),
     },
   },
   inputField: {
@@ -47,6 +48,12 @@ export const useAuthStyles = makeStyles(theme => ({
   },
   btnSubmit: {
     padding: '12px 22px',
+  },
+  btnDemo: {
+    padding: theme.spacing(1),
+    display: 'block',
+    justifyContent: 'center',
+    margin: `${theme.spacing(1)}px auto`,
   },
   generalErr: {
     display: 'flex',

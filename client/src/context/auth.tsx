@@ -10,7 +10,7 @@ interface IUser {
   token: string;
 }
 
-type UserType = IUser | null;
+export type UserType = IUser | null;
 
 interface IDecodedUser {
   id: string;

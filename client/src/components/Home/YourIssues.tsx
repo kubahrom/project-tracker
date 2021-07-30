@@ -23,9 +23,11 @@ export interface IHomeIssue {
   reporter: {
     id: string;
   };
-  asignees: {
-    id: string;
-  };
+  asignees: [
+    {
+      id: string;
+    }
+  ];
 }
 
 export interface IFilterBy {

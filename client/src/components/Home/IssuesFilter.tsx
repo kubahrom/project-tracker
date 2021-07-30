@@ -126,9 +126,6 @@ const IssuesFilter = ({
           {renderFilterValueOptions()}
         </Select>
       </FormControl>
-      {/* TODO: sort by values (add new) 
-                sort by updated, created - newest, oldest
-            */}
       <FormControl variant="outlined" className={classes.inputField}>
         <InputLabel id="sort-by-label">Sort by</InputLabel>
         <Select
