@@ -16,17 +16,19 @@ interface IUser {
   firstName: string;
   lastName: string;
 }
+type ProjectCategoryType = '' | 'Software' | 'Marketing' | 'Business';
+
+export interface IProjectDefault {
+  category: ProjectCategoryType;
+  createdAt: string;
+  description: string;
+  id: string;
+  name: string;
+  shared: IUser[];
+}
 
 interface IProjectProps {
-  project: {
-    category: string;
-    createdAt: string;
-    description: string;
-    id: string;
-    name: string;
-    shared: IUser[];
-    __typename: string;
-  };
+  project: IProjectDefault;
 }
 
 interface ParamType {

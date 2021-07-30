@@ -1,14 +1,14 @@
 import { TextField } from '@material-ui/core';
 import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
 import React, { useContext } from 'react';
-import { Control, Controller, DeepMap, FieldError } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { ProjectContext } from '../../../context/project';
 import useGetProjectUsers from '../../../utils/hooks/useGetProjectUsers';
 
 // type ErrorType = FieldError | undefined;
 
 interface IProps {
-  error: DeepMap<any, FieldError> | undefined;
+  error: any;
   control?: Control<any>;
 }
 

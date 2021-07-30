@@ -18,9 +18,12 @@ import {
   DeepMap,
   FieldError,
 } from 'react-hook-form';
+import { IProjectDefault } from '../../pages/main/ProjectSettings';
 import { useCreateProjectStyles } from '../../styles/muiStyles';
 import DeleteBtn from './DeleteBtn';
 import ProjectSharedAutoComplete from './inputs/ProjectSharedAutoComplete';
+
+type ProjectCategoryType = '' | 'Software' | 'Marketing' | 'Business';
 
 interface IUser {
   id: string;
@@ -31,21 +34,13 @@ interface IUser {
 export interface IProjectForm {
   name: string;
   description: string;
-  category: string;
+  category: ProjectCategoryType;
   shared?: IUser[];
-}
-
-interface IDefaultValues {
-  name: string;
-  description?: string;
-  category: string;
-  shared: IUser[];
-  id?: string;
 }
 
 interface IProps {
   updateForm?: boolean;
-  defaultValues?: IDefaultValues;
+  defaultValues?: IProjectDefault;
   callback: any;
   loading: boolean;
   errors: DeepMap<IProjectForm, FieldError>;
