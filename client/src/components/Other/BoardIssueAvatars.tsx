@@ -14,25 +14,28 @@ interface IProps {
   asignees: IUser[];
 }
 
-const useAvatarGroupStyles = makeStyles(theme => ({
-  small: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    fontSize: theme.typography.subtitle2.fontSize,
-  },
-  indigo1: {
-    backgroundColor: indigo[100],
-  },
-  indigo2: {
-    backgroundColor: indigo[200],
-  },
-  indigo3: {
-    backgroundColor: indigo[300],
-  },
-  indigo4: {
-    backgroundColor: indigo[400],
-  },
-}));
+const useAvatarGroupStyles = makeStyles(
+  theme => ({
+    small: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+      fontSize: theme.typography.subtitle2.fontSize,
+    },
+    indigo1: {
+      backgroundColor: indigo[100],
+    },
+    indigo2: {
+      backgroundColor: indigo[200],
+    },
+    indigo3: {
+      backgroundColor: indigo[300],
+    },
+    indigo4: {
+      backgroundColor: indigo[400],
+    },
+  }),
+  { index: 1 }
+);
 
 const BoardIssueAvatars = ({ asignees }: IProps) => {
   const classes = useAvatarGroupStyles();

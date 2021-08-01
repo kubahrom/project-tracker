@@ -19,24 +19,26 @@ import { AuthContext } from '../../context/auth';
 
 export const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    drawer: {
-      [theme.breakpoints.up('md')]: {
-        width: drawerWidth,
-        flexShrink: 0,
+const useStyles = makeStyles(
+  (theme: Theme) =>
+    createStyles({
+      drawer: {
+        [theme.breakpoints.up('md')]: {
+          width: drawerWidth,
+          flexShrink: 0,
+        },
       },
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-  })
+      // necessary for content to be below app bar
+      toolbar: theme.mixins.toolbar,
+      drawerPaper: {
+        width: drawerWidth,
+      },
+      content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+      },
+    }),
+  { index: 1 }
 );
 
 interface Props {

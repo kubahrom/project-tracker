@@ -6,14 +6,17 @@ import { ProjectContext } from '../../context/project';
 import CreateIssue from '../../pages/main/CreateIssue';
 import IssueDetailController from '../../pages/main/IssueDetailController';
 
-const useStyles = makeStyles(theme => ({
-  toolbar: {
-    [theme.breakpoints.only('xs')]: theme.mixins.toolbar,
-  },
-  dialog: {
-    marginTop: theme.spacing(12),
-  },
-}));
+const useStyles = makeStyles(
+  theme => ({
+    toolbar: {
+      [theme.breakpoints.only('xs')]: theme.mixins.toolbar,
+    },
+    dialog: {
+      marginTop: theme.spacing(12),
+    },
+  }),
+  { index: 1 }
+);
 
 const IssueModal = () => {
   const classes = useStyles();

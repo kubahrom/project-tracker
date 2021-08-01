@@ -5,42 +5,46 @@ import 'react-quill/dist/quill.snow.css';
 import { ThemeContext } from '../../context/theme';
 import clsx from 'clsx';
 
-const useStyles = makeStyles(theme => ({
-  editor: {
-    '& .ql-snow .ql-picker.ql-expanded .ql-picker-options, & .ql-snow .ql-tooltip': {
-      zIndex: 2,
-      border: 0,
+const useStyles = makeStyles(
+  theme => ({
+    editor: {
+      '& .ql-snow .ql-picker.ql-expanded .ql-picker-options, & .ql-snow .ql-tooltip':
+        {
+          zIndex: 2,
+          border: 0,
+        },
+      //editor toolbar
+      // '& .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected,': {
+      //   color: theme.palette.primary.main,
+      // },
+      //
     },
-    //editor toolbar
-    // '& .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected,': {
-    //   color: theme.palette.primary.main,
-    // },
-    //
-  },
-  editorDarkTheme: {
-    '& .ql-snow .ql-stroke': {
-      stroke: theme.palette.common.white,
+    editorDarkTheme: {
+      '& .ql-snow .ql-stroke': {
+        stroke: theme.palette.common.white,
+      },
+      '& .ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill': {
+        fill: theme.palette.common.white,
+      },
+      '& .ql-picker-label': {
+        color: theme.palette.common.white,
+      },
+      '& .ql-snow .ql-picker-options': {
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.common.white,
+        '&:hover': {},
+      },
+      '& .ql-container.ql-snow, & .ql-toolbar.ql-snow': {
+        borderColor: 'rgba(255, 255, 255, 0.23)',
+      },
+      //Editor border
+      // '&:hover .ql-container.ql-snow, &:hover .ql-toolbar.ql-snow': {
+      //   borderColor: theme.palette.common.white,
+      // },
     },
-    '& .ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill': {
-      fill: theme.palette.common.white,
-    },
-    '& .ql-picker-label': {
-      color: theme.palette.common.white,
-    },
-    '& .ql-snow .ql-picker-options': {
-      backgroundColor: theme.palette.background.default,
-      color: theme.palette.common.white,
-      '&:hover': {},
-    },
-    '& .ql-container.ql-snow, & .ql-toolbar.ql-snow': {
-      borderColor: 'rgba(255, 255, 255, 0.23)',
-    },
-    //Editor border
-    // '&:hover .ql-container.ql-snow, &:hover .ql-toolbar.ql-snow': {
-    //   borderColor: theme.palette.common.white,
-    // },
-  },
-}));
+  }),
+  { index: 1 }
+);
 
 const modules = {
   toolbar: [

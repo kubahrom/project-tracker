@@ -2,13 +2,16 @@ import { Badge, makeStyles } from '@material-ui/core';
 import { Chat } from '@material-ui/icons';
 import React from 'react';
 
-const useStyles = makeStyles(theme => ({
-  badge: { marginTop: 0 },
-  customBadge: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.primary.contrastText,
-  },
-}));
+const useStyles = makeStyles(
+  theme => ({
+    badge: { marginTop: 0 },
+    customBadge: {
+      backgroundColor: theme.palette.primary.dark,
+      color: theme.palette.primary.contrastText,
+    },
+  }),
+  { index: 1 }
+);
 
 interface IProps {
   commentCount: number;

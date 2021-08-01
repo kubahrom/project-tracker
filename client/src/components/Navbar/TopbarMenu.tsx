@@ -18,34 +18,37 @@ import { useApolloClient } from '@apollo/client';
 import { IssueContext } from '../../context/issue';
 import { ProjectContext } from '../../context/project';
 
-const useStyles = makeStyles(theme => ({
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.common.white,
-  },
-  userInfo: {
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.only('xs')]: {
-      display: 'none',
+const useStyles = makeStyles(
+  theme => ({
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.common.white,
     },
-  },
-  themeIcon: {
-    minWidth: 'auto',
-  },
-  avatar: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  popover: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  menuItem: {
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    minHeight: 30,
-  },
-}));
+    userInfo: {
+      paddingRight: theme.spacing(1),
+      [theme.breakpoints.only('xs')]: {
+        display: 'none',
+      },
+    },
+    themeIcon: {
+      minWidth: 'auto',
+    },
+    avatar: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    popover: {
+      marginTop: theme.spacing(2),
+      padding: theme.spacing(2),
+    },
+    menuItem: {
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+      minHeight: 30,
+    },
+  }),
+  { index: 1 }
+);
 
 const TopbarMenu: React.FC = () => {
   const { user, logout } = useContext(AuthContext);

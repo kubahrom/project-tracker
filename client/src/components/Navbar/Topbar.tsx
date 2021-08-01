@@ -12,41 +12,43 @@ import { ProjectContext } from '../../context/project';
 import { IssueContext } from '../../context/issue';
 import { DeveloperBoard } from '@material-ui/icons';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    leftWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    appBar: {
-      zIndex: 1301,
-      [theme.breakpoints.up('md')]: {},
-    },
-    menuButton: {
-      [theme.breakpoints.only('sm')]: {
+const useStyles = makeStyles(
+  (theme: Theme) =>
+    createStyles({
+      toolbar: {
+        display: 'flex',
+        justifyContent: 'space-between',
+      },
+      leftWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+      },
+      appBar: {
+        zIndex: 1301,
+        [theme.breakpoints.up('md')]: {},
+      },
+      menuButton: {
+        [theme.breakpoints.only('sm')]: {
+          marginRight: theme.spacing(1),
+        },
+        [theme.breakpoints.up('md')]: {
+          display: 'none',
+        },
+      },
+      logo: {
+        textDecoration: 'none',
+        color: theme.palette.common.white,
+        display: 'flex',
+        alignItems: 'center',
+      },
+      icon: {
         marginRight: theme.spacing(1),
+        [theme.breakpoints.down('xs')]: {
+          display: 'none',
+        },
       },
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
-    logo: {
-      textDecoration: 'none',
-      color: theme.palette.common.white,
-      display: 'flex',
-      alignItems: 'center',
-    },
-    icon: {
-      marginRight: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
-    },
-  })
+    }),
+  { index: 1 }
 );
 
 interface ITopbarProps {
