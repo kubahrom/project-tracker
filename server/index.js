@@ -7,7 +7,7 @@ const resolvers = require("./graphql/resolvers");
 
 const server = new ApolloServer({
   cors: {
-    origin: "*",
+    origin: process.env.FRONTEND_URL,
   },
   typeDefs,
   resolvers,
