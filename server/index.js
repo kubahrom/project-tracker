@@ -1,11 +1,14 @@
-require('dotenv').config();
-const { ApolloServer } = require('apollo-server');
-const mongoose = require('mongoose');
+require("dotenv").config();
+const { ApolloServer } = require("apollo-server");
+const mongoose = require("mongoose");
 
-const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
 
 const server = new ApolloServer({
+  cors: {
+    origin: "*",
+  },
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req }),
@@ -17,9 +20,9 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log('MongoDB Connected');
+    console.log("MongoDB Connected");
     return server.listen({ port: process.env.PORT || 80 });
   })
-  .then(res => {
+  .then((res) => {
     console.log(`Server running at ${res.url}`);
   });
