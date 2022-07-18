@@ -1,10 +1,11 @@
-import { ApolloError, useQuery } from '@apollo/client';
-import { TextField } from '@material-ui/core';
-import { Autocomplete, AutocompleteRenderInputParams } from '@material-ui/lab';
-import React, { useContext, useEffect, useState } from 'react';
-import { Control, Controller } from 'react-hook-form';
-import { AuthContext } from '../../../context/auth';
-import { GET_USERS } from '../../../graphql/userQuery';
+import { ApolloError, useQuery } from "@apollo/client";
+import { TextField } from "@material-ui/core";
+import { Autocomplete, AutocompleteRenderInputParams } from "@material-ui/lab";
+import React, { useContext, useEffect, useState } from "react";
+import { Control, Controller } from "react-hook-form";
+import { AuthContext } from "../../../context/auth";
+import { GET_USERS } from "../../../graphql/userQuery";
+import { IProjectForm } from "../CreateUpdateProject";
 
 interface IUser {
   id: string;
@@ -13,7 +14,7 @@ interface IUser {
 }
 
 interface IProps {
-  control: Control<any>;
+  control: Control<IProjectForm>;
   sharedTo: IUser[];
 }
 
@@ -60,7 +61,7 @@ const ProjectSharedAutoComplete = ({ control, sharedTo }: IProps) => {
           getOptionLabel={(user: IUser) => `${user.firstName} ${user.lastName}`}
           getOptionSelected={(option, value) => option.id === value.id}
           onChange={(_, data) => field.onChange(data)}
-          renderInput={params => renderTextField(params)}
+          renderInput={(params) => renderTextField(params)}
         />
       )}
     />
