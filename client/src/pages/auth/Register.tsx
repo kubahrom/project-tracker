@@ -86,187 +86,195 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className={classes.formWrapper}>
-      <Grid xs={12} item>
-        <Card elevation={2}>
-          <CardContent>
-            <Typography variant="h3" component="h1" align="center">
-              Sign Up
-            </Typography>
-            <form
-              noValidate
-              onSubmit={handleSubmit(onSubmit)}
-              className={classes.form}
-            >
-              <p>{serverError}</p>
-              <div className={classes.inputFieldSmallWrapper}>
-                <div className={classes.inputFieldSmall}>
+    <>
+      <div className={classes.formWrapper}>
+        <Grid xs={12} item>
+          <Card elevation={2}>
+            <CardContent>
+              <Typography variant="h3" component="h1" align="center">
+                Sign Up
+              </Typography>
+              <form
+                noValidate
+                onSubmit={handleSubmit(onSubmit)}
+                className={classes.form}
+              >
+                <p>{serverError}</p>
+                <div className={classes.inputFieldSmallWrapper}>
+                  <div className={classes.inputFieldSmall}>
+                    <TextField
+                      required
+                      fullWidth
+                      label="First name"
+                      {...register("firstName")}
+                      type="text"
+                      variant="outlined"
+                      error={errors.firstName ? true : false}
+                      helperText={
+                        errors.firstName ? errors.firstName.message : ""
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Person
+                              color={errors.firstName ? "error" : "primary"}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </div>
+                  <div className={classes.inputFieldSmall}>
+                    <TextField
+                      required
+                      fullWidth
+                      label="Last name"
+                      {...register("lastName")}
+                      type="text"
+                      variant="outlined"
+                      error={errors.lastName ? true : false}
+                      helperText={
+                        errors.lastName ? errors.lastName.message : ""
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Person
+                              color={errors.lastName ? "error" : "primary"}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={classes.inputField}>
                   <TextField
                     required
                     fullWidth
-                    label="First name"
-                    {...register("firstName")}
-                    type="text"
+                    label="Email"
+                    {...register("email")}
+                    type="email"
                     variant="outlined"
-                    error={errors.firstName ? true : false}
+                    error={errors.email ? true : false}
+                    helperText={errors.email ? errors.email.message : ""}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Email color={errors.email ? "error" : "primary"} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className={classes.inputField}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="password"
+                    {...register("password")}
+                    type={showPass ? "text" : "password"}
+                    variant="outlined"
+                    error={errors.password ? true : false}
+                    helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock color={errors.password ? "error" : "primary"} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              setShowPass((prevState) => !prevState)
+                            }
+                          >
+                            {showPass ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className={classes.inputField}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Confirm password"
+                    {...register("confirmPassword")}
+                    type={showPassComf ? "text" : "password"}
+                    variant="outlined"
+                    error={errors.confirmPassword ? true : false}
                     helperText={
-                      errors.firstName ? errors.firstName.message : ""
+                      errors.confirmPassword
+                        ? errors.confirmPassword.message
+                        : ""
                     }
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <Person
-                            color={errors.firstName ? "error" : "primary"}
+                          <EnhancedEncryption
+                            color={errors.confirmPassword ? "error" : "primary"}
                           />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              setShowPassComf((prevState) => !prevState)
+                            }
+                          >
+                            {showPassComf ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
                         </InputAdornment>
                       ),
                     }}
                   />
                 </div>
-                <div className={classes.inputFieldSmall}>
-                  <TextField
-                    required
+                {serverError && (
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    color="error"
+                    className={classes.generalErr}
+                  >
+                    <Error fontSize="small" /> {serverError}
+                  </Typography>
+                )}
+                <div className={classes.inputField}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    type="submit"
+                    startIcon={<PersonAdd />}
                     fullWidth
-                    label="Last name"
-                    {...register("lastName")}
-                    type="text"
-                    variant="outlined"
-                    error={errors.lastName ? true : false}
-                    helperText={errors.lastName ? errors.lastName.message : ""}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Person
-                            color={errors.lastName ? "error" : "primary"}
-                          />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                    disabled={loading}
+                    className={classes.btnSubmit}
+                  >
+                    Sign Up
+                  </Button>
                 </div>
-              </div>
-              <div className={classes.inputField}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Email"
-                  {...register("email")}
-                  type="email"
-                  variant="outlined"
-                  error={errors.email ? true : false}
-                  helperText={errors.email ? errors.email.message : ""}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Email color={errors.email ? "error" : "primary"} />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              <div className={classes.inputField}>
-                <TextField
-                  required
-                  fullWidth
-                  label="password"
-                  {...register("password")}
-                  type={showPass ? "text" : "password"}
-                  variant="outlined"
-                  error={errors.password ? true : false}
-                  helperText={errors.password ? errors.password.message : ""}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock color={errors.password ? "error" : "primary"} />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          size="small"
-                          onClick={() => setShowPass((prevState) => !prevState)}
-                        >
-                          {showPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              <div className={classes.inputField}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Confirm password"
-                  {...register("confirmPassword")}
-                  type={showPassComf ? "text" : "password"}
-                  variant="outlined"
-                  error={errors.confirmPassword ? true : false}
-                  helperText={
-                    errors.confirmPassword ? errors.confirmPassword.message : ""
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <EnhancedEncryption
-                          color={errors.confirmPassword ? "error" : "primary"}
-                        />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          size="small"
-                          onClick={() =>
-                            setShowPassComf((prevState) => !prevState)
-                          }
-                        >
-                          {showPassComf ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              {serverError && (
-                <Typography
-                  variant="body1"
-                  align="center"
-                  color="error"
-                  className={classes.generalErr}
-                >
-                  <Error fontSize="small" /> {serverError}
-                </Typography>
-              )}
-              <div className={classes.inputField}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  size="large"
-                  type="submit"
-                  startIcon={<PersonAdd />}
-                  fullWidth
-                  disabled={loading}
-                  className={classes.btnSubmit}
-                >
-                  Sign Up
-                </Button>
-              </div>
-            </form>
-            <Typography variant="body1" align="center">
-              Already have an account?{" "}
-              <Link component={RouterLink} to="/login">
-                Sign In
-              </Link>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+              </form>
+              <Typography variant="body1" align="center">
+                Already have an account?{" "}
+                <Link component={RouterLink} to="/login">
+                  Sign In
+                </Link>
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
       <Typography variant="body2" className={classes.infoText}>
         <Info fontSize="small" /> Backend is running on Free-tier Heroku so it
         might be in asleep mode which may take a few sec to wake up.
       </Typography>
-    </div>
+    </>
   );
 };
 

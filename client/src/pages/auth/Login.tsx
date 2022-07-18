@@ -79,120 +79,124 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className={classes.formWrapper}>
-      <Grid xs={12} item>
-        <Card elevation={2}>
-          <CardContent>
-            <Typography variant="h3" component="h1" align="center">
-              Sign In
-            </Typography>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-              className={classes.form}
-            >
-              <div className={classes.inputField}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Email"
-                  {...register("email")}
-                  type="email"
-                  variant="outlined"
-                  error={errors.email ? true : false}
-                  helperText={errors.email ? errors.email.message : ""}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PersonIcon
-                          color={errors.email ? "error" : "primary"}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              <div className={classes.inputField}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Password"
-                  {...register("password")}
-                  type={showPass ? "text" : "password"}
-                  variant="outlined"
-                  autoComplete="on"
-                  error={errors.password ? true : false}
-                  helperText={errors.password ? errors.password.message : ""}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LockIcon
-                          color={errors.password ? "error" : "primary"}
-                        />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          size="small"
-                          onClick={() => setShowPass((prevState) => !prevState)}
-                        >
-                          {showPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              {serverError && (
-                <Typography
-                  variant="body1"
-                  align="center"
-                  color="error"
-                  className={classes.generalErr}
-                >
-                  <Error fontSize="small" /> {serverError}
-                </Typography>
-              )}
-              <div className={classes.inputField}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  size="large"
-                  type="submit"
-                  startIcon={<ExitToApp />}
-                  fullWidth
-                  disabled={loading}
-                  className={classes.btnSubmit}
-                >
-                  Sign In
-                </Button>
-              </div>
-            </form>
-            <Button
-              variant="outlined"
-              size="large"
-              className={classes.btnDemo}
-              color="primary"
-              onClick={signInWithDemoAccount}
-              disabled={loading}
-            >
-              Sign in with demo account
-            </Button>
-            <Typography variant="body1" align="center">
-              Don't have an account?{" "}
-              <Link component={RouterLink} to="/register">
-                Sign Up
-              </Link>
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+    <>
+      <div className={classes.formWrapper}>
+        <Grid xs={12} item>
+          <Card elevation={2}>
+            <CardContent>
+              <Typography variant="h3" component="h1" align="center">
+                Sign In
+              </Typography>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                className={classes.form}
+              >
+                <div className={classes.inputField}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Email"
+                    {...register("email")}
+                    type="email"
+                    variant="outlined"
+                    error={errors.email ? true : false}
+                    helperText={errors.email ? errors.email.message : ""}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonIcon
+                            color={errors.email ? "error" : "primary"}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className={classes.inputField}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Password"
+                    {...register("password")}
+                    type={showPass ? "text" : "password"}
+                    variant="outlined"
+                    autoComplete="on"
+                    error={errors.password ? true : false}
+                    helperText={errors.password ? errors.password.message : ""}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon
+                            color={errors.password ? "error" : "primary"}
+                          />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              setShowPass((prevState) => !prevState)
+                            }
+                          >
+                            {showPass ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                {serverError && (
+                  <Typography
+                    variant="body1"
+                    align="center"
+                    color="error"
+                    className={classes.generalErr}
+                  >
+                    <Error fontSize="small" /> {serverError}
+                  </Typography>
+                )}
+                <div className={classes.inputField}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    type="submit"
+                    startIcon={<ExitToApp />}
+                    fullWidth
+                    disabled={loading}
+                    className={classes.btnSubmit}
+                  >
+                    Sign In
+                  </Button>
+                </div>
+              </form>
+              <Button
+                variant="outlined"
+                size="large"
+                className={classes.btnDemo}
+                color="primary"
+                onClick={signInWithDemoAccount}
+                disabled={loading}
+              >
+                Sign in with demo account
+              </Button>
+              <Typography variant="body1" align="center">
+                Don't have an account?{" "}
+                <Link component={RouterLink} to="/register">
+                  Sign Up
+                </Link>
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </div>
       <Typography variant="body2" className={classes.infoText}>
         <Info fontSize="small" /> Backend is running on Free-tier Heroku so it
         might be in asleep mode which may take a few sec to wake up.
       </Typography>
-    </div>
+    </>
   );
 };
 

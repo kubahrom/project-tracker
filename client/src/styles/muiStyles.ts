@@ -68,6 +68,7 @@ export const useAuthStyles = makeStyles(
       display: "flex",
       alignItems: "center",
       gap: theme.spacing(0.5),
+      justifyContent: "center",
     },
   }),
   { index: 1 }
