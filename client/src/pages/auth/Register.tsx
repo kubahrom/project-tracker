@@ -8,26 +8,27 @@ import {
   TextField,
   Typography,
   Link,
-} from '@material-ui/core';
-import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { AuthContext } from '../../context/auth';
-import { ApolloError, useMutation } from '@apollo/client';
-import { REGISTER_USER } from '../../graphql/userMutations';
-import { useAuthStyles } from '../../styles/muiStyles';
+} from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link as RouterLink } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { AuthContext } from "../../context/auth";
+import { ApolloError, useMutation } from "@apollo/client";
+import { REGISTER_USER } from "../../graphql/userMutations";
+import { useAuthStyles } from "../../styles/muiStyles";
 import {
   Email,
   EnhancedEncryption,
   Error,
+  Info,
   Lock,
   Person,
   PersonAdd,
   Visibility,
   VisibilityOff,
-} from '@material-ui/icons';
+} from "@material-ui/icons";
 
 interface IRegisterForm {
   firstName: string;
@@ -38,29 +39,29 @@ interface IRegisterForm {
 }
 
 const schema = yup.object().shape({
-  firstName: yup.string().required('First name must not be empty'),
-  lastName: yup.string().required('Last name must not be empty'),
+  firstName: yup.string().required("First name must not be empty"),
+  lastName: yup.string().required("Last name must not be empty"),
   email: yup
     .string()
-    .required('Email must not be empty')
-    .email('Email must be a valid email address'),
+    .required("Email must not be empty")
+    .email("Email must be a valid email address"),
   password: yup
     .string()
-    .required('Password must not be empty')
+    .required("Password must not be empty")
     .matches(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{4,}$/,
-      'Must contain 6 Characters, One Uppercase, One Lowercase and One Number'
+      "Must contain 6 Characters, One Uppercase, One Lowercase and One Number"
     ),
   confirmPassword: yup
     .string()
-    .required('Confirm password must not be empty')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .required("Confirm password must not be empty")
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 const Register: React.FC = () => {
   const context = useContext(AuthContext);
   const classes = useAuthStyles();
-  const [serverError, setServerError] = useState<string>('');
+  const [serverError, setServerError] = useState<string>("");
   const [showPass, setShowPass] = useState<boolean>(false);
   const [showPassComf, setShowPassComf] = useState<boolean>(false);
   const {
@@ -104,18 +105,18 @@ const Register: React.FC = () => {
                     required
                     fullWidth
                     label="First name"
-                    {...register('firstName')}
+                    {...register("firstName")}
                     type="text"
                     variant="outlined"
                     error={errors.firstName ? true : false}
                     helperText={
-                      errors.firstName ? errors.firstName.message : ''
+                      errors.firstName ? errors.firstName.message : ""
                     }
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <Person
-                            color={errors.firstName ? 'error' : 'primary'}
+                            color={errors.firstName ? "error" : "primary"}
                           />
                         </InputAdornment>
                       ),
@@ -127,16 +128,16 @@ const Register: React.FC = () => {
                     required
                     fullWidth
                     label="Last name"
-                    {...register('lastName')}
+                    {...register("lastName")}
                     type="text"
                     variant="outlined"
                     error={errors.lastName ? true : false}
-                    helperText={errors.lastName ? errors.lastName.message : ''}
+                    helperText={errors.lastName ? errors.lastName.message : ""}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <Person
-                            color={errors.lastName ? 'error' : 'primary'}
+                            color={errors.lastName ? "error" : "primary"}
                           />
                         </InputAdornment>
                       ),
@@ -149,15 +150,15 @@ const Register: React.FC = () => {
                   required
                   fullWidth
                   label="Email"
-                  {...register('email')}
+                  {...register("email")}
                   type="email"
                   variant="outlined"
                   error={errors.email ? true : false}
-                  helperText={errors.email ? errors.email.message : ''}
+                  helperText={errors.email ? errors.email.message : ""}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Email color={errors.email ? 'error' : 'primary'} />
+                        <Email color={errors.email ? "error" : "primary"} />
                       </InputAdornment>
                     ),
                   }}
@@ -168,22 +169,22 @@ const Register: React.FC = () => {
                   required
                   fullWidth
                   label="password"
-                  {...register('password')}
-                  type={showPass ? 'text' : 'password'}
+                  {...register("password")}
+                  type={showPass ? "text" : "password"}
                   variant="outlined"
                   error={errors.password ? true : false}
-                  helperText={errors.password ? errors.password.message : ''}
+                  helperText={errors.password ? errors.password.message : ""}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Lock color={errors.password ? 'error' : 'primary'} />
+                        <Lock color={errors.password ? "error" : "primary"} />
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
                           size="small"
-                          onClick={() => setShowPass(prevState => !prevState)}
+                          onClick={() => setShowPass((prevState) => !prevState)}
                         >
                           {showPass ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
@@ -197,18 +198,18 @@ const Register: React.FC = () => {
                   required
                   fullWidth
                   label="Confirm password"
-                  {...register('confirmPassword')}
-                  type={showPassComf ? 'text' : 'password'}
+                  {...register("confirmPassword")}
+                  type={showPassComf ? "text" : "password"}
                   variant="outlined"
                   error={errors.confirmPassword ? true : false}
                   helperText={
-                    errors.confirmPassword ? errors.confirmPassword.message : ''
+                    errors.confirmPassword ? errors.confirmPassword.message : ""
                   }
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
                         <EnhancedEncryption
-                          color={errors.confirmPassword ? 'error' : 'primary'}
+                          color={errors.confirmPassword ? "error" : "primary"}
                         />
                       </InputAdornment>
                     ),
@@ -217,7 +218,7 @@ const Register: React.FC = () => {
                         <IconButton
                           size="small"
                           onClick={() =>
-                            setShowPassComf(prevState => !prevState)
+                            setShowPassComf((prevState) => !prevState)
                           }
                         >
                           {showPassComf ? <VisibilityOff /> : <Visibility />}
@@ -253,7 +254,7 @@ const Register: React.FC = () => {
               </div>
             </form>
             <Typography variant="body1" align="center">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link component={RouterLink} to="/login">
                 Sign In
               </Link>
@@ -261,6 +262,10 @@ const Register: React.FC = () => {
           </CardContent>
         </Card>
       </Grid>
+      <Typography variant="body2" className={classes.infoText}>
+        <Info fontSize="small" /> Backend is running on Free-tier Heroku so it
+        might be in asleep mode which may take a few sec to wake up.
+      </Typography>
     </div>
   );
 };

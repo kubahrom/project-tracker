@@ -1,19 +1,19 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 export const useAuthStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     formWrapper: {
       maxWidth: 700,
-      margin: 'auto',
+      margin: "auto",
       marginTop: 100,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down("xs")]: {
         marginTop: 0,
       },
     },
     form: {
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         paddingLeft: theme.spacing(0),
         paddingRight: theme.spacing(0),
       },
@@ -23,53 +23,61 @@ export const useAuthStyles = makeStyles(
     },
     inputFieldSmallWrapper: {
       padding: theme.spacing(1),
-      [theme.breakpoints.up('sm')]: {
-        display: 'flex',
+      [theme.breakpoints.up("sm")]: {
+        display: "flex",
       },
     },
     inputFieldSmall: {
-      width: '50%',
-      [theme.breakpoints.only('xs')]: {
-        width: '100%',
-        '&:first-child': {
+      width: "50%",
+      [theme.breakpoints.only("xs")]: {
+        width: "100%",
+        "&:first-child": {
           paddingBottom: theme.spacing(1),
         },
-        '&:last-child': {
+        "&:last-child": {
           paddingTop: theme.spacing(1),
         },
       },
-      [theme.breakpoints.up('sm')]: {
-        '&:first-child': {
+      [theme.breakpoints.up("sm")]: {
+        "&:first-child": {
           paddingRight: theme.spacing(1),
         },
-        '&:last-child': {
+        "&:last-child": {
           paddingLeft: theme.spacing(1),
         },
       },
     },
     btnSubmit: {
-      padding: '12px 22px',
+      padding: "12px 22px",
     },
     btnDemo: {
       padding: theme.spacing(1),
-      display: 'block',
-      justifyContent: 'center',
+      display: "block",
+      justifyContent: "center",
       margin: `${theme.spacing(1)}px auto`,
     },
     generalErr: {
-      display: 'flex',
-      justifyContent: 'center',
+      display: "flex",
+      justifyContent: "center",
       padding: theme.spacing(1),
+    },
+    infoText: {
+      color: theme.palette.primary.main,
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+      display: "flex",
+      alignItems: "center",
+      gap: theme.spacing(0.5),
     },
   }),
   { index: 1 }
 );
 
 export const useHomeStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     loadingSpinnerWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
+      display: "flex",
+      justifyContent: "center",
       padding: theme.spacing(8),
     },
   }),
@@ -77,32 +85,32 @@ export const useHomeStyles = makeStyles(
 );
 
 export const useYourProjectsStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     cardWrapper: {
-      display: 'flex',
+      display: "flex",
     },
     gridItem: {
       padding: theme.spacing(1),
-      [theme.breakpoints.only('sm')]: {
-        '&:nth-child(odd)': {
+      [theme.breakpoints.only("sm")]: {
+        "&:nth-child(odd)": {
           paddingLeft: 0,
         },
-        '&:nth-child(even)': {
+        "&:nth-child(even)": {
           paddingRight: 0,
         },
       },
-      [theme.breakpoints.up('md')]: {
-        '&:nth-child(3n+1)': {
+      [theme.breakpoints.up("md")]: {
+        "&:nth-child(3n+1)": {
           paddingLeft: 0,
         },
-        '&:nth-child(3n+0)': {
+        "&:nth-child(3n+0)": {
           paddingRight: 0,
         },
       },
     },
     card: {
       padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
-      height: '100%',
+      height: "100%",
     },
     helperText: {
       color: theme.palette.text.secondary,
@@ -122,7 +130,7 @@ export const useYourProjectsStyles = makeStyles(
 );
 
 export const useYourIssuesStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     paperWrapper: {
       padding: theme.spacing(3),
     },
@@ -131,7 +139,7 @@ export const useYourIssuesStyles = makeStyles(
     },
     paper: {
       padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
-      height: '100%',
+      height: "100%",
     },
     helperText: {
       color: theme.palette.text.secondary,
@@ -140,24 +148,24 @@ export const useYourIssuesStyles = makeStyles(
     issuesWrapper: {
       background: theme.palette.background.default,
       boxShadow:
-        ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+        " inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)",
       borderRadius: 4,
-      width: '100%',
+      width: "100%",
       padding: theme.spacing(1),
     },
     title: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     },
-    cardContent: { display: 'flex' },
-    col: { width: '60%' },
-    col2: { width: '40%' },
+    cardContent: { display: "flex" },
+    col: { width: "60%" },
+    col2: { width: "40%" },
     noneIssueWrapper: {
-      display: 'flex',
-      flexDirection: 'column',
+      display: "flex",
+      flexDirection: "column",
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
       padding: `${theme.spacing(7)}px ${theme.spacing(3)}px`,
     },
     noneIssueText: {
@@ -168,23 +176,23 @@ export const useYourIssuesStyles = makeStyles(
 );
 
 export const useYourIssuesFilterStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     filterWrapper: {
       paddingBottom: theme.spacing(2),
     },
     title: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
     },
     inputField: {
-      width: '100%',
+      width: "100%",
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      [theme.breakpoints.up('sm')]: {},
-      [theme.breakpoints.up('sm')]: {
-        width: 'calc((100% - 16px) / 3)',
+      [theme.breakpoints.up("sm")]: {},
+      [theme.breakpoints.up("sm")]: {
+        width: "calc((100% - 16px) / 3)",
         marginRight: 8,
-        '&:last-child': {
+        "&:last-child": {
           marginRight: 0,
         },
       },
@@ -194,34 +202,34 @@ export const useYourIssuesFilterStyles = makeStyles(
 );
 
 export const useNoneProjectsStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     wrapper: {
       padding: theme.spacing(5),
-      textAlign: 'center',
-      [theme.breakpoints.only('xs')]: {
+      textAlign: "center",
+      [theme.breakpoints.only("xs")]: {
         padding: theme.spacing(2),
       },
     },
     logo: {
       width: theme.spacing(15),
       height: theme.spacing(15),
-      textAlign: 'center',
-      [theme.breakpoints.only('xs')]: {
+      textAlign: "center",
+      [theme.breakpoints.only("xs")]: {
         width: theme.spacing(10),
         height: theme.spacing(10),
       },
     },
     title: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      [theme.breakpoints.only('xs')]: {
+      display: "flex",
+      alignItems: "center",
+      flexDirection: "column",
+      [theme.breakpoints.only("xs")]: {
         fontSize: theme.typography.h5.fontSize,
         marginBottom: theme.spacing(1),
       },
     },
     subtitle: {
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         fontSize: theme.typography.subtitle1.fontSize,
       },
     },
@@ -233,14 +241,14 @@ export const useNoneProjectsStyles = makeStyles(
 );
 
 export const useCreateProjectStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     formWrapper: {
       maxWidth: 700,
-      margin: 'auto',
+      margin: "auto",
       padding: theme.spacing(4),
       paddingTop: 40,
       paddingBottom: 60,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down("xs")]: {
         padding: theme.spacing(3),
         paddingTop: 20,
         paddingBottom: 20,
@@ -248,12 +256,12 @@ export const useCreateProjectStyles = makeStyles(
     },
     form: {
       paddingTop: theme.spacing(2),
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         paddingTop: theme.spacing(1),
       },
     },
     btnSubmit: {
-      padding: '12px 22px',
+      padding: "12px 22px",
     },
     inputField: {
       paddingTop: theme.spacing(1),
@@ -264,7 +272,7 @@ export const useCreateProjectStyles = makeStyles(
 );
 
 export const useDeleteBtnStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     dialogActionsWrapper: {
       paddingRight: 16,
       paddingBottom: 8,
@@ -275,10 +283,10 @@ export const useDeleteBtnStyles = makeStyles(
     btn: {
       color: theme.palette.grey[500],
       marginLeft: theme.spacing(1),
-      minWidth: 'auto',
+      minWidth: "auto",
     },
     link: {
-      cursor: 'pointer',
+      cursor: "pointer",
     },
     dialogTitle: {
       paddingBottom: theme.spacing(1),
@@ -291,10 +299,10 @@ export const useDeleteBtnStyles = makeStyles(
 );
 
 export const useBoardPageStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     pageWrapper: {
       padding: theme.spacing(3),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down("sm")]: {
         padding: theme.spacing(2),
       },
     },
@@ -306,8 +314,8 @@ export const useBoardPageStyles = makeStyles(
     },
     helperText: {
       color: theme.palette.text.secondary,
-      [theme.breakpoints.only('xs')]: {
-        display: 'flex',
+      [theme.breakpoints.only("xs")]: {
+        display: "flex",
       },
     },
   }),
@@ -315,11 +323,11 @@ export const useBoardPageStyles = makeStyles(
 );
 
 export const useBoardStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     boardWrapper: {
-      display: 'flex',
-      [theme.breakpoints.down('md')]: {
-        flexWrap: 'wrap',
+      display: "flex",
+      [theme.breakpoints.down("md")]: {
+        flexWrap: "wrap",
       },
     },
     list: {
@@ -329,25 +337,25 @@ export const useBoardStyles = makeStyles(
       backgroundColor: theme.palette.background.default,
       borderRadius: 4,
       boxShadow:
-        ' inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)',
-      [theme.breakpoints.down('md')]: {
+        " inset 0px 3px 1px -2px rgb(0 0 0 / 20%),inset 0px 2px 2px 0px rgb(0 0 0 / 14%),inset 0px 1px 5px 0px rgb(0 0 0 / 12%)",
+      [theme.breakpoints.down("md")]: {
         width: `calc(50% - ${theme.spacing(2)}px)`,
       },
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down("xs")]: {
         margin: 0,
         marginBottom: theme.spacing(1),
-        width: '100%',
+        width: "100%",
       },
     },
     listCaption: {
-      display: 'flex',
-      justifyContent: 'center',
-      fontSize: '1.1em',
+      display: "flex",
+      justifyContent: "center",
+      fontSize: "1.1em",
       padding: theme.spacing(1),
     },
     issueWrapper: {
       padding: theme.spacing(1),
-      height: 'calc(100% - 41px)',
+      height: "calc(100% - 41px)",
     },
     issue: {
       marginBottom: theme.spacing(1),
@@ -355,22 +363,22 @@ export const useBoardStyles = makeStyles(
       // cursor: 'pointer !important',
     },
     issueInfo: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
     },
     issueIcons: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
     },
   }),
   { index: 1 }
 );
 
 export const useIssueModalStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     modalWrapper: {
       padding: theme.spacing(4),
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         padding: theme.spacing(2),
       },
     },
@@ -381,17 +389,17 @@ export const useIssueModalStyles = makeStyles(
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
-    btnCancel: { textAlign: 'right', paddingTop: 8 },
+    btnCancel: { textAlign: "right", paddingTop: 8 },
   }),
   { index: 1 }
 );
 
 export const usePriorityListStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     icon: { marginRight: theme.spacing(1) },
     iconWrapper: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
     },
     highest: {
       color: theme.palette.error.main,
@@ -408,10 +416,10 @@ export const usePriorityListStyles = makeStyles(
 );
 
 export const useIssueTypeStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     iconWrapper: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
     },
     icon: { marginRight: theme.spacing(1) },
     task: {
@@ -428,41 +436,41 @@ export const useIssueTypeStyles = makeStyles(
 );
 
 export const useUpdateIssueDetailStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     inputField: {
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
     inputFieldSmallWrapper: {
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up("sm")]: {
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
-        display: 'flex',
+        display: "flex",
       },
     },
     inputFieldSmall: {
-      width: 'calc(100% / 3)',
-      [theme.breakpoints.only('xs')]: {
-        width: '100%',
+      width: "calc(100% / 3)",
+      [theme.breakpoints.only("xs")]: {
+        width: "100%",
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(1),
-        '&:first-child': {
+        "&:first-child": {
           paddingBottom: theme.spacing(1),
           paddintTop: 0,
         },
-        '&:last-child': {
+        "&:last-child": {
           paddingTop: theme.spacing(1),
           paddingBottom: 0,
         },
       },
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up("sm")]: {
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
-        '&:first-child': {
+        "&:first-child": {
           paddingRight: theme.spacing(1),
           paddingLeft: 0,
         },
-        '&:last-child': {
+        "&:last-child": {
           paddingLeft: theme.spacing(1),
           paddingRight: 0,
         },
@@ -473,60 +481,60 @@ export const useUpdateIssueDetailStyles = makeStyles(
 );
 
 export const useIssueHeaderStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     headerWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
       paddingBottom: theme.spacing(1),
-      [theme.breakpoints.down('sm')]: {
-        flexDirection: 'column-reverse',
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column-reverse",
       },
     },
     headerActions: {
-      alignSelf: 'flex-end',
-      [theme.breakpoints.only('xs')]: {
+      alignSelf: "flex-end",
+      [theme.breakpoints.only("xs")]: {
         paddingBottom: theme.spacing(1),
       },
     },
     id: {
       paddingLeft: theme.spacing(1),
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         paddingLeft: 0,
-        wordBreak: 'break-all',
+        wordBreak: "break-all",
       },
     },
     dash: {
-      [theme.breakpoints.only('xs')]: {
-        display: 'none',
+      [theme.breakpoints.only("xs")]: {
+        display: "none",
       },
     },
     helperText: {
       color: theme.palette.text.secondary,
-      display: 'flex',
-      alignItems: 'center',
-      [theme.breakpoints.only('xs')]: {
-        display: 'block',
+      display: "flex",
+      alignItems: "center",
+      [theme.breakpoints.only("xs")]: {
+        display: "block",
       },
     },
     btn: {
       color: theme.palette.grey[500],
       marginLeft: theme.spacing(1),
-      minWidth: 'auto',
+      minWidth: "auto",
     },
   }),
   { index: 1 }
 );
 
 export const useIssueDetailStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     container: {
-      [theme.breakpoints.only('xs')]: {
-        flexDirection: 'column-reverse',
+      [theme.breakpoints.only("xs")]: {
+        flexDirection: "column-reverse",
       },
     },
     body: {
       paddingBottom: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up("sm")]: {
         paddingRight: theme.spacing(4),
       },
     },
@@ -539,7 +547,7 @@ export const useIssueDetailStyles = makeStyles(
     },
     helperText: {
       color: theme.palette.text.secondary,
-      display: 'flex',
+      display: "flex",
     },
     chip: {
       margin: 4,
@@ -548,45 +556,45 @@ export const useIssueDetailStyles = makeStyles(
     line: {
       marginTop: theme.spacing(3),
       paddingTop: theme.spacing(1),
-      borderTop: '1px solid',
+      borderTop: "1px solid",
       borderColor: theme.palette.grey[400],
     },
     timeTrackerWrapper: {
       marginLeft: theme.spacing(-1),
       padding: theme.spacing(1),
       paddingTop: 0,
-      cursor: 'pointer',
-      transition: 'all 200ms',
+      cursor: "pointer",
+      transition: "all 200ms",
       borderRadius: 4,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: theme.palette.background.default,
         boxShadow: theme.shadows[2],
       },
-      '&:focus': {
+      "&:focus": {
         backgroundColor: theme.palette.background.default,
         boxShadow: theme.shadows[2],
       },
     },
     timeTracker: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
     },
     progressWrapper: {
-      width: '100%',
+      width: "100%",
       paddingLeft: theme.spacing(1),
     },
     progress: {
       height: 5,
     },
     progressValues: {
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
       paddingTop: 6,
-      fontSize: '0.8em',
+      fontSize: "0.8em",
       color: theme.palette.text.secondary,
     },
     timeNumber: {
-      fontSize: '1.3em',
+      fontSize: "1.3em",
       lineHeight: 1,
     },
   }),
@@ -594,41 +602,41 @@ export const useIssueDetailStyles = makeStyles(
 );
 
 export const useTimeTrackerStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     dialogTitle: {
       paddingBottom: theme.spacing(1),
-      display: 'flex',
-      justifyContent: 'space-between',
+      display: "flex",
+      justifyContent: "space-between",
     },
     form: {
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(2),
     },
     inputWrapper: {
-      [theme.breakpoints.up('sm')]: {
-        display: 'flex',
+      [theme.breakpoints.up("sm")]: {
+        display: "flex",
       },
     },
     inputField: {
-      [theme.breakpoints.up('sm')]: {
-        width: '50%',
-        '&:first-child': {
+      [theme.breakpoints.up("sm")]: {
+        width: "50%",
+        "&:first-child": {
           paddingRight: theme.spacing(1),
         },
-        '&:last-child': {
+        "&:last-child": {
           paddingLeft: theme.spacing(1),
         },
       },
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.only("xs")]: {
         paddingBottom: theme.spacing(1),
       },
     },
     dialogActions: {
       paddingTop: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'flex-end',
+      display: "flex",
+      justifyContent: "flex-end",
     },
-    [theme.breakpoints.only('xs')]: {
+    [theme.breakpoints.only("xs")]: {
       paddingTop: theme.spacing(1),
     },
   }),
@@ -636,21 +644,21 @@ export const useTimeTrackerStyles = makeStyles(
 );
 
 export const useCommentStyles = makeStyles(
-  theme => ({
+  (theme) => ({
     commentsSection: { paddingTop: theme.spacing(4) },
     newComment: {
       padding: 8,
       paddingLeft: 12,
-      border: '1px solid',
+      border: "1px solid",
       borderColor: theme.palette.text.secondary,
       borderRadius: 6,
-      transition: 'all 200ms',
-      cursor: 'pointer',
-      '&:hover': {
+      transition: "all 200ms",
+      cursor: "pointer",
+      "&:hover": {
         backgroundColor: theme.palette.background.default,
         boxShadow: theme.shadows[2],
       },
-      '&:focus': {
+      "&:focus": {
         backgroundColor: theme.palette.background.default,
         boxShadow: theme.shadows[2],
       },
@@ -665,7 +673,7 @@ export const useCommentStyles = makeStyles(
     },
     commentWrapper: {
       paddingBottom: theme.spacing(1),
-      display: 'flex',
+      display: "flex",
     },
     avatar: {
       width: theme.spacing(4),
@@ -677,13 +685,13 @@ export const useCommentStyles = makeStyles(
       color: theme.palette.text.secondary,
     },
     commentAction: {
-      display: 'flex',
+      display: "flex",
       color: theme.palette.text.secondary,
     },
     action: {
       paddingRight: 6,
       paddingLeft: 0,
-      cursor: 'pointer',
+      cursor: "pointer",
     },
   }),
   { index: 1 }
