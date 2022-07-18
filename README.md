@@ -4,7 +4,7 @@ Trello likes a project tracking app with kanban board and time management from J
 
 ## Demo
 
-[Deployed on Netlify (front-end) & Heroku (back-end)](https://kubahrom-project-tracker.netlify.app/)
+[Deployed on Netlify (front-end) & Heroku (back-end)](https://project-tracker.kubahrom.dev/)
 
 ###### Free tier Heroku so the back-end app might be in an asleep mode which may take a few sec to wake up
 
