@@ -59,7 +59,7 @@ const Login: React.FC = () => {
     onError(err: ApolloError) {
       if (err.graphQLErrors[0]?.extensions) {
         setServerError(
-          err.graphQLErrors[0].extensions.exception.errors.general
+          err.graphQLErrors[0].extensions.exception.errors.general,
         );
       }
     },
@@ -193,8 +193,9 @@ const Login: React.FC = () => {
         </Grid>
       </div>
       <Typography variant="body2" className={classes.infoText}>
-        <Info fontSize="small" /> Backend is running on Free-tier Heroku so it
-        might be in asleep mode which may take a few sec to wake up.
+        <Info fontSize="small" /> Backend is running on Free-tier Render (before
+        Heroku) so it might be in asleep mode which may take a few sec to wake
+        up.
       </Typography>
     </>
   );
